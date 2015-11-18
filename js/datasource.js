@@ -6,6 +6,7 @@ MyDataSource.prototype = {
         return {
             id: userId,
             name : userId + "_'s name"
+			
         }
     }
 };
@@ -29,4 +30,9 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function () {
+	$('.tree-toggle').click(function () {
+	$(this).parent().children('ul.tree').toggle(200);
+	});
+});
 
