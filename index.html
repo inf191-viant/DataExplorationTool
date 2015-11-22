@@ -25,133 +25,188 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Merquery</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
-
+  <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-			<div class="row">
-				<div class="span3">
-					<div class="well">
-						<div>
-							<ul class="nav nav-list">
-								<button id="get_user">Search</button>
-				
-								<li><label class="tree-toggle nav-header">Demographics</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-										<input type="text" id="user_id" value="" />
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Geography</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-										<input type="text" id="user_id" value="" />
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Digital</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Campaign</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Device</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Behavior</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Purchase</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">App</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><label class="tree-toggle nav-header">Grocery</label>
-									<ul class="nav nav-list tree">
-										<li><a href="#">Test</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-					
-					
-					
-					
-					
-		<!-- Original list for reference  
-            <li class="active"><a href="#">Search <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Emailmd5</a></li>
-            <li><a href="#">Demographics</a></li>
-            <li><a href="#">Geography</a></li>
-			<li><a href="#">Digital</a></li>
-			<li><a href="#">Campaign</a></li>
-			<li><a href="#">Device</a></li>
-			<li><a href="#">Behavior</a></li>
-			<li><a href="#">Purchase</a></li>
-			<li><a href="#">App</a></li>
-			<li><a href="#">Grocery</a></li>
-		-->
-		
-          </ul>
-  
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Merquery</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
 
-        </div>
-		
-		
-		
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <div class="row">
+            <div class="span3">
+              <div class="well">
+                <div>
+                  <ul class="nav nav-list">
+                    <button id="get_user" onclick="auth();">Authorize</button>
+                    <button id="get_user" onclick="runQuery();">Run Query</button>
+
+                    <li><label class="tree-toggle nav-header">Email</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Emailmd5 </a>
+                          <input type="text" id="search_email" data-field="email" data-group="input" placeholder="Emailmd5"  />
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Demographics</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">City</a></li>
+                        <input type="text" data-field="demo_city" data-group="input" placeholder="City"  />
+                        <li><a href="#">Age</a></li>
+                        <input type="text" data-field="demo_age" data-group="input" placeholder="Age"  />
+                        <li><a href="#">Gender</a></li>
+                        <input type="text" data-field="demo_gender" data-group="input" placeholder="Gender"  />
+                        <li><a href="#">Ethnicity</a></li>
+                        <input type="text" data-field="demo_ethnicity" data-group="input" placeholder="Ethnicity"  />
+
+
+
+                        <li><a href="#">Marital Status</a></li>
+                        <li><a href="#">Children Status</a></li>
+                        <li><a href="#">Sexual Orientation</a></li>
+                        <li><a href="#">Income</a></li>
+                        <li><a href="#">Education</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Geography</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Address</a></li>
+                        <li><a href="#">City</a></li>
+                        <li><a href="#">Region</a></li>
+                        <li><a href="#">Zip Code</a></li>
+                        <li><a href="#">Country</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Digital</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Smid</a></li>
+                        <li><a href="#">ips.ipAddress</a></li>
+                        <li><a href="#">ips.last seen</a></li>
+                        <li><a href="#">ips.first seen</a></li>
+                        <li><a href="#">ips.source</a></li>
+                        <li><a href="#">ips.count</a></li>
+                        <li><a href="#">ips.homeip</a></li>
+                        <li><a href="#">ips.ipprofile</a></li>
+                        <li><a href="#">ips.country</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Campaign</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Advertiser</a></li>
+                        <li><a href="#">Campaign</a></li>
+                        <li><a href="#">Count of Impressions</a></li>
+                        <li><a href="#">Last Seen</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Device</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Device ID</a></li>
+                        <li><a href="#">Device Type</a></li>
+                        <li><a href="#">Operating System</a></li>
+                        <li><a href="#">Last Seen</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Behavior</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Behavior ID</a></li>
+                        <li><a href="#">Group ID</a></li>
+                        <li><a href="#">Country</a></li>
+                        <li><a href="#">Count</a></li>
+                        <li><a href="#">Source</a></li>
+                        <li><a href="#">Last Seen</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Purchase</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">Advertiser ID</a></li>
+                        <li><a href="#">Last Sales Amount</a></li>
+                        <li><a href="#">Online Sales</a></li>
+                        <li><a href="#">Offline Sales</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">App</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">ID</a></li>
+                        <li><a href="#">Name</a></li>
+                        <li><a href="#">Count</a></li>
+                      </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><label class="tree-toggle nav-header">Grocery</label>
+                      <ul class="nav nav-list tree">
+                        <li><a href="#">N/A</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <!-- Original list for reference
+              <li class="active"><a href="#">Search <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Emailmd5</a></li>
+              <li><a href="#">Demographics</a></li>
+              <li><a href="#">Geography</a></li>
+              <li><a href="#">Digital</a></li>
+              <li><a href="#">Campaign</a></li>
+              <li><a href="#">Device</a></li>
+              <li><a href="#">Behavior</a></li>
+              <li><a href="#">Purchase</a></li>
+              <li><a href="#">App</a></li>
+              <li><a href="#">Grocery</a></li>
+          -->
+
+        </ul>
+
+      </div>
+
+
+
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Results</h1>
-	
-			
-			<div id="result" class="table table-striped"></div>
+
+
+			<!--<button id="auth_button" onclick="auth();">Authorize</button>
+			<div id="client_initiated"></div>
+			<button id="dataset_button" style="display:none;" onclick="runQuery();">Run Query</button>
+			<div id="result"></div>
+			<div id="result_box"></div>-->
+           <table id="result"></table>
+			<!--<div id="result" class="table table-striped"></div>-->
 			
             
           </div>
@@ -165,6 +220,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
