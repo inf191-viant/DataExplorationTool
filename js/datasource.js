@@ -24,7 +24,6 @@ function createTable() {
     else {
         for (i = 0; i < no.length; i++) {
             var $formrow = '<tr><td>' + no[i] + '</td><td>' + names[i] + '</td><td>' + countries[i] + '</td><td>' + cname[i] + '</td></tr>';
-            // $('.myTable').append($formrow);
             $('#result').append($formrow);
         }
     }
@@ -48,22 +47,60 @@ function runQuery() {
 
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': 'SELECT CRM_EmailMD5, CRM_city FROM [formal-cascade-571:uci.uci_db] where CRM_city ="'+ stringCity+'" Limit 10;'
+        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city ="'+ stringCity+'" Limit 10;'
     });
     request.execute(function(response) {
+        //emailmd5, birthdate, gender, city, ethnicity, marital, children, region, postalcode, education, campaignadvertiserid, campaignID,
+        //campaignimps, campaignlastseen, deviceID, devicetype, operatingsystem, devicelastseen, behaviorid, behaviorgroupID, behaviorcountry
+        //behaviorcount, behaviorsource, behaviorlastseen
         console.log(response);
-        var values = [[ "CRM_city"]];
-        var header = '<th>'+"EmailMD5"+'</th>'+'<th>'+"City"+'</th>';
+        var values = [[ ]];
+        var header = '<th>'+"EmailMD5"+'</th>'+ '<th>'+"Birthdate"+'</th>' + '<th>'+"Gender"+'</th>' + '<th>'+"City"+'</th>' +
+            '<th>'+"Ethnicity"+'</th>' + '<th>'+"Marital Status"+'</th>' + '<th>'+"Children"+'</th>' + '<th>'+"Region"+'</th>' +
+            '<th>'+"Postal Code"+'</th>' + '<th>'+"Education"+'</th>' + '<th>'+"CampaignAdvertiserID"+'</th>' + '<th>'+"CampaignID"+'</th>' +
+            '<th>'+"CampaignImps"+'</th>' + '<th>'+"CampaignLastSeen"+'</th>' + '<th>'+"DeviceID"+'</th>' + '<th>'+"DeviceType"+'</th>' +
+            '<th>'+"Operating System"+'</th>' + '<th>'+"Device Last Seen"+'</th>' + '<th>'+"BehaviorID"+'</th>' + '<th>'+"BehaviorGroupID"+'</th>' +
+            '<th>'+"BehaviorCountry"+'</th>' + '<th>'+"BehaviorCount"+'</th>' + '<th>'+"BehaviorSource"+'</th>' + '<th>'+"BehaviorLastSeen"+'</th>';
         $('#result').append(header);
         $.each(response.result.rows, function(i, item) {
             var email = item.f[0].v;
-            var city = item.f[1].v;
+            var birthdate = item.f[1].v;
+            var gender = item.f[2].v;
+            var city = item.f[3].v;
+            var ethnicity = item.f[4].v;
+            var maritalStatus = item.f[5].v;
+            var children = item.f[6].v;
+            var region = item.f[7].v;
+            var postalCode = item.f[8].v;
+            var education = item.f[9].v;
+            var campaignAdvertiserID = item.f[10].v;
+            var campaignID = item.f[11].v;
+            var campaignImps = item.f[12].v;
+            var campaignLastSeen = item.f[13].v;
+            var deviceID = item.f[14].v;
+            var deviceType = item.f[15].v;
+            var operatingSys = item.f[16].v;
+            var deviceLastSeen = item.f[17].v;
+            var behaviorID = item.f[18].v;
+            var behaviorGroupID = item.f[19].v;
+            var behaviorCountry = item.f[20].v;
+            var behaviorCount = item.f[21].v;
+            var behaviorSource = item.f[22].v;
+            var behaviorLastSeen = item.f[23].v;
 
-            var singleValue = [email,city];
+
+         /*   var singleValue = [email,birthdate, gender, city, ethnicity, maritalStatus, children, region, postalCode, education, campaignAdvertiserID,
+            campaignID, campaignImps, campaignLastSeen, deviceID, deviceType, operatingSys, deviceLastSeen, behaviorID, behaviorGroupID, behaviorCountry
+            behaviorCount, behaviorSource, behaviorLastSeen];
 
             values.push(singleValue);
-
-            var finalResults = '<tr><td>' + email + '</td><td>' + city + '</td></tr>';
+          *///  var $formrow = '<tr><td>' + no[i] + '</td><td>' + names[i] + '</td><td>' + countries[i] + '</td><td>' + cname[i] + '</td></tr>';
+            var finalResults = '<tr><td>' + email + '</td><td>' +  birthdate + '</td><td>' +  gender + '</td><td>' + city + '</td><td>' +
+                ethnicity + '</td><td>' + maritalStatus + '</td><td>' + children + '</td><td>' + region + '</td><td>' + postalCode + '</td><td>' +
+                education + '</td><td>' + campaignAdvertiserID + '</td><td>' + campaignID + '</td><td>' + campaignImps + '</td><td>' +
+                campaignLastSeen + '</td><td>' + deviceID + '</td><td>' + deviceType + '</td><td>' + operatingSys + '</td><td>' + deviceLastSeen + '</td><td>' +
+                behaviorID + '</td><td>' + behaviorGroupID + '</td><td>' + behaviorCountry + '</td><td>' + behaviorCount + '</td><td>' +
+                behaviorSource + '</td><td>' + behaviorLastSeen + '</td></tr>';
             // $('.myTable').append(finalResults);
             $('#result').append(finalResults);
             //$('#result_box').append(stateValue);
@@ -150,9 +187,7 @@ $(document).ready(function() {
       //  $("#result").append(id);
        // $("#result").append(name);
 
-       // createTable();
-       //
-        //
+
 
 
 
