@@ -73,14 +73,21 @@ function runQuery() {
 
     });
 }
-function auth() {
-    gapi.auth.authorize(config, function() {
-        gapi.client.load('bigquery', 'v2');
-        $('#client_initiated').html('BigQuery client authorized');
-        $('#auth_button').fadeOut();
-        $('#dataset_button').fadeIn();
+function auth(onSuccess) {
 
-    });
+        gapi.auth.authorize(config, function () {
+            gapi.client.load('bigquery', 'v2');
+            $('#client_initiated').html('BigQuery client authorized');
+            $('#auth_button').fadeOut();
+            $('#dataset_button').fadeIn();
+
+            if (onSuccess) {
+                onSuccess();
+            }
+
+        });
+
+
 }
 var stringCity;
 //Creates a query object and puts it into an array
@@ -127,20 +134,25 @@ $(document).ready(function () {
 $(document).ready(function() {
 
     $("#get_user").click(function() {
+        auth(function() {
+            var user = new MyDataSource().getUser($("#user_id").val());
 
-        var user = new MyDataSource().getUser($("#user_id").val());
+            var id = $("<div></div>");
+            var name = $("<div></div>");
+            id.text(user.id);
+            name.text(user.name);
+            $("#result").empty();
+            setTimeout(function(){
+                runQuery();
+            }, 1000);
+        });
 
-        var id = $("<div></div>");
-        var name = $("<div></div>");
-        id.text(user.id);
-        name.text(user.name);
-        $("#result").empty();
       //  $("#result").append(id);
        // $("#result").append(name);
 
        // createTable();
-       // auth();
-        //runQuery();
+       //
+        //
 
 
 
