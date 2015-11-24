@@ -47,13 +47,15 @@ function runQuery() {
 
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city ="'+ stringCity+'" Limit 10;'
+        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city like"'+ stringCity+'" Limit 10;'
     });
     request.execute(function(response) {
-        //emailmd5, birthdate, gender, city, ethnicity, marital, children, region, postalcode, education, campaignadvertiserid, campaignID,
-        //campaignimps, campaignlastseen, deviceID, devicetype, operatingsystem, devicelastseen, behaviorid, behaviorgroupID, behaviorcountry
-        //behaviorcount, behaviorsource, behaviorlastseen
         console.log(response);
+        if ($('#header').empty()) {
+            $('#header').append("Results");
+            $('#header').addClass("page-header");
+         }
+
         var values = [[ ]];
         var header = '<th>'+"EmailMD5"+'</th>'+ '<th>'+"Birthdate"+'</th>' + '<th>'+"Gender"+'</th>' + '<th>'+"City"+'</th>' +
             '<th>'+"Ethnicity"+'</th>' + '<th>'+"Marital Status"+'</th>' + '<th>'+"Children"+'</th>' + '<th>'+"Region"+'</th>' +
@@ -62,6 +64,7 @@ function runQuery() {
             '<th>'+"Operating System"+'</th>' + '<th>'+"Device Last Seen"+'</th>' + '<th>'+"BehaviorID"+'</th>' + '<th>'+"BehaviorGroupID"+'</th>' +
             '<th>'+"BehaviorCountry"+'</th>' + '<th>'+"BehaviorCount"+'</th>' + '<th>'+"BehaviorSource"+'</th>' + '<th>'+"BehaviorLastSeen"+'</th>';
         $('#result').append(header);
+
         $.each(response.result.rows, function(i, item) {
             var email = item.f[0].v;
             var birthdate = item.f[1].v;
@@ -89,19 +92,14 @@ function runQuery() {
             var behaviorLastSeen = item.f[23].v;
 
 
-         /*   var singleValue = [email,birthdate, gender, city, ethnicity, maritalStatus, children, region, postalCode, education, campaignAdvertiserID,
-            campaignID, campaignImps, campaignLastSeen, deviceID, deviceType, operatingSys, deviceLastSeen, behaviorID, behaviorGroupID, behaviorCountry
-            behaviorCount, behaviorSource, behaviorLastSeen];
-
-            values.push(singleValue);
-          *///  var $formrow = '<tr><td>' + no[i] + '</td><td>' + names[i] + '</td><td>' + countries[i] + '</td><td>' + cname[i] + '</td></tr>';
-            var finalResults = '<tr><td>' + email + '</td><td>' +  birthdate + '</td><td>' +  gender + '</td><td>' + city + '</td><td>' +
+            var finalResults = '<tr><td><a href="">' + email + '</td></a><td>' +  birthdate + '</td><td>' +  gender + '</td><td>' + city + '</td><td>' +
                 ethnicity + '</td><td>' + maritalStatus + '</td><td>' + children + '</td><td>' + region + '</td><td>' + postalCode + '</td><td>' +
                 education + '</td><td>' + campaignAdvertiserID + '</td><td>' + campaignID + '</td><td>' + campaignImps + '</td><td>' +
                 campaignLastSeen + '</td><td>' + deviceID + '</td><td>' + deviceType + '</td><td>' + operatingSys + '</td><td>' + deviceLastSeen + '</td><td>' +
                 behaviorID + '</td><td>' + behaviorGroupID + '</td><td>' + behaviorCountry + '</td><td>' + behaviorCount + '</td><td>' +
                 behaviorSource + '</td><td>' + behaviorLastSeen + '</td></tr>';
             // $('.myTable').append(finalResults);
+
             $('#result').append(finalResults);
             //$('#result_box').append(stateValue);
 
@@ -171,6 +169,8 @@ $(document).ready(function () {
 $(document).ready(function() {
 
     $("#get_user").click(function() {
+        document.getElementById("theImage").style.visibility = "hidden";
+
         auth(function() {
             var user = new MyDataSource().getUser($("#user_id").val());
 
@@ -183,12 +183,6 @@ $(document).ready(function() {
                 runQuery();
             }, 1000);
         });
-
-      //  $("#result").append(id);
-       // $("#result").append(name);
-
-
-
 
 
     });
