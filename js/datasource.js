@@ -129,6 +129,7 @@ var renderResults = function (response) {
         var behaviorSource = item.f[22].v;
         var behaviorLastSeen = item.f[23].v;
 
+        // hardcoded for now
         var row = $("<tr></tr>");
         var emailColumn = $("<td></td>");
         var emailField = $("<a></a>");
@@ -148,15 +149,43 @@ var renderResults = function (response) {
         var birthdateField = $("<a></a>");
         birthdateField.attr("href", "javascript:void(0)");
         birthdateField.text(birthdate);
-        birthdateField.data("Date", birthdate);
+        birthdateField.data("date", birthdate);
         birthdateField.click(function () {
-            var emailMD5 = $(this).data("Date");
-            console.log(Date);
-            birthdateQuery(Date);
+            var date = $(this).data("date");
+            console.log(date);
+            birthdateQuery(date);
         });
 
         birthdateColumn.append(birthdateField);
         row.append(birthdateColumn);
+
+        var genderColumn = $("<td></td>");
+        var genderField = $("<a></a>");
+        genderField.attr("href", "javascript:void(0)");
+        genderField.text(gender);
+        genderField.data("gender", gender);
+        genderField.click(function () {
+            var gender = $(this).data("gender");
+            console.log(gender);
+            birthdateQuery(gender);
+        });
+
+        genderColumn.append(genderField);
+        row.append(genderColumn);
+
+        var cityColumn = $("<td></td>");
+        var cityField = $("<a></a>");
+        cityField.attr("href", "javascript:void(0)");
+        cityField.text(city);
+        cityField.data("city", city);
+        cityField.click(function () {
+            var city = $(this).data("city");
+            console.log(city);
+            birthdateQuery(city);
+        });
+
+        cityColumn.append(cityField);
+        row.append(cityColumn);
 
 
         var finalResults = '<tr><td><a href="">' + email + '</td></a><td>' + birthdate + '</td><td>' + gender + '</td><td>' + city + '</td><td>' +
