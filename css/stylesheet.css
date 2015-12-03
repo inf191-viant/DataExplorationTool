@@ -173,4 +173,20 @@ img {
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
+  position: fixed;
+}
+
+.navbar-brand {
+	font-family: Helvetica Neue;
+	font-size: 30px;
+	margin: auto;
+	text-decoration: none;
+	text-align: center;
+	color: #ff3f28;
+	background-color: "blue";
+}
+
+.navbar-header {
+	text-align: center;
+	background-color: "blue";
 }
