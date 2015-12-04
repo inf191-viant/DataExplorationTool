@@ -100,444 +100,22 @@ function makeSchema(fields) {
 
     }
 }
-var renderIndivResultswithPopUp = function (response) {
-    console.log(response);
+
+
+function popUp() {
     $('#popup').bPopup({
         easing: 'easeOutBack', //uses jQuery easing plugin
         speed: 450,
         transition: 'slideDown'
     });
-    if ($('#header').empty()) {
-        $('#header').append("Results");
-        $('#header').addClass("page-header");
-    }
-    $('#result').empty();
-    $('#popup').bPopup().empty();
-
-    var values = [[]];
-    var header = '<th>' + "EmailMD5" + '</th>' + '<th>' + "Birthdate" + '</th>' + '<th>' + "Gender" + '</th>' + '<th>' + "City" + '</th>' +
-        '<th>' + "Ethnicity" + '</th>' + '<th>' + "Marital Status" + '</th>' + '<th>' + "Children" + '</th>' + '<th>' + "Region" + '</th>' +
-        '<th>' + "Postal Code" + '</th>' + '<th>' + "Education" + '</th>' + '<th>' + "CampaignAdvertiserID" + '</th>' + '<th>' + "CampaignID" + '</th>' +
-        '<th>' + "CampaignImps" + '</th>' + '<th>' + "CampaignLastSeen" + '</th>' + '<th>' + "DeviceID" + '</th>' + '<th>' + "DeviceType" + '</th>' +
-        '<th>' + "Operating System" + '</th>' + '<th>' + "Device Last Seen" + '</th>' + '<th>' + "BehaviorID" + '</th>' + '<th>' + "BehaviorGroupID" + '</th>' +
-        '<th>' + "BehaviorCountry" + '</th>' + '<th>' + "BehaviorCount" + '</th>' + '<th>' + "BehaviorSource" + '</th>' + '<th>' + "BehaviorLastSeen" + '</th>';
-    $('#result').append(header);
-
-
-    $.each(response.result.rows, function (i, item) {
-        var email = item.f[0].v;
-        var birthdate = item.f[1].v;
-        var gender = item.f[2].v;
-        var city = item.f[3].v;
-        var ethnicity = item.f[4].v;
-        var maritalStatus = item.f[5].v;
-        var children = item.f[6].v;
-        var region = item.f[7].v;
-        var postalCode = item.f[8].v;
-        var education = item.f[9].v;
-        var campaignAdvertiserID = item.f[10].v;
-        var campaignID = item.f[11].v;
-        var campaignImps = item.f[12].v;
-        var campaignLastSeen = item.f[13].v;
-        var deviceID = item.f[14].v;
-        var deviceType = item.f[15].v;
-        var operatingSys = item.f[16].v;
-        var deviceLastSeen = item.f[17].v;
-        var behaviorID = item.f[18].v;
-        var behaviorGroupID = item.f[19].v;
-        var behaviorCountry = item.f[20].v;
-        var behaviorCount = item.f[21].v;
-        var behaviorSource = item.f[22].v;
-        var behaviorLastSeen = item.f[23].v;
-
-        // hardcoded for now
-        var row = $("<tr></tr>");
-        var emailColumn = $("<td></td>");
-        var emailField = $("<a></a>");
-        emailField.attr("href", "javascript:void(0)");
-        emailField.text(email);
-        emailField.data("emailmd5", email);
-        emailField.click(function () {
-            var emailMD5 = $(this).data("emailmd5");
-            console.log(emailMD5);
-            emailQuery(emailMD5);
-        });
-
-        emailColumn.append(emailField);
-        row.append(emailColumn);
-        var emailInfo = '<h1 style="text-align:center;">Individual Profile</h1><br/>';
-
-        emailInfo += "Email: "+ email + '<br/>';
-        var emailInfo2 = "Email: "+ email + '<br/>';
-
-
-        var birthdateColumn = $("<td></td>");
-        var birthdateField = $("<a></a>");
-        birthdateField.attr("href", "javascript:void(0)");
-        birthdateField.text(birthdate);
-        birthdateField.data("date", birthdate);
-        birthdateField.click(function () {
-            var date = $(this).data("date");
-            console.log(date);
-            birthdateQuery(date);
-        });
-        birthdateColumn.append(birthdateField);
-        row.append(birthdateColumn);
-        emailInfo += "Birthdate: " + birthdate + '<br/>';
-
-
-        var genderColumn = $("<td></td>");
-        var genderField = $("<a></a>");
-        genderField.attr("href", "javascript:void(0)");
-        genderField.text(gender);
-        genderField.data("gender", gender);
-        genderField.click(function () {
-            var gender = $(this).data("gender");
-            console.log(gender);
-            //genderQuery(gender);
-        });
-
-        genderColumn.append(genderField);
-        row.append(genderColumn);
-        emailInfo += "Gender: "+ gender + '<br/>';
-
-
-        var cityColumn = $("<td></td>");
-        var cityField = $("<a></a>");
-        cityField.attr("href", "javascript:void(0)");
-        cityField.text(city);
-        cityField.data("city", city);
-        cityField.click(function () {
-            var city = $(this).data("city");
-            console.log(city);
-            //cityQuery(city);
-        });
-
-        cityColumn.append(cityField);
-        row.append(cityColumn);
-        emailInfo += "City: "+ city + '<br/>';
-
-
-        var ethnicityColumn = $("<td></td>");
-        var ethnicityField = $("<a></a>");
-        ethnicityField.attr("href", "javascript:void(0)");
-        ethnicityField.text(ethnicity);
-        ethnicityField.data("ethnicity", ethnicity);
-        ethnicityField.click(function () {
-            var ethnicity = $(this).data("ethnicity");
-            console.log(ethnicity);
-            //ethnicityQuery(ethnicity);
-        });
-
-        ethnicityColumn.append(ethnicityField);
-        row.append(ethnicityColumn);
-        emailInfo += "Ethnicity: " + ethnicity + '<br/>';
-
-
-        var maritalColumn = $("<td></td>");
-        var maritalField = $("<a></a>");
-        maritalField.attr("href", "javascript:void(0)");
-        maritalField.text(maritalStatus);
-        maritalField.data("marital", maritalField);
-        maritalField.click(function () {
-            var marital = $(this).data("marital");
-            console.log(marital);
-            //maritalQuery(marital);
-        });
-
-        maritalColumn.append(maritalField);
-        row.append(maritalColumn);
-        emailInfo += "Marital Status: " + maritalStatus + '<br/>';
-
-
-        var childrenColumn = $("<td></td>");
-        var childrenField = $("<a></a>");
-        childrenField.attr("href", "javascript:void(0)");
-        childrenField.text(children);
-        childrenField.data("child", children);
-        childrenField.click(function () {
-            var child = $(this).data("child");
-            console.log(child);
-            //childrenQuery(child);
-        });
-
-        childrenColumn.append(childrenField);
-        row.append(childrenColumn);
-        emailInfo += "Children: " + children + '<br/>';
-
-
-        var regionColumn = $("<td></td>");
-        var regionField = $("<a></a>");
-        regionField.attr("href", "javascript:void(0)");
-        regionField.text(region);
-        regionField.data("region", region);
-        regionField.click(function () {
-            var region = $(this).data("region");
-            console.log(region);
-            //regionQuery(region);
-        });
-
-        regionColumn.append(regionField);
-        row.append(regionColumn);
-        emailInfo += "Region: " + region + '<br/>';
-
-        var educationColumn = $("<td></td>");
-        var educationField = $("<a></a>");
-        educationField.attr("href", "javascript:void(0)");
-        educationField.text(education);
-        educationField.data("education", education);
-        educationField.click(function () {
-            var education = $(this).data("education");
-            console.log(education);
-            //educationQuery(postalCode);
-        });
-
-        educationColumn.append(educationField);
-        row.append(educationColumn);
-        emailInfo += "Education: " + education + '<br/>';
-
-
-        var campaignAdvertiserIDColumn = $("<td></td>");
-        var campaignAdvertiserIDField = $("<a></a>");
-        campaignAdvertiserIDField.attr("href", "javascript:void(0)");
-        campaignAdvertiserIDField.text(campaignAdvertiserID);
-        campaignAdvertiserIDField.data("campaignAdID", campaignAdvertiserID);
-        campaignAdvertiserIDField.click(function () {
-            var campaignAdID = $(this).data("campaignAdID");
-            console.log(campaignAdID);
-            //campaignAdvertiserIDQuery(campaignAdID);
-        });
-
-        campaignAdvertiserIDColumn.append(campaignAdvertiserIDField);
-        row.append(campaignAdvertiserIDColumn);
-        emailInfo += "Campaign Advertiser ID: " + campaignAdvertiserID + '<br/>';
-
-
-        var campaignIDColumn = $("<td></td>");
-        var campaignIDField = $("<a></a>");
-        campaignIDField.attr("href", "javascript:void(0)");
-        campaignIDField.text(campaignID);
-        campaignIDField.data("campaignID", campaignID);
-        campaignIDField.click(function () {
-            var campaignID = $(this).data("campaignID");
-            console.log(campaignID);
-            //campaignIDQuery(campaignID);
-        });
-
-        campaignIDColumn.append(campaignIDField);
-        row.append(campaignIDColumn);
-        emailInfo += "Campaign ID: " + campaignID + '<br/>';
-
-        var campaignImpsColumn = $("<td></td>");
-        var campaignImpsField = $("<a></a>");
-        campaignImpsField.attr("href", "javascript:void(0)");
-        campaignImpsField.text(campaignImps);
-        campaignImpsField.data("campaignImps", campaignImps);
-        campaignImpsField.click(function () {
-            var campaignImps = $(this).data("campaignImps");
-            console.log(campaignImps);
-            //campaignImpsQuery(campaignImps);
-        });
-
-        campaignImpsColumn.append(campaignImpsField);
-        row.append(campaignImpsColumn);
-        emailInfo += "Campaign Imps: " + campaignImps + '<br/>';
-
-        var campaignLastSeenColumn = $("<td></td>");
-        var campaignLastSeenField = $("<a></a>");
-        campaignLastSeenField.attr("href", "javascript:void(0)");
-        campaignLastSeenField.text(campaignLastSeen);
-        campaignLastSeenField.data("campaignLastSeen", campaignLastSeen);
-        campaignLastSeenField.click(function () {
-            var campaignLastSeen = $(this).data("campaignLastSeen");
-            console.log(campaignLastSeen);
-            //campaignLastSeenQuery(campaignLastSeen);
-        });
-
-        campaignLastSeenColumn.append(campaignLastSeenField);
-        row.append(campaignLastSeenColumn);
-        emailInfo += "Campaign Last Seen: " + campaignLastSeen + '<br/>';
-
-        var deviceIDColumn = $("<td></td>");
-        var deviceIDField = $("<a></a>");
-        deviceIDField.attr("href", "javascript:void(0)");
-        deviceIDField.text(deviceID);
-        deviceIDField.data("deviceID", deviceID);
-        deviceIDField.click(function () {
-            var deviceID = $(this).data("deviceID");
-            console.log(deviceID);
-            //deviceIDQuery(deviceID);
-        });
-
-        deviceIDColumn.append(deviceIDField);
-        row.append(deviceIDColumn);
-        emailInfo += "Device ID: " + deviceID + '<br/>';
-
-
-        var deviceTypeColumn = $("<td></td>");
-        var deviceTypeField = $("<a></a>");
-        deviceTypeField.attr("href", "javascript:void(0)");
-        deviceTypeField.text(deviceType);
-        deviceTypeField.data("deviceType", deviceType);
-        deviceTypeField.click(function () {
-            var deviceType = $(this).data("deviceType");
-            console.log(deviceType);
-            //deviceTypeQuery(deviceType);
-        });
-
-        deviceTypeColumn.append(deviceTypeField);
-        row.append(deviceTypeColumn);
-        emailInfo += "Device Type: " + deviceType + '<br/>';
-
-        var operatingSysColumn = $("<td></td>");
-        var operatingSysField = $("<a></a>");
-        operatingSysField.attr("href", "javascript:void(0)");
-        operatingSysField.text(operatingSys);
-        operatingSysField.data("OS", operatingSys);
-        operatingSysField.click(function () {
-            var OS = $(this).data("OS");
-            console.log(OS);
-            //OSQuery(OS);
-        });
-
-        operatingSysColumn.append(operatingSysField);
-        row.append(operatingSysColumn);
-        emailInfo += "Operating System: " + operatingSys + '<br/>';
-
-        var deviceLastSeenColumn = $("<td></td>");
-        var deviceLastSeenField = $("<a></a>");
-        deviceLastSeenField.attr("href", "javascript:void(0)");
-        deviceLastSeenField.text(deviceLastSeen);
-        deviceLastSeenField.data("deviceLastSeen", deviceLastSeen);
-        deviceLastSeenField.click(function () {
-            var deviceLastSeen = $(this).data("deviceLastSeen");
-            console.log(deviceLastSeen);
-            //deviceLastSeenQuery(deviceLastSeen);
-        });
-
-        deviceLastSeenColumn.append(deviceLastSeenField);
-        row.append(deviceLastSeenColumn);
-        emailInfo += "Device Last Seen: " + deviceLastSeen + '<br/>';
-
-        var behaviorIDColumn = $("<td></td>");
-        var behaviorIDField = $("<a></a>");
-        behaviorIDField.attr("href", "javascript:void(0)");
-        behaviorIDField.text(behaviorID);
-        behaviorIDField.data("behaviorID", behaviorID);
-        behaviorIDField.click(function () {
-            var behaviorID = $(this).data("behaviorID");
-            console.log(behaviorID);
-            //behaviorIDQuery(behaviorID);
-        });
-
-        behaviorIDColumn.append(behaviorIDField);
-        row.append(behaviorIDColumn);
-        emailInfo += "Behavior ID: " + behaviorID + '<br/>';
-
-        var behaviorGroupIDColumn = $("<td></td>");
-        var behaviorGroupIDField = $("<a></a>");
-        behaviorGroupIDField.attr("href", "javascript:void(0)");
-        behaviorGroupIDField.text(behaviorGroupID);
-        behaviorGroupIDField.data("behaviorGroupID", behaviorGroupID);
-        behaviorGroupIDField.click(function () {
-            var behaviorGroupID = $(this).data("behaviorGroupID");
-            console.log(behaviorGroupID);
-            //behaviorGroupIDQuery(behaviorGroupID);
-        });
-
-        behaviorGroupIDColumn.append(behaviorGroupIDField);
-        row.append(behaviorGroupIDColumn);
-        emailInfo += "Behavior Group ID: " + behaviorGroupID + '<br/>';
-
-        var behaviorCountryColumn = $("<td></td>");
-        var behaviorCountryField = $("<a></a>");
-        behaviorCountryField.attr("href", "javascript:void(0)");
-        behaviorCountryField.text(behaviorCountry);
-        behaviorCountryField.data("behaviorCountry", behaviorCountry);
-        behaviorCountryField.click(function () {
-            var behaviorCountry = $(this).data("behaviorCountry");
-            console.log(behaviorCountry);
-            //behaviorCountryQuery(behaviorCountry);
-        });
-
-        behaviorCountryColumn.append(behaviorCountryField);
-        row.append(behaviorCountryColumn);
-        emailInfo += "Behavior Country: " + behaviorCountry + '<br/>';
-
-        var behaviorCountColumn = $("<td></td>");
-        var behaviorCountField = $("<a></a>");
-        behaviorCountField.attr("href", "javascript:void(0)");
-        behaviorCountField.text(behaviorCount);
-        behaviorCountField.data("behaviorCount", behaviorCount);
-        behaviorCountField.click(function () {
-            var behaviorCount = $(this).data("behaviorCount");
-            console.log(behaviorCount);
-            //behaviorCountQuery(behaviorCount);
-        });
-
-        behaviorCountColumn.append(behaviorCountField);
-        row.append(behaviorCountColumn);
-        emailInfo += "Behavior Count: " + behaviorCount + '<br/>';
-
-        var behaviorSourceColumn = $("<td></td>");
-        var behaviorSourceField = $("<a></a>");
-        behaviorSourceField.attr("href", "javascript:void(0)");
-        behaviorSourceField.text(behaviorSource);
-        behaviorSourceField.data("behaviorSource", behaviorSource);
-        behaviorSourceField.click(function () {
-            var behaviorSource = $(this).data("behaviorSource");
-            console.log(behaviorSource);
-            //behaviorSourceQuery(behaviorSource);
-        });
-
-        behaviorSourceColumn.append(behaviorSourceField);
-        row.append(behaviorSourceColumn);
-        emailInfo += "Behavior Source: " + behaviorSource + '<br/>';
-
-        var behaviorLastSeenColumn = $("<td></td>");
-        var behaviorLastSeenField = $("<a></a>");
-        behaviorLastSeenField.attr("href", "javascript:void(0)");
-        behaviorLastSeenField.text(behaviorLastSeen);
-        behaviorLastSeenField.data("behaviorLastSeen", behaviorLastSeen);
-        behaviorLastSeenField.click(function () {
-            var behaviorLastSeen = $(this).data("behaviorLastSeen");
-            console.log(behaviorLastSeen);
-            //behaviorLastSeenQuery(behaviorLastSeen);
-        });
-
-        behaviorLastSeenColumn.append(behaviorLastSeenField);
-        row.append(behaviorLastSeenColumn);
-        emailInfo += "Behavior Last Seen: " + behaviorLastSeen + '<br/>';
-
-        emailInfo += '<br/>' + '<br/>';
-
-        var finalResults = '<tr><td><a href="">' + email + '</td></a><td>' + birthdate + '</td><td>' + gender + '</td><td>' + city + '</td><td>' +
-            ethnicity + '</td><td>' + maritalStatus + '</td><td>' + children + '</td><td>' + region + '</td><td>' + postalCode + '</td><td>' +
-            education + '</td><td>' + campaignAdvertiserID + '</td><td>' + campaignID + '</td><td>' + campaignImps + '</td><td>' +
-            campaignLastSeen + '</td><td>' + deviceID + '</td><td>' + deviceType + '</td><td>' + operatingSys + '</td><td>' + deviceLastSeen + '</td><td>' +
-            behaviorID + '</td><td>' + behaviorGroupID + '</td><td>' + behaviorCountry + '</td><td>' + behaviorCount + '</td><td>' +
-            behaviorSource + '</td><td>' + behaviorLastSeen + '</td></tr>';
-        // $('.myTable').append(finalResults);
-
-        $('#result').append(row);
-        $('#popup').bPopup().append(emailInfo);
-
-
-
-    });
-
-
-};
-
-function birthdateQuery(Date) {
-    var request = gapi.client.bigquery.jobs.query({
-        'projectId': project_id,
-        'timeoutMs': '30000',
-        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_birthdate like"' + Date + '" Limit 10;'
-    });
-
-    request.execute(renderResults);
+    console.log("popup "+ fieldValue);
+    //$('#popup').bPopup().empty();
+    //standardQuery(fieldValue, fieldName)
+    //$('#popup').bPopup().append(indivInfo);
 }
+
+
+var indivInfo; //Stores individual info for popUp functionality
 
 var renderResults = function (response) {
     console.log(response);
@@ -582,7 +160,7 @@ var renderResults = function (response) {
     for(var i=0; i < data.length; i++){
         var test = data[i];
         var row = $("<tr></tr>");
-
+        indivInfo += '<h1 style="text-align:center;">Individual Profile</h1><br/>';
         for (var j = 0; j < fields.length; j++) {
             if(test.hasOwnProperty(fields[j].name)){
                 var column = $("<td></td>");
@@ -590,20 +168,64 @@ var renderResults = function (response) {
                 var fieldName = fields[j].name;
                 field.attr("href", "javascript:void(0)");
                 //field.data(schema[fieldName], test[fields[j].name]); //field.data("emailmd5", email);
-                field.text(test[fields[j].name]);                    //field.text(emailMD5);
+                field.text(test[fields[j].name]);                //field.text(emailMD5);
+
                 field.data("queryField", fields[j].name);            //field.data("queryField", "CRM_EmailMD5");
                 field.data("value", test[fields[j].name]);
+
+                var fieldValue = field.data("value");
+                indivInfo += schema[fieldName] + ": " + test[fields[j].name] + '<br/>';
                 field.click(function () {
-                    var fieldValue = $(this).data(schema[fieldName]);
+                    //fieldValue = $(this).data("value");
                     console.log($(this).data("value"));
                     console.log($(this).data("queryField"));
 
                     standardQuery($(this).data("value"), $(this).data("queryField"));
                 });
-                column.append(field);
+
+                if(fields[j].name == "CRM_EmailMD5") {
+                    var queryField = fields[j].name;
+                   // var queryValue = test[fields[j].name];
+                    var queryValue = $("<a></a>");
+                    queryValue.attr("href", "javascript:void(0)");
+                    queryValue.data("value", test[fields[j].name]);
+                    queryValue.text(test[fields[j].name]);
+                    column.append(field);
+                    console.log("queryval "+queryValue.data("value"));
+                    // column.append("<button type = 'button' onclick='popUp("+$(this).data("value"), $(this).data("queryField"))+"); class = 'btn btn-default btn-sm'><span class = 'glyphicon glyphicon-user'></span></button>");
+                    column.append("<button type = 'button' id = 'popUpButton' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm'>" +
+                    //column.append("<button type = 'button' id = 'popUpButton' onclick='popUp(' +queryValue.data("value")+');' class = 'btn btn-default btn-sm'>" +
+                        "<span class = 'glyphicon glyphicon-user'></span></button>");
+
+                    var myButton = document.getElementById("popUpButton");
+
+                   /* if(myButton != null){
+                        console.log(myButton.value);
+                    }
+*/
+                   // myButton.value = field.data("value");
+                    if (myButton !== null) {
+                        myButton.value = queryValue.data("value");
+                        console.log("but but but " +myButton.value);
+                    console.log("in here");
+                        myButton.addEventListener('click', function () {
+                            var fieldValue = $(this).data(schema[queryField]);
+                            console.log("buttonval "+myButton.value);
+                            //standardQuery(myButton.value, schema[queryField]);
+                            //$('#popup').bPopup().append(indivInfo);
+                        }, false);
+
+                    }
+                }else{
+                    column.append(field);
+
+                }
+
+                //column.append(field );
             }
             row.append(column);
         }
+        indivInfo += indivInfo;
         $('#result').append(row);
     }
 
@@ -721,11 +343,26 @@ $(document).ready(function () {
                 runQuery();
             }, 1000);
         });
-
-
     });
 
 
 });
+
+function handle(e){
+    if(e.keyCode === 13){
+        document.getElementById("theImage").style.visibility = "hidden";
+        auth(function () {
+        $("#result").empty();
+        setTimeout(function () {
+            runQuery();
+        }, 1000);
+        });
+
+    }
+
+    return false;
+}
+
+
 
 
