@@ -1,34 +1,4 @@
-var MyDataSource = function () {
-};
-
-MyDataSource.prototype = {
-    getUser: function (userId) {
-        return {
-            id: userId,
-            name: userId + "_'s name"
-
-        }
-    }
-};
-
-function createTable() {
-    var no = ["1", "2", "3", "4"];
-    var names = ["Roger", "Steve", "Mike", "Charlie"];
-    var countries = ["USA", "Canada", "UK", "Germany"];
-    var cname = ["abc.com", "xyz.com", "123.com", "ABB.com"];
-
-    //Test that if all array values were null then String "no data to be displayed" shows up
-    //var names, countries, no, cname;
-    if (no == null && names == null & countries == null && cname == null)
-        $("#result").append("No data to be displayed.");
-    else {
-        for (i = 0; i < no.length; i++) {
-            var $formrow = '<tr><td>' + no[i] + '</td><td>' + names[i] + '</td><td>' + countries[i] + '</td><td>' + cname[i] + '</td></tr>';
-            $('#result').append($formrow);
-        }
-    }
-}
-
+//Configurations for connecting to Google BigQuery
 var project_id = 'uci-student-project';
 var client_id = '998087691315-p22i4ufoqh054dam6m5t7d03lb6hamcm.apps.googleusercontent.com';
 var api_key = 'AIzaSyCi7NAyb8xu7D3KSEVKIIOQp2DpGl3T4gc';
@@ -66,29 +36,35 @@ var schema = {
     BehaviorLastSeen: "BehaviorLastSeen"
 }
 
+
+//StandardQuery takes the fieldValue and fieldName and runs another query
+//parameters: {var fieldValue, var fieldName}
 function standardQuery(fieldValue, fieldName) {
     var request = gapi.client.bigquery.jobs.query({
         'projectId': project_id,
         'timeoutMs': '30000',
         'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where '+ fieldName + ' like "' + fieldValue + '" Limit 10;'
     });
-    console.log('SELECT * FROM [formal-cascade-571:uci.uci_db] where '+ fieldName + ' like "' + fieldValue + '" Limit 10;');
-    //request.execute(renderIndivResultswithPopUp);
     request.execute(renderResults);
-
 }
 
-function queryServer(fieldName, value) {
 
-    var query = 'SELECT * FROM [formal-cascade-571:uci.uci_db] where ' + fieldName + ' like "' + value + '" Limit 10;';
+//PopUpQuery takes the fieldValue and fieldName and runs another query
+//parameters: {var fieldValue, var fieldName}
+function popupQuery(fieldValue, fieldName) {
     var request = gapi.client.bigquery.jobs.query({
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': query
+        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where '+ fieldName + ' like "' + fieldValue + '" Limit 10;'
     });
-    request.execute(renderIndivResultswithPopUp);
+
+    request.execute(renderPopUp);
+
 }
 
+//Cross checks the schema variable with the fields variable.
+//If a field does not exist, then it is added to the schema.
+//parameters: {var fields}
 function makeSchema(fields) {
 
     for (var i = 0; i < fields.length; i++) {
@@ -101,22 +77,64 @@ function makeSchema(fields) {
     }
 }
 
-
-function popUp() {
+//Stores the configuration for the popUp
+function popUp(info) {
     $('#popup').bPopup({
-        easing: 'easeOutBack', //uses jQuery easing plugin
+        easing: 'easeOutBack',
         speed: 450,
         transition: 'slideDown'
     });
-    console.log("popup "+ fieldValue);
-    //$('#popup').bPopup().empty();
-    //standardQuery(fieldValue, fieldName)
-    //$('#popup').bPopup().append(indivInfo);
+
+    $('#popup').bPopup().empty();
+    $('#popup').bPopup().append(info);
 }
 
 
-var indivInfo; //Stores individual info for popUp functionality
+//Renders the results in the popUp after the query is run
+var renderPopUp = function (response) {
+    var indivInfo ; //Stores individual info for popUp functionality
+    var fields = response.result.schema.fields;
+    var data = [];
+    makeSchema(fields);
 
+    if (response.result.rows) {
+        $.each(response.result.rows, function (j, row) {
+            var thisData = {};
+
+            for (var prop in schema) {
+                if (schema.hasOwnProperty(prop)) {
+                    for (var i = 0; i < fields.length; i++) {
+                        if (fields[i].name == prop) {
+                            thisData[fields[i].name] = row.f[i].v;
+
+                        }
+                    }
+                }
+            }
+            data.push(thisData);
+        });
+    }
+    //Appends data to indvInfo variable
+    indivInfo = '<h1 style="text-align:center;">Individual Profile</h1><br/>';
+    for (var i = 0; i < data.length; i++) {
+        var test = data[i];
+        var line;
+
+        for (var j = 0; j < fields.length; j++) {
+            if (test.hasOwnProperty(fields[j].name)) {
+                var fieldName = fields[j].name;
+                line = schema[fieldName] + ": " + test[fields[j].name] + '<br/>';
+            }
+            indivInfo += line;
+        }
+        if(i < data.length-1)
+            indivInfo += '<h1 style="text-align:center;">Individual Profile</h1><br/>';
+
+    }
+    popUp(indivInfo);
+}
+
+//Renders the results into a table after the query is run
 var renderResults = function (response) {
     console.log(response);
     if ($('#header').empty()) {
@@ -130,21 +148,25 @@ var renderResults = function (response) {
     var fields = response.result.schema.fields;
     var data = [];
     makeSchema(fields);
+
+    if (response.result.rows) {
+
     $.each(response.result.rows, function (j, row) {
         var thisData = {};
 
-    for (var prop in schema) {
-        if (schema.hasOwnProperty(prop)) {
+        for (var prop in schema) {
+            if (schema.hasOwnProperty(prop)) {
                 for (var i = 0; i < fields.length; i++) {
                     if (fields[i].name == prop) {
-                            thisData[fields[i].name] = row.f[i].v;
+                        thisData[fields[i].name] = row.f[i].v;
 
                     }
                 }
+            }
         }
-    }
         data.push(thisData);
     });
+    }
 
     //Appends table header
     for(var i=0; i < fields.length; i++){
@@ -160,7 +182,6 @@ var renderResults = function (response) {
     for(var i=0; i < data.length; i++){
         var test = data[i];
         var row = $("<tr></tr>");
-        indivInfo += '<h1 style="text-align:center;">Individual Profile</h1><br/>';
         for (var j = 0; j < fields.length; j++) {
             if(test.hasOwnProperty(fields[j].name)){
                 var column = $("<td></td>");
@@ -174,12 +195,8 @@ var renderResults = function (response) {
                 field.data("value", test[fields[j].name]);
 
                 var fieldValue = field.data("value");
-                indivInfo += schema[fieldName] + ": " + test[fields[j].name] + '<br/>';
-                field.click(function () {
-                    //fieldValue = $(this).data("value");
-                    console.log($(this).data("value"));
-                    console.log($(this).data("queryField"));
 
+                field.click(function () {
                     standardQuery($(this).data("value"), $(this).data("queryField"));
                 });
 
@@ -191,45 +208,29 @@ var renderResults = function (response) {
                     queryValue.data("value", test[fields[j].name]);
                     queryValue.text(test[fields[j].name]);
                     column.append(field);
-                    console.log("queryval "+queryValue.data("value"));
-                    // column.append("<button type = 'button' onclick='popUp("+$(this).data("value"), $(this).data("queryField"))+"); class = 'btn btn-default btn-sm'><span class = 'glyphicon glyphicon-user'></span></button>");
-                    column.append("<button type = 'button' id = 'popUpButton' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm'>" +
-                    //column.append("<button type = 'button' id = 'popUpButton' onclick='popUp(' +queryValue.data("value")+');' class = 'btn btn-default btn-sm'>" +
-                        "<span class = 'glyphicon glyphicon-user'></span></button>");
 
-                    var myButton = document.getElementById("popUpButton");
+                    var myButton = $("<button type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm'>" +
+                                    "<span class = 'glyphicon glyphicon-user'></span></button>");
+                    column.append(myButton);
+                    myButton.data("queryfield",fields[j].name);
 
-                   /* if(myButton != null){
-                        console.log(myButton.value);
-                    }
-*/
-                   // myButton.value = field.data("value");
-                    if (myButton !== null) {
-                        myButton.value = queryValue.data("value");
-                        console.log("but but but " +myButton.value);
-                    console.log("in here");
-                        myButton.addEventListener('click', function () {
-                            var fieldValue = $(this).data(schema[queryField]);
-                            console.log("buttonval "+myButton.value);
-                            //standardQuery(myButton.value, schema[queryField]);
-                            //$('#popup').bPopup().append(indivInfo);
-                        }, false);
+                    myButton.click(function () {
+                        popupQuery($(this).val(), $(this).data("queryfield"));
 
-                    }
+                    });
                 }else{
                     column.append(field);
 
                 }
-
-                //column.append(field );
             }
             row.append(column);
         }
-        indivInfo += indivInfo;
         $('#result').append(row);
     }
 
 };
+
+//Runs the query when the search button is clicked
 function runQuery() {
 
     createQueryArray();
@@ -241,13 +242,11 @@ function runQuery() {
     });
     request.execute(renderResults);
 }
-function auth(onSuccess) {
 
+//Authorizes the connection to GBQ
+function auth(onSuccess) {
     gapi.auth.authorize(config, function () {
         gapi.client.load('bigquery', 'v2');
-        $('#client_initiated').html('BigQuery client authorized');
-        $('#auth_button').fadeOut();
-        $('#dataset_button').fadeIn();
 
         if (onSuccess) {
             onSuccess();
@@ -258,7 +257,7 @@ function auth(onSuccess) {
 
 }
 var stringCity;
-//Creates a query object and puts it into an array
+//Creates a query object and puts all the values entered by the user via the left nav in an array
 var createQueryArray = function () {
 
     var myInputs = $("input[data-group='input']");
@@ -310,9 +309,9 @@ var createQueryArray = function () {
     console.log(queryObject);
     queriesArray.push(queryObject);
     return queriesArray;
-
 }
 
+//Left navigation specifications
 $(document).ready(function () {
     $('label.tree-toggle').parent().children('ul.tree').toggle(0);
     $('.tree-toggle').click(function () {
@@ -321,23 +320,11 @@ $(document).ready(function () {
 
 });
 
-$(function () {
-    $('#pop').click(function () {
-        $('#popup').bPopup();
-    });
-});
+//Search button functionality
 $(document).ready(function () {
-
     $("#get_user").click(function () {
         document.getElementById("theImage").style.visibility = "hidden";
-
         auth(function () {
-            var user = new MyDataSource().getUser($("#user_id").val());
-
-            var id = $("<div></div>");
-            var name = $("<div></div>");
-            id.text(user.id);
-            name.text(user.name);
             $("#result").empty();
             setTimeout(function () {
                 runQuery();
@@ -348,6 +335,7 @@ $(document).ready(function () {
 
 });
 
+//If enter is pressed in a textbox then the search functionality will be activated.
 function handle(e){
     if(e.keyCode === 13){
         document.getElementById("theImage").style.visibility = "hidden";
