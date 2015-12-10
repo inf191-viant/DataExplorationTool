@@ -24,17 +24,18 @@
   </head>
 
   <body>
-  <img src="mercury.jpg" class="img-rounded" id="theImage">
+  <!--<img src="mercury.jpg" class="img-rounded" id="theImage"> -->
+  <img src= "http://lightsinthedark.files.wordpress.com/2012/12/gale-crater.jpg" class="img-rounded" id="theImage"></img>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
+          <span class="icon-bar">Help</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">MerQuery</a>
+        <a class="navbar-brand" href="#">MERQUERY</a>
       </div>
     </div>
   </nav>
@@ -48,150 +49,289 @@
               <div class="well">
                 <div>
                   <ul class="nav nav-list">
-                    <button id="get_user"   >Search</button>
+                    <li><button id="get_user">Search</button> </li>
 
+                    <div id="accordion">
+                    <li><label class="nav-header accordion-toggle">Email</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                    <table class="sideNavTable">
 
-                    <li><label class="tree-toggle nav-header">Email</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Emailmd5 </a>
-                          <input type="text" id="search_email" data-field="email" data-group="input" onkeypress="handle(event)" placeholder="Emailmd5"  />
-                        </li>
-                      </ul>
+                      <tr>
+                        <td class="widthSet"> <a href="#">Emailmd5</a></td>
+                        <td class="widthSet"><input type="text" id="search_email" data-field="email" data-group="input" onkeypress="handle(event)" placeholder="Emailmd5" /> </td>
+                      </tr>
+                    </table>
+                    </ul>
+                    </div>
                     </li>
                     <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Demographics</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">City</a></li>
-                        <input type="text" data-field="demo_city" data-group="input" onkeypress="handle(event)" placeholder="Ex. Irvine"  />
-                        <li><a href="#">Age</a></li>
-                        <input type="text" data-field="demo_age" data-group="input" onkeypress="handle(event)" placeholder="Ex. 18-25"  />
-                        <li><a href="#">Gender</a></li>
-                        <input type="text" data-field="demo_gender" data-group="input" onkeypress="handle(event)" placeholder="Ex. F"  />
-                        <li><a href="#">Ethnicity</a></li>
-                        <input type="text" data-field="demo_ethnicity" data-group="input" onkeypress="handle(event)" placeholder="Ethnicity"  />
 
-                        <li><a href="#">Marital Status</a></li>
-                        <input type="text" data-field="demo_maritalStatus" data-group="input" onkeypress="handle(event)" placeholder="Ex. s (single)"  />
-                        <li><a href="#">Children Status</a></li>
-                        <input type="text" data-field="demo_childrenStatus" data-group="input" onkeypress="handle(event)" placeholder="Children Status"  />
-                        <li><a href="#">Sexual Orientation</a></li>
-                        <input type="text" data-field="demo_sexualOrientation" data-group="input" onkeypress="handle(event)" placeholder="Sexual Orientation"  />
-                        <li><a href="#">Income</a></li>
-                        <input type="text" data-field="demo_income" data-group="input" onkeypress="handle(event)" placeholder="Income"  />
-                        <li><a href="#">Education</a></li>
-                        <input type="text" data-field="demo_education" data-group="input" onkeypress="handle(event)" placeholder="Education"  />
+                  <li><label class="accordion-toggle nav-header">Demographics</label>
+                  <div class="accordion-content">
+                  <ul class="nav nav-list tree">
+                    <table class="sideNavTable">
+                      <tr>
+                        <td class="widthSet"><a href="#">City</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_city" data-group="input" onkeypress="handle(event)" placeholder="Ex. Irvine"  /> </td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Age</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_age" data-group="input" onkeypress="handle(event)" placeholder="Ex. 18-25"  /></td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Gender</a> </td>
+                        <td class="widthSet"><input type="text" data-field="demo_gender" data-group="input" onkeypress="handle(event)" placeholder="Ex. F"  /></td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Ethnicity</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_ethnicity" data-group="input" onkeypress="handle(event)" placeholder="Ethnicity"  /></td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Marital Status</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_maritalStatus" data-group="input" onkeypress="handle(event)" placeholder="Ex. s (single)"  /></td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Children Status</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_childrenStatus" data-group="input" onkeypress="handle(event)" placeholder="Children Status"  /></td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Sexual Orientation</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_sexualOrientation" data-group="input" onkeypress="handle(event)" placeholder="Sexual Orientation"  /></td>
+                      </tr>
+                      <tr>
+                        <td class="widthSet"><a href="#">Income</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_income" data-group="input" onkeypress="handle(event)" placeholder="Income"  /></td>
+                      <tr>
+                        <td class="widthSet"><a href="#">Education</a></td>
+                        <td class="widthSet"><input type="text" data-field="demo_education" data-group="input" onkeypress="handle(event)" placeholder="Education"  /></td>
+                      </tr>
+                    </table>
+                  </ul>
+                  </div>
+                  </li>
+
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">Geography</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">Address</a></td>
+                          <td class="widthSet"><input type="text" data-field="geo_address" data-group="input" onkeypress="handle(event)" placeholder="Address"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">City</a></td>
+                          <td class="widthSet"><input type="text" data-field="geo_city" data-group="input" onkeypress="handle(event)" placeholder="City"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Region</a></td>
+                          <td class="widthSet"><input type="text" data-field="geo_region" data-group="input" onkeypress="handle(event)" placeholder="Region"  /> </td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Zip Code</a></td>
+                          <td class="widthSet"><input type="text" data-field="geo_zipCode" data-group="input" onkeypress="handle(event)" placeholder="Zip Code"  /> </td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Country</a></td>
+                          <td class="widthSet"><input type="text" data-field="geo_country" data-group="input" onkeypress="handle(event)" placeholder="Country"  /> </td>
+                        </tr>
+                      </table>
                       </ul>
+                      </div>
                     </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Geography</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Address</a></li>
-                        <input type="text" data-field="geo_address" data-group="input" onkeypress="handle(event)" placeholder="Address"  />
-                        <li><a href="#">City</a></li>
-                        <input type="text" data-field="geo_city" data-group="input" onkeypress="handle(event)" placeholder="City"  />
-                        <li><a href="#">Region</a></li>
-                        <input type="text" data-field="geo_region" data-group="input" onkeypress="handle(event)" placeholder="Region"  />
-                        <li><a href="#">Zip Code</a></li>
-                        <input type="text" data-field="geo_zipCode" data-group="input" onkeypress="handle(event)" placeholder="Zip Code"  />
-                        <li><a href="#">Country</a></li>
-                        <input type="text" data-field="geo_country" data-group="input" onkeypress="handle(event)" placeholder="Country"  />
-                      </ul>
+
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">Digital</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">Smid</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_smid" data-group="input" onkeypress="handle(event)" placeholder="Smid"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.ipAddress</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipAddress" data-group="input" onkeypress="handle(event)" placeholder="ips.ipAddress"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.last seen</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsLastSeen" data-group="input" onkeypress="handle(event)" placeholder="ips.last seen"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.first seen</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsFirstSeen" data-group="input" onkeypress="handle(event)" placeholder="ips.first seen"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.source</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsSource" data-group="input" onkeypress="handle(event)" placeholder="ips.source"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.count</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsCount" data-group="input" onkeypress="handle(event)" placeholder="ips.count"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.homeip</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsHomeip" data-group="input" onkeypress="handle(event)" placeholder="ips.homeip"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.ipprofile</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsIpprofile" data-group="input" onkeypress="handle(event)" placeholder="ips.ipprofile"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">ips.country</a></td>
+                          <td class="widthSet"><input type="text" data-field="digi_ipsCountry" data-group="input" onkeypress="handle(event)" placeholder="ips.country"  /></td>
+                      </table>
+                    </ul>
+                    </div>
+                  </li>
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">Campaign</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">Advertiser</a></td>
+                          <td class="widthSet"><input type="text" data-field="campaign_advertiserID" data-group="input" onkeypress="handle(event)" placeholder="Advertiser"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Campaign</a></td>
+                          <td class="widthSet"><input type="text" data-field="campaign_id" data-group="input" onkeypress="handle(event)" placeholder="Campaign"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Count of Impressions</a></td>
+                          <td class="widthSet"><input type="text" data-field="campaign_imps" data-group="input" onkeypress="handle(event)" placeholder="Count of Impressions"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Last Seen</a></td>
+                          <td class="widthSet"><input type="text" data-field="campaign_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  /></td>
+                        </tr>
+                      </table>
+                    </ul>
+                    </div>
+                  </li>
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">Device</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">Device ID</a></td>
+                          <td class="widthSet"><input type="text" data-field="device_id" data-group="input" onkeypress="handle(event)" placeholder="Device ID"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Device Type</a></td>
+                          <td class="widthSet"><input type="text" data-field="device_type" data-group="input" onkeypress="handle(event)" placeholder="Device Type"  /> </td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Operating System</a></td>
+                          <td class="widthSet"><input type="text" data-field="device_OS" data-group="input" onkeypress="handle(event)" placeholder="Operating System"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Last Seen</a></td>
+                          <td class="widthSet"><input type="text" data-field="device_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  /></td>
+                        </tr>
+                      </table>
+                    </ul>
+                    </div>
                     </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Digital</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Smid</a></li>
-                        <input type="text" data-field="digi_smid" data-group="input" onkeypress="handle(event)" placeholder="Smid"  />
-                        <li><a href="#">ips.ipAddress</a></li>
-                        <input type="text" data-field="digi_ipAddress" data-group="input" onkeypress="handle(event)" placeholder="ips.ipAddress"  />
-                        <li><a href="#">ips.last seen</a></li>
-                        <input type="text" data-field="digi_ipsLastSeen" data-group="input" onkeypress="handle(event)" placeholder="ips.last seen"  />
-                        <li><a href="#">ips.first seen</a></li>
-                        <input type="text" data-field="digi_ipsFirstSeen" data-group="input" onkeypress="handle(event)" placeholder="ips.first seen"  />
-                        <li><a href="#">ips.source</a></li>
-                        <input type="text" data-field="digi_ipsSource" data-group="input" onkeypress="handle(event)" placeholder="ips.source"  />
-                        <li><a href="#">ips.count</a></li>
-                        <input type="text" data-field="digi_ipsCount" data-group="input" onkeypress="handle(event)" placeholder="ips.count"  />
-                        <li><a href="#">ips.homeip</a></li>
-                        <input type="text" data-field="digi_ipsHomeip" data-group="input" onkeypress="handle(event)" placeholder="ips.homeip"  />
-                        <li><a href="#">ips.ipprofile</a></li>
-                        <input type="text" data-field="digi_ipsIpprofile" data-group="input" onkeypress="handle(event)" placeholder="ips.ipprofile"  />
-                        <li><a href="#">ips.country</a></li>
-                        <input type="text" data-field="digi_ipsCountry" data-group="input" onkeypress="handle(event)" placeholder="ips.country"  />
-                      </ul>
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">Behavior</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">Behavior ID</a></td>
+                          <td class="widthSet"><input type="text" data-field="behavior_ID" data-group="input" onkeypress="handle(event)" placeholder="Behavior ID"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Group ID</a></td>
+                          <td class="widthSet"><input type="text" data-field="behavior_groupID" data-group="input" onkeypress="handle(event)" placeholder="Group ID"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Country</a></td>
+                          <td class="widthSet"><input type="text" data-field="behavior_country" data-group="input" onkeypress="handle(event)" placeholder="Country"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Count</a></td>
+                          <td class="widthSet"><input type="text" data-field="behavior_count" data-group="input" onkeypress="handle(event)" placeholder="Count"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Source</a></td>
+                          <td class="widthSet"><input type="text" data-field="behavior_source" data-group="input" onkeypress="handle(event)" placeholder="Source"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Last Seen</a></td>
+                          <td class="widthSet"><input type="text" data-field="behavior_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  /></td>
+                        </tr>
+                      </table>
+
+                    </ul>
+                    </div>
                     </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Campaign</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Advertiser</a></li>
-                        <input type="text" data-field="campaign_advertiserID" data-group="input" onkeypress="handle(event)" placeholder="Advertiser"  />
-                        <li><a href="#">Campaign</a></li>
-                        <input type="text" data-field="campaign_id" data-group="input" onkeypress="handle(event)" placeholder="Campaign"  />
-                        <li><a href="#">Count of Impressions</a></li>
-                        <input type="text" data-field="campaign_imps" data-group="input" onkeypress="handle(event)" placeholder="Count of Impressions"  />
-                        <li><a href="#">Last Seen</a></li>
-                        <input type="text" data-field="campaign_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  />
-                      </ul>
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">Purchase</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">Advertiser ID</a></td>
+                          <td class="widthSet"><input type="text" data-field="purchase_advertiserID" data-group="input" onkeypress="handle(event)" placeholder="Advertiser ID"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Last Sales Amount</a></td>
+                          <td class="widthSet"><input type="text" data-field="purchase_lastSalesAmount" data-group="input" onkeypress="handle(event)" placeholder="Last Sales Amount"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Online Sales</a></td>
+                          <td class="widthSet"><input type="text" data-field="purchase_onlineSales" data-group="input" onkeypress="handle(event)" placeholder="Online Sales"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Offline Sales</a></td>
+                          <td class="widthSet"><input type="text" data-field="purchase_offlineSales" data-group="input" onkeypress="handle(event)" placeholder="Offline Sales"  /></td>
+                        </tr>
+                      </table>
+                    </ul>
+                    </div>
                     </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Device</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Device ID</a></li>
-                        <input type="text" data-field="device_id" data-group="input" onkeypress="handle(event)" placeholder="Device ID"  />
-                        <li><a href="#">Device Type</a></li>
-                        <input type="text" data-field="device_type" data-group="input" onkeypress="handle(event)" placeholder="Device Type"  />
-                        <li><a href="#">Operating System</a></li>
-                        <input type="text" data-field="device_OS" data-group="input" onkeypress="handle(event)" placeholder="Operating System"  />
-                        <li><a href="#">Last Seen</a></li>
-                        <input type="text" data-field="device_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  />
-                      </ul>
+
+                  <li class="divider"></li>
+                  <li><label class="accordion-toggle nav-header">App</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">ID</a></td>
+                          <td class="widthSet"><input type="text" data-field="app_ID" data-group="input" onkeypress="handle(event)" placeholder="ID"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Name</a></td>
+                          <td class="widthSet"><input type="text" data-field="app_Name" data-group="input" onkeypress="handle(event)" placeholder="Name"  /></td>
+                        </tr>
+                        <tr>
+                          <td class="widthSet"><a href="#">Count</a></td>
+                          <td class="widthSet"><input type="text" data-field="app_Count" data-group="input" onkeypress="handle(event)" placeholder="Count"  /></td>
+                        </tr>
+                      </table>
+                    </ul>
+                    </div>
                     </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Behavior</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Behavior ID</a></li>
-                        <input type="text" data-field="behavior_ID" data-group="input" onkeypress="handle(event)" placeholder="Behavior ID"  />
-                        <li><a href="#">Group ID</a></li>
-                        <input type="text" data-field="behavior_groupID" data-group="input" onkeypress="handle(event)" placeholder="Group ID"  />
-                        <li><a href="#">Country</a></li>
-                        <input type="text" data-field="behavior_country" data-group="input" onkeypress="handle(event)" placeholder="Country"  />
-                        <li><a href="#">Count</a></li>
-                        <input type="text" data-field="behavior_count" data-group="input" onkeypress="handle(event)" placeholder="Count"  />
-                        <li><a href="#">Source</a></li>
-                        <input type="text" data-field="behavior_source" data-group="input" onkeypress="handle(event)" placeholder="Source"  />
-                        <li><a href="#">Last Seen</a></li>
-                        <input type="text" data-field="behavior_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  />
+                  <li class="divider"></li>
+
+                  <li><label class="accordion-toggle nav-header">Grocery</label>
+                    <div class="accordion-content">
+                    <ul class="nav nav-list tree">
+                      <table class="sideNavTable">
+                        <tr>
+                          <td class="widthSet"><a href="#">N/A</a></td>
+                        </tr>
+                      </table>
                       </ul>
+                      </div>
                     </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Purchase</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">Advertiser ID</a></li>
-                        <input type="text" data-field="purchase_advertiserID" data-group="input" onkeypress="handle(event)" placeholder="Advertiser ID"  />
-                        <li><a href="#">Last Sales Amount</a></li>
-                        <input type="text" data-field="purchase_lastSalesAmount" data-group="input" onkeypress="handle(event)" placeholder="Last Sales Amount"  />
-                        <li><a href="#">Online Sales</a></li>
-                        <input type="text" data-field="purchase_onlineSales" data-group="input" onkeypress="handle(event)" placeholder="Online Sales"  />
-                        <li><a href="#">Offline Sales</a></li>
-                        <input type="text" data-field="purchase_offlineSales" data-group="input" onkeypress="handle(event)" placeholder="Offline Sales"  />
-                      </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">App</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">ID</a></li>
-                        <input type="text" data-field="app_ID" data-group="input" onkeypress="handle(event)" placeholder="ID"  />
-                        <li><a href="#">Name</a></li>
-                        <input type="text" data-field="app_Name" data-group="input" onkeypress="handle(event)" placeholder="Name"  />
-                        <li><a href="#">Count</a></li>
-                        <input type="text" data-field="app_Count" data-group="input" onkeypress="handle(event)" placeholder="Count"  />
-                      </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li><label class="tree-toggle nav-header">Grocery</label>
-                      <ul class="nav nav-list tree">
-                        <li><a href="#">N/A</a></li>
-                      </ul>
+                    </div>
                     </li>
                   </ul>
                 </div>

@@ -2,6 +2,8 @@
  * Base structure
  */
 
+
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
@@ -41,11 +43,12 @@ body {
     left: 0;
     z-index: 1000;
     display: block;
-    padding: 20px;
+    padding:20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
+    width: 330px;
   }
 }
 
@@ -65,7 +68,28 @@ body {
   color: #fff;
   background-color: #428bca;
 }
+/* size of tables within side nav */
 
+.sideNavTable {
+width:320px;
+}
+/*to set width of col */
+.widthSet {
+width: 50%;
+padding: 4px 0px 0px 4px;
+}
+
+/*accordion: http://uniondesign.ca/simple-accordion-without-jquery-ui/*/
+.accordion-toggle{
+cursor: pointer;
+}
+.accordion-content {
+display: none;
+}
+.accordion-content.default {
+display: block;
+}
+/*end http://uniondesign.ca/simple-accordion-without-jquery-ui/ */
 
 /*
  * Main content
@@ -77,7 +101,7 @@ body {
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
-    padding-left: 40px;
+    padding-left: 125px;
   }
 }
 .main .page-header {
@@ -108,7 +132,7 @@ body {
 
 .resultContainer {
             background-color: blue;
-            margin: 20px 10px 20px 10px;
+            margin: 10px 10px 10px 100px;
             color: white;
             font-weight: bold;
 }
@@ -122,7 +146,7 @@ body {
 
 /* Make every odd row in table gray */
 tr:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
 }
 
 th, td, tr {
@@ -131,10 +155,10 @@ th, td, tr {
 }
 img {
   position: absolute;
-  top: 0; bottom:0; left: 0; right:0;
-  margin: auto;
-  width: 1500px;
-  height: 700px;
+  top: 0; bottom:0; left: 0; right:50;
+  margin: 40px 0px 0px 40px;
+  width: 1305px;
+  height: 620px;
 }
 
 #popup, .bMulti {
@@ -177,16 +201,17 @@ img {
 }
 
 .navbar-brand {
-	font-family: Helvetica Neue;
-	font-size: 30px;
+	font-family: "Arial Black";
+    font-size: 50px;
+    position: center;
 	margin: auto;
 	text-decoration: none;
 	text-align: center;
 	color: #ff3f28;
-	background-color: "blue";
+	background-color: black;
 }
 
 .navbar-header {
 	text-align: center;
-	background-color: "blue";
+	background-color: black;
 }

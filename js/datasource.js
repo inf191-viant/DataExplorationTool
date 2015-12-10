@@ -62,6 +62,21 @@ function popupQuery(fieldValue, fieldName) {
 
 }
 
+
+// code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
+  $(document).ready(function($) {
+    $('#accordion').find('.accordion-toggle').click(function(){
+
+      //Expand or collapse this panel
+      $(this).next().slideToggle('fast');
+
+      //Hide the other panels
+      $(".accordion-content").not($(this).next()).slideUp('fast');
+
+    });
+  });
+// end http://uniondesign.ca/simple-accordion-without-jquery-ui/
+
 //Cross checks the schema variable with the fields variable.
 //If a field does not exist, then it is added to the schema.
 //parameters: {var fields}
