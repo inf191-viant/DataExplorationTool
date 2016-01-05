@@ -184,14 +184,20 @@ var renderResults = function (response) {
     }
 
     //Appends table header
+    var thTag = $("<thead></thead>");
+    var trTag = $("<tr></tr>");
     for(var i=0; i < fields.length; i++){
         var header = $("<th></th>");
         header.append(schema[fields[i].name]);
-        $('#result').append(header);
+        trTag.append(header);
+        thTag.append(trTag);
     }
+    $('#result').append(thTag);
 
+    console.log(result);
     console.log("DATA FROM SERVER");
     console.log(data);
+
 
     //Appends data to the table
     for(var i=0; i < data.length; i++){
@@ -243,7 +249,18 @@ var renderResults = function (response) {
         $('#result').append(row);
     }
 
+//Calls the sort function to add sorting functionality to the table
+sort();
+
+
 };
+
+
+//Adds sorting functionality to the table so that the user can sort data by clicking on the column headers
+function sort() {
+    initTable("result");
+}
+
 
 //Runs the query when the search button is clicked
 function runQuery() {
@@ -343,12 +360,15 @@ $(document).ready(function () {
             $("#result").empty();
             setTimeout(function () {
                 runQuery();
+
             }, 1000);
+
         });
     });
 
 
 });
+
 
 //If enter is pressed in a textbox then the search functionality will be activated.
 function handle(e){
@@ -365,6 +385,7 @@ function handle(e){
 
     return false;
 }
+
 
 
 
