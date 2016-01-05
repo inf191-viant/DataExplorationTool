@@ -386,7 +386,14 @@ function handle(e){
     return false;
 }
 
+//Exports the data in the table to an xls file
+$(document).ready(function () {
+    $("#export").click(function (e) {
+    if(result.firstChild != null){
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(result.innerText));
+        e.preventDefault();
+        }
+    });
 
 
-
-
+});
