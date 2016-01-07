@@ -62,6 +62,13 @@ function popupQuery(fieldValue, fieldName) {
 
 }
 
+//deciding how many results to show
+//http://stackoverflow.com/questions/17127572/bootstrap-dropdown-get-value-of-selected-item
+$(document).on('click', '.dropdown-menu li a', function () {
+            selText = $(this).text();
+            $('#dLabel').html(selText + '<span class="caret"</span>');
+        });
+
 
 // code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
   $(document).ready(function($) {
@@ -149,11 +156,57 @@ var renderPopUp = function (response) {
     popUp(indivInfo);
 }
 
+//for pagination of table
+//http://www.bilalakil.me/simplepagination/comment-page-1/
+var paginate = function (toPag) {
+toPag.addClass("paginate");
+ };
+
+var initpag = function(){
+
+
+        jQuery(function($) {
+     // Grab whatever we need to paginate
+     var pageParts = $(".paginate");
+
+
+     // How many parts do we have?
+     var numPages = pageParts.length;
+     // How many parts do we want per page?
+     var perPage = 10;
+
+     // When the document loads we're on page 1
+     // So to start with... hide everything else
+     pageParts.slice(perPage).hide();
+     // Apply simplePagination to our placeholder
+
+    $("#page-nav").pagination({
+         items: numPages,
+         itemsOnPage: perPage,
+         cssStyle: "light-theme",
+         // We implement the actual pagination
+         //   in this next function. It runs on
+         //   the event that a user changes page
+         onPageClick: function(pageNum) {
+             // Which page parts do we show?
+             var start = perPage * (pageNum - 1);
+             var end = start + perPage;
+
+             // First hide all page parts
+             // Then show those just for our page
+             pageParts.hide()
+                      .slice(start, end).show();
+         }
+     });
+ });
+
+};
 //Renders the results into a table after the query is run
 var renderResults = function (response) {
+
     console.log(response);
     if ($('#header').empty()) {
-        $('#header').append("Results");
+        $('#header').append("Results for city: "+ stringCity);
         $('#header').addClass("page-header");
     }
     $('#result').empty();
@@ -247,12 +300,13 @@ var renderResults = function (response) {
             row.append(column);
         }
         $('#result').append(row);
+        paginate(row);
     }
 
 //Calls the sort function to add sorting functionality to the table
-sort();
 
-
+        sort();
+        initpag();
 };
 
 
@@ -270,7 +324,7 @@ function runQuery() {
 
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city like"' + stringCity + '" Limit 10;'
+        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city like"' + stringCity + '" Limit ' + selText + ';'
     });
     request.execute(renderResults);
 }
