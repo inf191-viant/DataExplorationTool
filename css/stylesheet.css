@@ -177,6 +177,11 @@ img {
   font: bold 325% 'Petrona',sans;
 }
 
+
+#breadcrumbs {
+  background-color: transparent;
+}
+
 .button.b-close, .button.bClose {
   border-radius: 7px 7px 7px 7px;
   box-shadow: none;
