@@ -156,6 +156,35 @@ var renderPopUp = function (response) {
     popUp(indivInfo);
 }
 
+// variable to store breadcrumbs
+var crumbs = {};
+
+//Forms the breadcrumbs
+var formBreadcrumb = function () {
+
+
+    if ($('#breadcrumbs').empty()){
+        $('#breadcrumbs').append("<a>initalSearch </a>/ ");
+    }
+    console.log(crumbs);
+    for (var prop in crumbs) {
+        if (crumbs.hasOwnProperty(prop)) {
+            var test = $("<li></li>");
+            var link = $("<a></a>");
+            link.attr("href", "javascript:void(0)");
+            link.append(prop + " : " + crumbs[prop] + " ");
+            test.append(link);
+            $('#breadcrumbs').append(test);
+
+            link.click(function () {
+                standardQuery($(this).data("value"), $(this).data("queryField"));
+            });
+        }
+    }
+
+};
+
+
 //for pagination of table
 //http://www.bilalakil.me/simplepagination/comment-page-1/
 var paginate = function (toPag) {
@@ -272,6 +301,8 @@ var renderResults = function (response) {
 
                 field.click(function () {
                     standardQuery($(this).data("value"), $(this).data("queryField"));
+                    crumbs[$(this).data("queryField")]= $(this).data("value")
+                    formBreadcrumb();
                 });
 
                 if(fields[j].name == "CRM_EmailMD5") {
@@ -412,6 +443,8 @@ $(document).ready(function () {
         document.getElementById("theImage").style.visibility = "hidden";
         auth(function () {
             $("#result").empty();
+            crumbs = [];
+            $('#breadcrumbs').empty();
             setTimeout(function () {
                 runQuery();
 
@@ -430,6 +463,8 @@ function handle(e){
         document.getElementById("theImage").style.visibility = "hidden";
         auth(function () {
         $("#result").empty();
+        crumbs = [];
+        $('#breadcrumbs').empty();
         setTimeout(function () {
             runQuery();
         }, 1000);
