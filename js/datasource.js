@@ -36,14 +36,41 @@ var schema = {
     BehaviorLastSeen: "BehaviorLastSeen"
 }
 
+// Takes in fieldValue and splits the string and formats it to run the query
+function formatFieldName(fieldName) {
+    var name = fieldName.split("_");
+    var formatted = name[0].concat(".", name[1]);
+
+    if (name.length > 2) {
+        for (var i=2; i<name.length; i++)
+        {
+            formatted = formatted.concat("_", name[i]);
+        }
+    }
+    console.log("Formatted fieldName: " + formatted);
+    return formatted;
+}
 
 //StandardQuery takes the fieldValue and fieldName and runs another query
 //parameters: {var fieldValue, var fieldName}
 function standardQuery(fieldValue, fieldName) {
+    var formattedFieldName = formatFieldName(fieldName);
+
     var request = gapi.client.bigquery.jobs.query({
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where '+ fieldName + ' like "' + fieldValue + '" Limit 10;'
+        /* v1.0 query for old database */
+        //'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where ' + fieldName + ' like "' + fieldValue + '" Limit ' + selText + ';'
+
+        /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
+         * feel free to play around with them and adjust as needed */
+        'query': 'SELECT * FROM [formal-cascade-571:uci.demo_info] AS demo ' +
+        'JOIN EACH [formal-cascade-571:uci.address_info] AS addr ON demo.emailmd5 = addr.Emailmd5 ' +
+        'JOIN EACH [formal-cascade-571:uci.campaign_info] AS camp ON demo.emailmd5 = camp.emailmd5 ' +
+            //'JOIN EACH [formal-cascade-571:uci.device_info] AS dev ON demo.emailmd5 = dev.emailmd5 ' +
+            //'JOIN EACH [formal-cascade-571:uci.behavior_info] AS beh ON demo.emailmd5 = beh.emailmd5 ' +
+            //'JOIN EACH [formal-cascade-571:uci.purchase_info] AS purch ON demo.emailmd5 = purch.emailmd5 ' +
+        'where ' + formattedFieldName + ' like "' + fieldValue + '" Limit ' + selText + ';'
     });
     request.execute(renderResults);
 }
@@ -52,10 +79,23 @@ function standardQuery(fieldValue, fieldName) {
 //PopUpQuery takes the fieldValue and fieldName and runs another query
 //parameters: {var fieldValue, var fieldName}
 function popupQuery(fieldValue, fieldName) {
+    var formattedFieldName = formatFieldName(fieldName);
+
     var request = gapi.client.bigquery.jobs.query({
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where '+ fieldName + ' like "' + fieldValue + '" Limit 10;'
+        /* v1.0 query for old database */
+        //'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where ' + fieldName + ' like "' + fieldValue + '" Limit ' + selText + ';'
+
+        /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
+         * feel free to play around with them and adjust as needed */
+        'query': 'SELECT * FROM [formal-cascade-571:uci.demo_info] AS demo ' +
+        'JOIN EACH [formal-cascade-571:uci.address_info] AS addr ON demo.emailmd5 = addr.Emailmd5 ' +
+        'JOIN EACH [formal-cascade-571:uci.campaign_info] AS camp ON demo.emailmd5 = camp.emailmd5 ' +
+            //'JOIN EACH [formal-cascade-571:uci.device_info] AS dev ON demo.emailmd5 = dev.emailmd5 ' +
+            //'JOIN EACH [formal-cascade-571:uci.behavior_info] AS beh ON demo.emailmd5 = beh.emailmd5 ' +
+            //'JOIN EACH [formal-cascade-571:uci.purchase_info] AS purch ON demo.emailmd5 = purch.emailmd5 ' +
+        'where ' + formattedFieldName + ' like "' + fieldValue + '" Limit ' + selText + ';'
     });
 
     request.execute(renderPopUp);
@@ -166,13 +206,15 @@ var formBreadcrumb = function () {
     if ($('#breadcrumbs').empty()){
         $('#breadcrumbs').append("<a>initalSearch </a>/ ");
     }
-    console.log(crumbs);
+
     for (var prop in crumbs) {
         if (crumbs.hasOwnProperty(prop)) {
             var test = $("<li></li>");
             var link = $("<a></a>");
             link.attr("href", "javascript:void(0)");
             link.append(prop + " : " + crumbs[prop] + " ");
+            link.data("value", crumbs[prop]);
+            link.data("queryField", prop);
             test.append(link);
             $('#breadcrumbs').append(test);
 
@@ -301,11 +343,13 @@ var renderResults = function (response) {
 
                 field.click(function () {
                     standardQuery($(this).data("value"), $(this).data("queryField"));
-                    crumbs[$(this).data("queryField")]= $(this).data("value")
+                    crumbs[$(this).data("queryField")]= $(this).data("value");
                     formBreadcrumb();
                 });
 
-                if(fields[j].name == "CRM_EmailMD5") {
+                // switch the commented line to return to old database
+                //if(fields[j].name == "CRM_EmailMD5") {
+                if (fields[j].name == "demo_emailmd5") {
                     var queryField = fields[j].name;
                    // var queryValue = test[fields[j].name];
                     var queryValue = $("<a></a>");
@@ -355,8 +399,19 @@ function runQuery() {
 
         'projectId': project_id,
         'timeoutMs': '30000',
-        'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city like"' + stringCity + '" Limit ' + selText + ';'
-    });
+        /* v1.0 query for old database */
+        //'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where CRM_city like"' + stringCity + '" Limit ' + selText + ';'
+
+        /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
+        * feel free to play around with them and adjust as needed */
+        'query': 'SELECT * FROM [formal-cascade-571:uci.demo_info] AS demo ' +
+        'JOIN EACH [formal-cascade-571:uci.address_info] AS addr ON demo.emailmd5 = addr.Emailmd5 ' +
+        'JOIN EACH [formal-cascade-571:uci.campaign_info] AS camp ON demo.emailmd5 = camp.emailmd5 ' +
+        //'JOIN EACH [formal-cascade-571:uci.device_info] AS dev ON demo.emailmd5 = dev.emailmd5 ' +
+        //'JOIN EACH [formal-cascade-571:uci.behavior_info] AS beh ON demo.emailmd5 = beh.emailmd5 ' +
+        //'JOIN EACH [formal-cascade-571:uci.purchase_info] AS purch ON demo.emailmd5 = purch.emailmd5 ' +
+        'where demo.city like "' + stringCity + '" Limit ' + selText + ';'
+});
     request.execute(renderResults);
 }
 
