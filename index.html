@@ -25,6 +25,14 @@
     <script type="text/javascript" src="js/datasource.js"></script>
     <script type="text/javascript" src="js/sortTable.js"></script>
 
+    <!-- Script for Help box -->
+    <script type="text/javascript">
+      function overlay() {
+          helpElement = document.getElementById("helpDialog")
+          helpElement.style.visibility = (helpElement.style.visibility == "visible") ? "hidden" : "visible";
+      }
+    </script>
+
 
 
 </head>
@@ -34,6 +42,9 @@
   <img src= "http://lightsinthedark.files.wordpress.com/2012/12/gale-crater.jpg" class="img-rounded" id="theImage"></img>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
+      <div class="HelpButtonHeader">
+        <p class="helpButton"><a href="#" onclick="overlay()">Help</a></p>
+      </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
@@ -41,11 +52,29 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      <!--<div id="navbar" class="navbar-collapse collaspe">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Help</a></li>
-        </ul>
-      </div>-->
+
+      <div id="helpDialog">
+        <div class="modalHeader">
+          <p>MerQuery, a Viant Inc. exclusive...</p>
+          <hr>
+          <p>Welcome! MerQuery is an engaging user experience, effectively
+          allowing you the ability to search through the digital warehouse of
+          Viant's user profile data (anonymized, of course).</p>
+          <br>
+          <p>To use the system, just ensure you're logged into your Google BigQuery
+          credentials through Specific Media. Just go ahead and plug information into
+          the search fields on the right, select the number of results you want, and hit 'Enter';
+          we'll take care of the rest.</p>
+          <br>
+          <p>You can click through all hyperlinked fields and bring up individual user profiles
+          when you see an icon next to the 'emailMD5' column entry. All search results can be exported
+          out into an Excel file for later use. Enjoy!</p>
+          <hr>
+          <a href="#" onclick="overlay()">Got it!</a>
+        </div>
+        </div>
+      </div>
+
         <a class="navbar-brand" href="#">MerQuery</a>
       </div>
     </div>
