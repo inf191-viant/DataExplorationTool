@@ -20,8 +20,15 @@
     <link href="css/stylesheet.css" rel="stylesheet">
 
 	<!-- Scripts for search bar -->
-	<script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+
+    <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="js/BreadCrumbs.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/queries.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
     <script type="text/javascript" src="js/datasource.js"></script>
     <script type="text/javascript" src="js/sortTable.js"></script>
 
@@ -106,14 +113,19 @@
                         </ul>
                       </div>
 
-                      <li><label class="nav-header tree-toggle">Email</label></li>
+
+                      <table id="navigationBar"></table>
+
+
+
+                      <!--<li><label class="nav-header tree-toggle">Email</label></li>
                       <ul class="nav nav-list tree">
                         <li>
                           <table class="sideNavTable">
 
                             <tr>
                               <td class="widthSet"> <a href="#">Emailmd5</a></td>
-                              <td class="widthSet"><input type="text" id="search_email" data-field="email" data-group="input" onkeypress="handle(event)" placeholder="Emailmd5" /> </td>
+                              <td class="widthSet"><input type="text" id="search_email" data-field="email" data-group="input" class="id_textfields" placeholder="Emailmd5" /> </td>
                             </tr>
                           </table>
                       </ul>
@@ -128,38 +140,38 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">City</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_city" data-group="input" onkeypress="handle(event)" placeholder="Ex. Irvine"  /> </td>
+                              <td class="widthSet"><input type="text" id="city" data-field="Demographics_city" data-group="input" class="id_textfields" placeholder="Ex. Irvine"  /> </td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Age</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_age" data-group="input" onkeypress="handle(event)" placeholder="Ex. 18-25"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_age" data-group="input" class="id_textfields" placeholder="Ex. 18-25"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Gender</a> </td>
-                              <td class="widthSet"><input type="text" data-field="demo_gender" data-group="input" onkeypress="handle(event)" placeholder="Ex. F"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_gender" data-group="input" class="id_textfields" placeholder="Ex. F"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Ethnicity</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_ethnicity" data-group="input" onkeypress="handle(event)" placeholder="Ethnicity"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_ethnicity" data-group="input" class="id_textfields" placeholder="Ethnicity"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Marital Status</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_maritalStatus" data-group="input" onkeypress="handle(event)" placeholder="Ex. s (single)"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_maritalStatus" data-group="input" class="id_textfields" placeholder="Ex. s (single)"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Children Status</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_childrenStatus" data-group="input" onkeypress="handle(event)" placeholder="Children Status"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_childrenStatus" data-group="input" class="id_textfields" placeholder="Children Status"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Sexual Orientation</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_sexualOrientation" data-group="input" onkeypress="handle(event)" placeholder="Sexual Orientation"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_sexualOrientation" data-group="input" class="id_textfields" placeholder="Sexual Orientation"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Income</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_income" data-group="input" onkeypress="handle(event)" placeholder="Income"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_income" data-group="input" class="id_textfields" placeholder="Income"  /></td>
                             <tr>
                               <td class="widthSet"><a href="#">Education</a></td>
-                              <td class="widthSet"><input type="text" data-field="demo_education" data-group="input" onkeypress="handle(event)" placeholder="Education"  /></td>
+                              <td class="widthSet"><input type="text" data-field="demo_education" data-group="input" class="id_textfields" placeholder="Education"  /></td>
                             </tr>
                           </table>
                         </li>
@@ -172,23 +184,23 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">Address</a></td>
-                              <td class="widthSet"><input type="text" data-field="geo_address" data-group="input" onkeypress="handle(event)" placeholder="Address"  /></td>
+                              <td class="widthSet"><input type="text" data-field="geo_address" data-group="input" class="id_textfields" placeholder="Address"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">City</a></td>
-                              <td class="widthSet"><input type="text" data-field="geo_city" data-group="input" onkeypress="handle(event)" placeholder="City"  /></td>
+                              <td class="widthSet"><input type="text" data-field="geo_city" data-group="input" class="id_textfields" placeholder="City"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Region</a></td>
-                              <td class="widthSet"><input type="text" data-field="geo_region" data-group="input" onkeypress="handle(event)" placeholder="Region"  /> </td>
+                              <td class="widthSet"><input type="text" data-field="geo_region" data-group="input" class="id_textfields" placeholder="Region"  /> </td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Zip Code</a></td>
-                              <td class="widthSet"><input type="text" data-field="geo_zipCode" data-group="input" onkeypress="handle(event)" placeholder="Zip Code"  /> </td>
+                              <td class="widthSet"><input type="text" data-field="geo_zipCode" data-group="input" class="id_textfields" placeholder="Zip Code"  /> </td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Country</a></td>
-                              <td class="widthSet"><input type="text" data-field="geo_country" data-group="input" onkeypress="handle(event)" placeholder="Country"  /> </td>
+                              <td class="widthSet"><input type="text" data-field="geo_country" data-group="input" class="id_textfields" placeholder="Country"  /> </td>
                             </tr>
                           </table>
                       </ul>
@@ -201,39 +213,39 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">Smid</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_smid" data-group="input" onkeypress="handle(event)" placeholder="Smid"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_smid" data-group="input" class="id_textfields" placeholder="Smid"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.ipAddress</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipAddress" data-group="input" onkeypress="handle(event)" placeholder="ips.ipAddress"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipAddress" data-group="input" class="id_textfields" placeholder="ips.ipAddress"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.last seen</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsLastSeen" data-group="input" onkeypress="handle(event)" placeholder="ips.last seen"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsLastSeen" data-group="input" class="id_textfields" placeholder="ips.last seen"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.first seen</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsFirstSeen" data-group="input" onkeypress="handle(event)" placeholder="ips.first seen"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsFirstSeen" data-group="input" class="id_textfields" placeholder="ips.first seen"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.source</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsSource" data-group="input" onkeypress="handle(event)" placeholder="ips.source"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsSource" data-group="input" class="id_textfields" placeholder="ips.source"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.count</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsCount" data-group="input" onkeypress="handle(event)" placeholder="ips.count"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsCount" data-group="input" class="id_textfields" placeholder="ips.count"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.homeip</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsHomeip" data-group="input" onkeypress="handle(event)" placeholder="ips.homeip"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsHomeip" data-group="input" class="id_textfields" placeholder="ips.homeip"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.ipprofile</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsIpprofile" data-group="input" onkeypress="handle(event)" placeholder="ips.ipprofile"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsIpprofile" data-group="input" class="id_textfields" placeholder="ips.ipprofile"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">ips.country</a></td>
-                              <td class="widthSet"><input type="text" data-field="digi_ipsCountry" data-group="input" onkeypress="handle(event)" placeholder="ips.country"  /></td>
+                              <td class="widthSet"><input type="text" data-field="digi_ipsCountry" data-group="input" class="id_textfields" placeholder="ips.country"  /></td>
                           </table>
                       </ul>
                       </li>
@@ -244,19 +256,19 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">Advertiser</a></td>
-                              <td class="widthSet"><input type="text" data-field="campaign_advertiserID" data-group="input" onkeypress="handle(event)" placeholder="Advertiser"  /></td>
+                              <td class="widthSet"><input type="text" data-field="campaign_advertiserID" data-group="input" class="id_textfields" placeholder="Advertiser"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Campaign</a></td>
-                              <td class="widthSet"><input type="text" data-field="campaign_id" data-group="input" onkeypress="handle(event)" placeholder="Campaign"  /></td>
+                              <td class="widthSet"><input type="text" data-field="campaign_id" data-group="input" class="id_textfields" placeholder="Campaign"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Count of Impressions</a></td>
-                              <td class="widthSet"><input type="text" data-field="campaign_imps" data-group="input" onkeypress="handle(event)" placeholder="Count of Impressions"  /></td>
+                              <td class="widthSet"><input type="text" data-field="campaign_imps" data-group="input" class="id_textfields" placeholder="Count of Impressions"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Last Seen</a></td>
-                              <td class="widthSet"><input type="text" data-field="campaign_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  /></td>
+                              <td class="widthSet"><input type="text" data-field="campaign_lastSeen" data-group="input" class="id_textfields" placeholder="Last Seen"  /></td>
                             </tr>
                           </table>
                       </ul>
@@ -268,19 +280,19 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">Device ID</a></td>
-                              <td class="widthSet"><input type="text" data-field="device_id" data-group="input" onkeypress="handle(event)" placeholder="Device ID"  /></td>
+                              <td class="widthSet"><input type="text" data-field="device_id" data-group="input" class="id_textfields" placeholder="Device ID"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Device Type</a></td>
-                              <td class="widthSet"><input type="text" data-field="device_type" data-group="input" onkeypress="handle(event)" placeholder="Device Type"  /> </td>
+                              <td class="widthSet"><input type="text" data-field="device_type" data-group="input" class="id_textfields" placeholder="Device Type"  /> </td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Operating System</a></td>
-                              <td class="widthSet"><input type="text" data-field="device_OS" data-group="input" onkeypress="handle(event)" placeholder="Operating System"  /></td>
+                              <td class="widthSet"><input type="text" data-field="device_OS" data-group="input" class="id_textfields" placeholder="Operating System"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Last Seen</a></td>
-                              <td class="widthSet"><input type="text" data-field="device_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  /></td>
+                              <td class="widthSet"><input type="text" data-field="device_lastSeen" data-group="input" class="id_textfields" placeholder="Last Seen"  /></td>
                             </tr>
                           </table>
                       </ul>
@@ -292,27 +304,27 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">Behavior ID</a></td>
-                              <td class="widthSet"><input type="text" data-field="behavior_ID" data-group="input" onkeypress="handle(event)" placeholder="Behavior ID"  /></td>
+                              <td class="widthSet"><input type="text" data-field="behavior_ID" data-group="input" class="id_textfields" placeholder="Behavior ID"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Group ID</a></td>
-                              <td class="widthSet"><input type="text" data-field="behavior_groupID" data-group="input" onkeypress="handle(event)" placeholder="Group ID"  /></td>
+                              <td class="widthSet"><input type="text" data-field="behavior_groupID" data-group="input" class="id_textfields" placeholder="Group ID"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Country</a></td>
-                              <td class="widthSet"><input type="text" data-field="behavior_country" data-group="input" onkeypress="handle(event)" placeholder="Country"  /></td>
+                              <td class="widthSet"><input type="text" data-field="behavior_country" data-group="input" class="id_textfields" placeholder="Country"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Count</a></td>
-                              <td class="widthSet"><input type="text" data-field="behavior_count" data-group="input" onkeypress="handle(event)" placeholder="Count"  /></td>
+                              <td class="widthSet"><input type="text" data-field="behavior_count" data-group="input" class="id_textfields" placeholder="Count"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Source</a></td>
-                              <td class="widthSet"><input type="text" data-field="behavior_source" data-group="input" onkeypress="handle(event)" placeholder="Source"  /></td>
+                              <td class="widthSet"><input type="text" data-field="behavior_source" data-group="input" class="id_textfields" placeholder="Source"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Last Seen</a></td>
-                              <td class="widthSet"><input type="text" data-field="behavior_lastSeen" data-group="input" onkeypress="handle(event)" placeholder="Last Seen"  /></td>
+                              <td class="widthSet"><input type="text" data-field="behavior_lastSeen" data-group="input" class="id_textfields" placeholder="Last Seen"  /></td>
                             </tr>
                           </table>
                       </ul>
@@ -324,19 +336,19 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">Advertiser ID</a></td>
-                              <td class="widthSet"><input type="text" data-field="purchase_advertiserID" data-group="input" onkeypress="handle(event)" placeholder="Advertiser ID"  /></td>
+                              <td class="widthSet"><input type="text" data-field="purchase_advertiserID" data-group="input" class="id_textfields" placeholder="Advertiser ID"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Last Sales Amount</a></td>
-                              <td class="widthSet"><input type="text" data-field="purchase_lastSalesAmount" data-group="input" onkeypress="handle(event)" placeholder="Last Sales Amount"  /></td>
+                              <td class="widthSet"><input type="text" data-field="purchase_lastSalesAmount" data-group="input" class="id_textfields" placeholder="Last Sales Amount"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Online Sales</a></td>
-                              <td class="widthSet"><input type="text" data-field="purchase_onlineSales" data-group="input" onkeypress="handle(event)" placeholder="Online Sales"  /></td>
+                              <td class="widthSet"><input type="text" data-field="purchase_onlineSales" data-group="input" class="id_textfields" placeholder="Online Sales"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Offline Sales</a></td>
-                              <td class="widthSet"><input type="text" data-field="purchase_offlineSales" data-group="input" onkeypress="handle(event)" placeholder="Offline Sales"  /></td>
+                              <td class="widthSet"><input type="text" data-field="purchase_offlineSales" data-group="input" class="id_textfields" placeholder="Offline Sales"  /></td>
                             </tr>
                           </table>
                       </ul>
@@ -349,15 +361,15 @@
                           <table class="sideNavTable">
                             <tr>
                               <td class="widthSet"><a href="#">ID</a></td>
-                              <td class="widthSet"><input type="text" data-field="app_ID" data-group="input" onkeypress="handle(event)" placeholder="ID"  /></td>
+                              <td class="widthSet"><input type="text" data-field="app_ID" data-group="input" class="id_textfields" placeholder="ID"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Name</a></td>
-                              <td class="widthSet"><input type="text" data-field="app_Name" data-group="input" onkeypress="handle(event)" placeholder="Name"  /></td>
+                              <td class="widthSet"><input type="text" data-field="app_Name" data-group="input" class="id_textfields" placeholder="Name"  /></td>
                             </tr>
                             <tr>
                               <td class="widthSet"><a href="#">Count</a></td>
-                              <td class="widthSet"><input type="text" data-field="app_Count" data-group="input" onkeypress="handle(event)" placeholder="Count"  /></td>
+                              <td class="widthSet"><input type="text" data-field="app_Count" data-group="input" class="id_textfields" placeholder="Count"  /></td>
                             </tr>
                           </table>
                       </ul>
@@ -376,7 +388,7 @@
                       </li>
                     </div>
                     </li>
-                  </ul>
+                  </ul>-->
                 </div>
               </div>
 
@@ -433,7 +445,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
-	<script src="https://apis.google.com/js/client.js"></script>
     <script src="http://dinbror.dk/bpopup/assets/jquery.bpopup-0.9.4.min.js"></script>
     <script src="http://dinbror.dk/bpopup/assets/jquery.easing.1.3.js"></script>
 
