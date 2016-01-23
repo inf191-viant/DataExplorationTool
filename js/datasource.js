@@ -82,7 +82,7 @@
     
                     // switch the commented line to return to old database
                     //if(fields[j].name == "CRM_EmailMD5") {
-                    if (fields[j].name == "demo_emailmd5") {
+                    if (fields[j].name == "Demographics_emailmd5") {
                         var queryField = fields[j].name;
                        // var queryValue = test[fields[j].name];
                         var queryValue = $("<a></a>");
