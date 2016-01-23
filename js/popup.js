@@ -47,7 +47,7 @@ Merquery.Popup  = {
             for (var j = 0; j < fields.length; j++) {
                 if (test.hasOwnProperty(fields[j].name)) {
                     var fieldName = fields[j].name;
-                    line = schema[fieldName] + ": " + test[fields[j].name] + '<br/>';
+                    line = schema[fieldName].displayName + ": " + test[fields[j].name] + '<br/>';
                 }
                 indivInfo += line;
             }
