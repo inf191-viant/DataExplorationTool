@@ -16,13 +16,26 @@ Merquery.Queries = {
 
             /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
              * feel free to play around with them and adjust as needed */
-              'query': 'SELECT * FROM [formal-cascade-571:uci.demo_info] AS Demographics ' +
-                                    'JOIN EACH [formal-cascade-571:uci.address_info] AS Address ON Demographics.emailmd5 = Address.Emailmd5 ' +
-                                    'JOIN EACH [formal-cascade-571:uci.campaign_info] AS Campaign ON Address.emailmd5 = Campaign.emailmd5 ' +
-                //'JOIN EACH [formal-cascade-571:uci.device_info] AS dev ON demo.emailmd5 = dev.emailmd5 ' +
-                //'JOIN EACH [formal-cascade-571:uci.behavior_info] AS beh ON demo.emailmd5 = beh.emailmd5 ' +
-                //'JOIN EACH [formal-cascade-571:uci.purchase_info] AS purch ON demo.emailmd5 = purch.emailmd5 ' +
-            'where ' + formattedFieldName + ' like "' + fieldValue + '" Limit ' + limit + ';'
+            'query': 'SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+                'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+                'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+                'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+                'Campaign.click_count, Campaign.conversion_count ' +
+
+                'FROM (SELECT * FROM [formal-cascade-571:uci.demo_info]) AS Demographics ' +
+                'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.address_info]) AS Address ON Address.emailmd5 = Demographics.emailmd5 ' +
+                'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.campaign_info]) AS Campaign ON Campaign.emailmd5 = Demographics.emailmd5 ' +
+
+                'where ' + formattedFieldName + ' like "' + fieldValue +
+
+                '" GROUP BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+                'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+                'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+                'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+                'Campaign.click_count, Campaign.conversion_count ' +
+
+                'ORDER BY Demographics.emailmd5 Limit ' + limit + ';'
+
         });
         request.execute(callback || Merquery.renderResults);
     },
@@ -40,13 +53,26 @@ Merquery.Queries = {
 
             /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
              * feel free to play around with them and adjust as needed */
-           'query': 'SELECT * FROM [formal-cascade-571:uci.demo_info] AS Demographics ' +
-                                 'JOIN EACH [formal-cascade-571:uci.address_info] AS Address ON Demographics.emailmd5 = Address.Emailmd5 ' +
-                                 'JOIN EACH [formal-cascade-571:uci.campaign_info] AS Campaign ON Address.emailmd5 = Campaign.emailmd5 ' +
-                //'JOIN EACH [formal-cascade-571:uci.device_info] AS dev ON demo.emailmd5 = dev.emailmd5 ' +
-                //'JOIN EACH [formal-cascade-571:uci.behavior_info] AS beh ON demo.emailmd5 = beh.emailmd5 ' +
-                //'JOIN EACH [formal-cascade-571:uci.purchase_info] AS purch ON demo.emailmd5 = purch.emailmd5 ' +
-            'where ' + formattedFieldName + ' like "' + fieldValue + '" Limit ' + "20" + ';'
+
+            'query': 'SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+            'Campaign.click_count, Campaign.conversion_count ' +
+
+            'FROM (SELECT * FROM [formal-cascade-571:uci.demo_info]) AS Demographics ' +
+            'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.address_info]) AS Address ON Address.emailmd5 = Demographics.emailmd5 ' +
+            'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.campaign_info]) AS Campaign ON Campaign.emailmd5 = Demographics.emailmd5 ' +
+
+            'where ' + formattedFieldName + ' like "' + fieldValue +
+
+            '" GROUP BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+            'Campaign.click_count, Campaign.conversion_count ' +
+
+            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
         });
 
         request.execute(Merquery.Popup.renderPopUp);
@@ -65,13 +91,25 @@ Merquery.Queries = {
 
             /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
             * feel free to play around with them and adjust as needed */
-             'query': 'SELECT * FROM [formal-cascade-571:uci.demo_info] AS Demographics ' +
-                       'JOIN EACH [formal-cascade-571:uci.address_info] AS Address ON Demographics.emailmd5 = Address.Emailmd5 ' +
-                       'JOIN EACH [formal-cascade-571:uci.campaign_info] AS Campaign ON Address.emailmd5 = Campaign.emailmd5 ' +
-            //'JOIN EACH [formal-cascade-571:uci.device_info] AS dev ON demo.emailmd5 = dev.emailmd5 ' +
-            //'JOIN EACH [formal-cascade-571:uci.behavior_info] AS beh ON demo.emailmd5 = beh.emailmd5 ' +
-            //'JOIN EACH [formal-cascade-571:uci.purchase_info] AS purch ON demo.emailmd5 = purch.emailmd5 ' +
-            'where Demographics.city like "' + $("#City").val() + '" Limit ' + "20" + ';'
+            'query': 'SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+            'Campaign.click_count, Campaign.conversion_count ' +
+
+            'FROM (SELECT * FROM [formal-cascade-571:uci.demo_info]) AS Demographics ' +
+            'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.address_info]) AS Address ON Address.emailmd5 = Demographics.emailmd5 ' +
+            'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.campaign_info]) AS Campaign ON Campaign.emailmd5 = Demographics.emailmd5 ' +
+
+            'where Demographics.city like "' + $("#City").val() +
+
+            '" GROUP BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+            'Campaign.click_count, Campaign.conversion_count ' +
+
+            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
         });
         request.execute(Merquery.renderResults);
     },
