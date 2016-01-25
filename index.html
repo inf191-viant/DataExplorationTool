@@ -18,6 +18,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/stylesheet.css" rel="stylesheet">
+    <!--stylesheet for loading indicator -->
+    <link href="css/loader.css" rel="stylesheet">
 
 	<!-- Scripts for search bar -->
     <script src="https://apis.google.com/js/client.js"></script>
@@ -46,7 +48,7 @@
 
 <body>
 <!--<img src="mercury.jpg" class="img-rounded" id="theImage"> -->
-  <img src= "http://lightsinthedark.files.wordpress.com/2012/12/gale-crater.jpg" class="img-rounded" id="theImage"></img>
+  <div id="top"><img src= "http://lightsinthedark.files.wordpress.com/2012/12/gale-crater.jpg" class="img-rounded" id="theImage"></img></div>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="HelpButtonHeader">
@@ -428,7 +430,18 @@
 			<button id="dataset_button" style="display:none;" onclick="runQuery();">Run Query</button>
 			<div id="result"></div>
 			<div id="result_box"></div>-->
-           <table id="result" ></table>
+        <div class='container' id="divADV">
+          <div class='loader'>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--text'></div>
+          </div>
+        </div>
+        <table id="result" ></table>
         <div id="page-nav"></div>
 
        <div id="popup"></div>

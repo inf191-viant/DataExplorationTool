@@ -115,6 +115,8 @@
             //Calls the sort function to add sorting functionality to the table
             initTable("result");
             Merquery.Paginator.initPagination();
+            $("#divADV").hide();
+            $("#page-nav").show();
     };
 
     //Left navigation specifications
@@ -200,6 +202,8 @@
         }, 4000);
     
         $("#get_user").click(function () {
+            $("#divADV").show();
+            $("#page-nav").hide();
             document.getElementById("theImage").style.visibility = "hidden";
             $("#result").empty();
             Merquery.BreadCrumbs.clearBreadCrumbs();
@@ -238,6 +242,10 @@
         selText = $(this).text();
         $('#dLabel').html(selText + '<span class="caret"</span>');
     });
+
+    Merquery.getLimit= function (){
+                return selText;
+        }
 
     // code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
       $(document).ready(function($) {
