@@ -19,8 +19,21 @@ Merquery.TableAndFieldsFormatter = {
                 formatted = formatted.concat("_", name[i]);
             }
         }
-        console.log("Formatted fieldName: " + formatted);
         return formatted;
+    }
+};
+
+Merquery.sqlWhereClause = {
+    formWhereClause: function(breadcrumbs) {
+        var whereClause = 'where ';
+
+        for (var prop in breadcrumbs) {
+            var fieldName = Merquery.TableAndFieldsFormatter.formatFieldName(prop);
+            var fieldValue = breadcrumbs[prop];
+            whereClause += fieldName + ' like "' + fieldValue + '" AND ';
+        }
+        var cutOff =  whereClause.length - 5;
+        return whereClause.substr(0, cutOff);
     }
 };
 
