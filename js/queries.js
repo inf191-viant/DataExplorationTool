@@ -79,6 +79,44 @@ Merquery.Queries = {
 
     },
 
+    //breadCrumbQuery takes the breadcrumbs and formulates the query with additional conditions
+    //parameters: {var queryCrumbs}
+    breadCrumbQuery: function(queryCrumbs) {
+        var whereClause = Merquery.sqlWhereClause.formWhereClause(queryCrumbs);
+
+        var request = gapi.client.bigquery.jobs.query({
+            'projectId': project_id,
+            'timeoutMs': '30000',
+            /* v1.0 query for old database */
+            //'query': 'SELECT * FROM [formal-cascade-571:uci.uci_db] where ' + fieldName + ' like "' + fieldValue + '" Limit ' + selText + ';'
+
+            /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
+             * feel free to play around with them and adjust as needed */
+            'query': 'SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+            'Campaign.click_count, Campaign.conversion_count ' +
+
+            'FROM (SELECT * FROM [formal-cascade-571:uci.demo_info]) AS Demographics ' +
+            'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.address_info]) AS Address ON Address.emailmd5 = Demographics.emailmd5 ' +
+            'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.campaign_info]) AS Campaign ON Campaign.emailmd5 = Demographics.emailmd5 ' +
+
+            whereClause +
+
+            'GROUP BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+            'Campaign.click_count, Campaign.conversion_count ' +
+
+            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
+
+        });
+        request.execute(Merquery.renderResults);
+    },
+
+
     //Runs the query when the search button is clicked
     runQuery: function() {
         //Merquery.Queries.createQueryArray();
@@ -109,7 +147,8 @@ Merquery.Queries = {
             'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
             'Campaign.click_count, Campaign.conversion_count ' +
 
-            'ORDER BY Demographics.emailmd5 Limit ' + "" +Merquery.getLimit() +"" +';'
+            //'ORDER BY Demographics.emailmd5 Limit ' + "" +Merquery.getLimit() +"" +';'
+            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
         });
         request.execute(Merquery.renderResults);
     },
