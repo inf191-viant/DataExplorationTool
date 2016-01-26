@@ -17,6 +17,8 @@
             $('#header').addClass("page-header");
         }
         $('#result').empty();
+        $('#breadcrumbs').empty();
+        Merquery.BreadCrumbs.formBreadcrumb();
     
         var values = [[]];
         var fields = response.result.schema.fields;
@@ -75,9 +77,10 @@
                     var fieldValue = field.data("value");
     
                     field.click(function () {
-                        Merquery.Queries.standardQuery($(this).data("value"), $(this).data("queryField"), selText);
+                        //Merquery.Queries.standardQuery($(this).data("value"), $(this).data("queryField"), selText);
                         Merquery.BreadCrumbs.crumbs[$(this).data("queryField")]= $(this).data("value");
-                        Merquery.BreadCrumbs.formBreadcrumb();
+                        //Merquery.BreadCrumbs.formBreadcrumb();
+                        Merquery.Queries.breadCrumbQuery(Merquery.BreadCrumbs.crumbs);
                     });
     
                     // switch the commented line to return to old database
