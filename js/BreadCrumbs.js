@@ -25,14 +25,18 @@ Merquery.BreadCrumbs = {
                 $('#breadcrumbs').append(link);
 
                 link.click(function () {
-                    //Merquery.Queries.standardQuery($(this).data("value"), $(this).data("queryField"), selText);
                     if ($(this).data("queryField") in crumbs) {
                         delete crumbs[$(this).data("queryField")];
                     }
-                    Merquery.Queries.breadCrumbQuery(crumbs, selText);
+                    Merquery.Queries.breadCrumbQuery(crumbs);
                 });
             }
         }
+    },
+
+    //Returns the total count of rows based on the filters from breadcrumbs
+    totalRowCount:function () {
+        return rowCount;
     }
 
 
