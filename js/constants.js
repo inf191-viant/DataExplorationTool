@@ -7,7 +7,7 @@ var config = {
     'client_id': client_id,
     'scope': 'https://www.googleapis.com/auth/bigquery'
 };
-var selText = "20";
+//var selText = 20;
 
 var schema = {
         CRM_EmailMD5: "EmailMD5",
