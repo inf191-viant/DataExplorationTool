@@ -72,7 +72,7 @@ Merquery.Queries = {
             'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
             'Campaign.click_count, Campaign.conversion_count ' +
 
-            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
+            'ORDER BY Demographics.emailmd5;' // Limit ' + "20" + ';'
         });
 
         request.execute(Merquery.Popup.renderPopUp);
@@ -110,7 +110,7 @@ Merquery.Queries = {
             'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
             'Campaign.click_count, Campaign.conversion_count ' +
 
-            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
+            'ORDER BY Demographics.emailmd5;'// Limit ' + "20" + ';'
 
         });
         request.execute(Merquery.renderResults);
@@ -148,7 +148,7 @@ Merquery.Queries = {
             'Campaign.click_count, Campaign.conversion_count ' +
 
             //'ORDER BY Demographics.emailmd5 Limit ' + "" +Merquery.getLimit() +"" +';'
-            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
+            'ORDER BY Demographics.emailmd5;'// Limit ' + "20" + ';'
         });
         request.execute(Merquery.renderResults);
     },
