@@ -23,6 +23,7 @@
         var values = [[]];
         var fields = response.result.schema.fields;
         var data = [];
+        rowCount = response.result.totalRows;
         Merquery.SchemaManager.makeSchema(fields);
     
         if (response.result.rows) {
@@ -247,7 +248,10 @@
     });
 
     Merquery.getLimit= function (){
-                return selText;
+        if (typeof selText == "undefined") {
+            selText = 10;
+        }
+        return selText;
         }
 
     // code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
