@@ -8,8 +8,16 @@
     if(typeof Merquery == "undefined" ) {
         Merquery = {};
     }
+    Merquery.showLoad = function() {
+    $("#divADV").show();
+    }
+
+    Merquery.hideLoad = function() {
+    $("#divADV").hide();
+    }
 
     Merquery.renderResults = function (response) {
+        Merquery.showLoad();
     
         Merquery.Util.log(response);
         if ($('#header').empty()) {
@@ -119,7 +127,7 @@
             //Calls the sort function to add sorting functionality to the table
             initTable("result");
             Merquery.Paginator.initPagination();
-            $("#divADV").hide();
+            Merquery.hideLoad();
             $("#page-nav").show();
     };
 
@@ -168,33 +176,40 @@
 
         }
         Merquery.Util.log("category " + category);
-        Merquery.Util.log( category);
-        var tbodyTag = $("<tbody></tbody>");
-        for(var prop in category) {
-            if(category.hasOwnProperty(prop)) {
-                var divider = $("<li class='divider'></li>");
-                var labelTag = $("<label></label>");
-                labelTag.append(prop);
-                tbodyTag.append(labelTag);
-                tbodyTag.append(divider);
-                var columnHeaders  = category[prop];
-                for(var i =0; i< columnHeaders.length; i++){
-                    var trTag = $("<tr></tr>");
-                    var tdTag = $("<td class='widthSet'></td>");
-                    var inputTag = $("<td class='widthSet'><input type='text'></td>");
-                    inputTag.attr("id", columnHeaders[i]);
-                    inputTag.attr("data-group", "input");
-                    tdTag.append(columnHeaders[i]);
-                    trTag.append(tdTag);
-                    trTag.append(inputTag);
-                    tbodyTag.append(trTag);
+                Merquery.Util.log( category);
+                var tbodyTag = $("<div id='accordion'><tbody></tbody></div>");
+                for(var prop in category) {
+                    if(category.hasOwnProperty(prop)) {
 
+                        var accordionTag= $("<div class='accordion-content'></div>")
+
+                        var labelTag = $("<label class='accordion-toggle'></label>");
+
+                        labelTag.append(""+prop+ '<br>');
+                        tbodyTag.append(labelTag);
+                        var columnHeaders  = category[prop];
+                        for(var i =0; i< columnHeaders.length; i++){
+                            var trTag = $("<tr></tr>");
+                            var tdTag = $("<td class='widthSet'></td>");
+                            var inputTag = $("<td class='widthSet'><input type='text'></td>");
+                            inputTag.attr("id", columnHeaders[i]);
+                            inputTag.attr("data-group", "input");
+                            tdTag.append(columnHeaders[i]);
+                            trTag.append(tdTag);
+                            trTag.append(inputTag);
+                            accordionTag.append(trTag);
+                            tbodyTag.append(accordionTag);
+
+
+                        }
+                    }
                 }
+
+                $('#navigationBar').append(tbodyTag);
+                Merquery.Util.log(navigationBar);
+                Merquery.initAccordion();
+
             }
-        }
-        $('#navigationBar').append(tbodyTag);
-        Merquery.Util.log(navigationBar);
-    }
 
     //Search button functionality
     $(document).ready(function() {
@@ -206,7 +221,7 @@
         }, 4000);
     
         $("#get_user").click(function () {
-            $("#divADV").show();
+            Merquery.showLoad();
             $("#page-nav").hide();
             document.getElementById("theImage").style.visibility = "hidden";
             $("#result").empty();
@@ -254,18 +269,7 @@
         return selText;
         }
 
-    // code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
-      $(document).ready(function($) {
-        $('#accordion').find('.accordion-toggle').click(function(){
-    
-          //Expand or collapse this panel
-          $(this).next().slideToggle('fast');
-    
-          //Hide the other panels
-          $(".accordion-content").not($(this).next()).slideUp('fast');
-    
-        });
-      });
+
 
 })();
 

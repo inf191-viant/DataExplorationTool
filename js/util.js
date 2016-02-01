@@ -109,6 +109,23 @@ Merquery.Paginator = {
 
 }
 
+// code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
+    Merquery.initAccordion = function () {
+
+        // code taken from uniondesign.ca/simple-accordion-without-jquery-ui/
+
+            $('#accordion').find('.accordion-toggle').click(function(){
+
+              //Expand or collapse this panel
+              $(this).next().slideToggle('fast');
+
+              //Hide the other panels
+              $(".accordion-content").not($(this).next()).slideUp('fast');
+
+            });
+
+         };
+
 
 Merquery.AuthenticationManager = {
     //Authorizes the connection to GBQ
