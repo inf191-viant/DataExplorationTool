@@ -244,8 +244,8 @@
 
     var gender = {
         type: 'radio',
-        values: ['m', 'f'],
-        displayName: ['Male', 'Female']
+        values: ['m', 'f','u'],
+        displayName: ['Male', 'Female','Undefined']
     }
 
     //Search button functionality
