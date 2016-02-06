@@ -18,42 +18,44 @@ Merquery.Popup  = {
     renderPopUp: function (response) {
         var indivInfo ; //Stores individual info for popUp functionality
         var fields = response.result.schema.fields;
-        var data = [];
+        var arrayOfUserProfiles = [];
         Merquery.SchemaManager.makeSchema(fields);
-    
+
         if (response.result.rows) {
             $.each(response.result.rows, function (j, row) {
-                var thisData = {};
-    
+                var userProfileDictionary = {};
+
                 for (var prop in schema) {
                     if (schema.hasOwnProperty(prop)) {
                         for (var i = 0; i < fields.length; i++) {
                             if (fields[i].name == prop) {
-                                thisData[fields[i].name] = row.f[i].v;
-    
+
+                                userProfileDictionary[fields[i].name] = row.f[i].v;
                             }
                         }
                     }
                 }
-                data.push(thisData);
+
+                arrayOfUserProfiles.push(userProfileDictionary);
+
             });
         }
-        //Appends data to indvInfo variable
-        indivInfo = '<h1 style="text-align:center;">Individual Profile</h1><br/>';
-        for (var i = 0; i < data.length; i++) {
-            var test = data[i];
-            var line;
-    
+        //Appends arrayOfUserProfiles to indivInfo variable
+        indivInfo = '<table><thead><h1 id="userPopup" style="text-align:center;">Individual Profile</h1></thead><tbody>';
+        for (var userProfileArrayItemPosition = 0; userProfileArrayItemPosition < arrayOfUserProfiles.length; userProfileArrayItemPosition++) {
+            var itemInUserProfile = arrayOfUserProfiles[userProfileArrayItemPosition];
+            var newTableLine;
             for (var j = 0; j < fields.length; j++) {
-                if (test.hasOwnProperty(fields[j].name)) {
+                if (itemInUserProfile.hasOwnProperty(fields[j].name)) {
                     var fieldName = fields[j].name;
-                    line = schema[fieldName].displayName + ": " + test[fields[j].name] + '<br/>';
+                    newTableLine = "<tr><td>" + schema[fieldName].displayName + "</td><td>" + itemInUserProfile[fields[j].name] + '</td></tr>';
                 }
-                indivInfo += line;
+                indivInfo += newTableLine;
             }
-            if(i < data.length-1)
-                indivInfo += '<h1 style="text-align:center;">Individual Profile</h1><br/>';
-    
+            indivInfo += "</tbody></table>";
+            if(userProfileArrayItemPosition < arrayOfUserProfiles.length-1) {
+                indivInfo += '<table><thead><h1 id="userPopup" style="text-align:center;">Individual Profile</h1></thead></tbody>';
+        }
         }
         Merquery.Popup.popUp(indivInfo);
     },

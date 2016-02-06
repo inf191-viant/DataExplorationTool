@@ -262,7 +262,7 @@ img {
 
 #helpDialog div {
     display: block;
-    width: 300px;
+    width: 75em;
     margin: 100px auto;
     background-color: #fff;
     border: 1px solid #000;
