@@ -103,7 +103,10 @@ Merquery.Paginator = {
 
                  }
             });
+
         });
+        $('#export').append("<button>Export data</button>");
+
     }
 
 }
