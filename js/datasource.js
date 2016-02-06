@@ -155,10 +155,13 @@
     var createSchema = function(data) {
         var fields = data.schema.fields;
         var list = {};
-        var category = {};
+        category = {};
+        columnNames = {};
+        type = {};
         for(var i=0; i<fields.length; i++) {
 
         var originalCategoryName = fields[i].name;
+
         var categoryIndex = originalCategoryName.indexOf("_");
         var categoryName = originalCategoryName.substr(0, categoryIndex);
         var fieldName = originalCategoryName.substr(categoryIndex + 1);
@@ -172,44 +175,78 @@
           if(!category[categoryName]) {
             category[categoryName] = [];
           }
+          if(!columnNames[categoryName]) {
+             columnNames[categoryName] = [];
+          }
+          if(!type[categoryName]) {
+             type[categoryName] = [];
+          }
           category[categoryName].push(schema[originalCategoryName].displayName);
-
-        }
+          columnNames[categoryName].push(schema[originalCategoryName].fieldName);
+          type[categoryName].push(schema[originalCategoryName].type);
+          }
         Merquery.Util.log("category " + category);
-                Merquery.Util.log( category);
-                var tbodyTag = $("<div id='accordion'><tbody></tbody></div>");
-                for(var prop in category) {
-                    if(category.hasOwnProperty(prop)) {
+        Merquery.Util.log( category);
+        var tbodyTag = $("<div id='accordion'><tbody></tbody></div>");
+        for(var prop in category) {
+            if(category.hasOwnProperty(prop)) {
+                var accordionTag= $("<div class='accordion-content'></div>")
+                var divider = $("<li class='divider'></li>");
+                var labelTag = $("<label class='accordion-toggle'></label>");
+                labelTag.append(""+prop+ '<br>');
+                tbodyTag.append(labelTag);
 
-                        var accordionTag= $("<div class='accordion-content'></div>")
-
-                        var labelTag = $("<label class='accordion-toggle'></label>");
-
-                        labelTag.append(""+prop+ '<br>');
-                        tbodyTag.append(labelTag);
-                        var columnHeaders  = category[prop];
-                        for(var i =0; i< columnHeaders.length; i++){
-                            var trTag = $("<tr></tr>");
-                            var tdTag = $("<td class='widthSet'></td>");
-                            var inputTag = $("<td class='widthSet'><input type='text'></td>");
-                            inputTag.attr("id", columnHeaders[i]);
-                            inputTag.attr("data-group", "input");
-                            tdTag.append(columnHeaders[i]);
-                            trTag.append(tdTag);
-                            trTag.append(inputTag);
-                            accordionTag.append(trTag);
-                            tbodyTag.append(accordionTag);
-
-
-                        }
+                var databaseCoumns = columnNames[prop];
+                var columnHeaders  = category[prop];
+                var columnType = type[prop];
+                for(var i =0; i< columnHeaders.length; i++){
+                    var trTag = $("<tr></tr>");
+                    var tdTag = $("<td class='widthSet'></td>");
+                    if(columnHeaders[i] == "Gender"){
+                        tdTag.append(columnHeaders[i]);
+                        trTag.append(tdTag);
+                        var radioTag;
+                        var selectTag = $("<select id='genderSelect' style='width: 140px;' size: '30'></select>");
+                        radioTag = $("<td></td>");
+                        radioTag.attr("id", columnHeaders[i]);
+                        for(var k=0; k < gender.values.length; k++){
+                           var optionTag = $("<option></option>");
+                           optionTag.attr("value", gender.values[k]);
+                           optionTag.append(gender.displayName[k]);
+                           selectTag.append(optionTag);
+                          }
+                        radioTag.append(selectTag);
+                        trTag.append(radioTag);
+                    }else{
+                        var preTag = $("<td class='widthSet'></td>")
+                        var inputTag = $("<input type='text'>");
+                        inputTag.attr("id", columnHeaders[i]);
+                        inputTag.attr("queryfield", databaseCoumns[i]);
+                        inputTag.attr("type", columnType[i]);
+                        preTag.append(inputTag);
+                        tdTag.append(columnHeaders[i]);
+                        trTag.append(tdTag);
+                        trTag.append(preTag);
                     }
+                    accordionTag.append(trTag);
+                    tbodyTag.append(accordionTag);
+
                 }
-
-                $('#navigationBar').append(tbodyTag);
-                Merquery.Util.log(navigationBar);
-                Merquery.initAccordion();
-
+                tbodyTag.append(divider);
             }
+        }
+        $('#navigationBar').append(tbodyTag);
+        Merquery.Util.log(navigationBar);
+        Merquery.initAccordion();
+
+    }
+
+
+    var gender = {
+        type: 'radio',
+        values: ['m', 'f'],
+        displayName: ['Male', 'Female']
+    }
 
     //Search button functionality
     $(document).ready(function() {
@@ -227,8 +264,30 @@
             $("#result").empty();
             Merquery.BreadCrumbs.clearBreadCrumbs();
             $('#breadcrumbs').empty();
-            Merquery.Queries.runQuery();
-        });
+            //Capture user inputs
+            var userValues = {};
+            var genderValues = {};
+            var userInputs= [];
+            var x = document.getElementById("genderSelect").value;
+            genderValues  = {
+                 queryField: "Demographics_gender",
+                 input: x,
+                 querytype: "STRING"
+                 };
+            userInputs.push(genderValues);
+
+            $('input').each(function () {
+                if($(this).val().length !=0){
+                    userValues  = {
+                            queryField: $(this).attr('queryfield'),
+                            input: $(this).val(),
+                            querytype: $(this).attr('type')
+                     };
+                     userInputs.push(userValues);
+                     }
+              });
+            Merquery.Queries.runQuery(userInputs);
+          });
 
         $("id_textfields").keypress(handle);
     });

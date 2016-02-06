@@ -72,7 +72,7 @@ Merquery.Queries = {
             'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
             'Campaign.click_count, Campaign.conversion_count ' +
 
-            'ORDER BY Demographics.emailmd5;' // Limit ' + "20" + ';'
+            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
         });
 
         request.execute(Merquery.Popup.renderPopUp);
@@ -110,7 +110,7 @@ Merquery.Queries = {
             'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
             'Campaign.click_count, Campaign.conversion_count ' +
 
-            'ORDER BY Demographics.emailmd5;'// Limit ' + "20" + ';'
+            'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';'
 
         });
         request.execute(Merquery.renderResults);
@@ -118,8 +118,49 @@ Merquery.Queries = {
 
 
     //Runs the query when the search button is clicked
-    runQuery: function() {
+    runQuery: function(userInputs) {
         //Merquery.Queries.createQueryArray();
+        var queryString;
+        var endString;
+        var inputs;
+
+       queryString='SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+                   'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+                   'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+                   'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+                   'Campaign.click_count, Campaign.conversion_count ' +
+                   'FROM (SELECT * FROM [formal-cascade-571:uci.demo_info]) AS Demographics ' +
+                   'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.address_info]) AS Address ON Address.emailmd5 = Demographics.emailmd5 ' +
+                   'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.campaign_info]) AS Campaign ON Campaign.emailmd5 = Demographics.emailmd5 ' +
+                   'where ';
+
+         for(var i=0; i<userInputs.length; i++){
+            var formattedFieldName;
+            if(i ==0){
+                formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField)
+                inputs =  formattedFieldName + ' like "' + userInputs[i].input + '"';
+            }
+            else if(i>0){
+                inputs = inputs + ' AND ';
+                formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField)
+                if(userInputs[i].querytype == 'STRING')
+                    inputs =  inputs + formattedFieldName + ' like "' + userInputs[i].input + '"';
+                else
+                    inputs =  inputs + formattedFieldName + ' = ' + userInputs[i].input;
+            }
+         }
+
+          endString=' GROUP BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+                  'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
+                  'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
+                  'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
+                  'Campaign.click_count, Campaign.conversion_count ' +
+
+                  //'ORDER BY Demographics.emailmd5 Limit ' + "" +Merquery.getLimit() +"" +';'
+                  'ORDER BY Demographics.emailmd5;'// Limit ' + "20" + ';';
+
+                  Merquery.Util.log(queryString + inputs + endString);
+
         var request = gapi.client.bigquery.jobs.query({
 
             'projectId': project_id,
@@ -129,7 +170,7 @@ Merquery.Queries = {
 
             /* v2.0 Full query format using new database but some searches don't come through therefore commented some out
             * feel free to play around with them and adjust as needed */
-            'query': 'SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
+            /*'query': 'SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
             'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
             'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
             'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
@@ -139,16 +180,10 @@ Merquery.Queries = {
             'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.address_info]) AS Address ON Address.emailmd5 = Demographics.emailmd5 ' +
             'JOIN EACH (SELECT * FROM [formal-cascade-571:uci.campaign_info]) AS Campaign ON Campaign.emailmd5 = Demographics.emailmd5 ' +
 
-            'where Demographics.city like "' + $("#City").val() +
+            'where Demographics.city like "' +*/
 
-            '" GROUP BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity, ' +
-            'Demographics.sexorient, Demographics.marital, Demographics.children, ' +
-            'Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip, ' +
-            'Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name, Campaign.impression_count, ' +
-            'Campaign.click_count, Campaign.conversion_count ' +
+            'query': queryString + inputs + endString
 
-            //'ORDER BY Demographics.emailmd5 Limit ' + "" +Merquery.getLimit() +"" +';'
-            'ORDER BY Demographics.emailmd5;'// Limit ' + "20" + ';'
         });
         request.execute(Merquery.renderResults);
     },
