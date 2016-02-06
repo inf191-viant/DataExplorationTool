@@ -56,7 +56,7 @@
         var trTag = $("<tr></tr>");
         for(var i=0; i < fields.length; i++) {
             var header = $("<th></th>");
-            header.append(schema[fields[i].name].fieldName);
+            header.append(getDisplayName(schema[fields[i].name].fieldName));
             trTag.append(header);
             thTag.append(trTag);
         }
