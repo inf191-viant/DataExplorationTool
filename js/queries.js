@@ -157,7 +157,7 @@ Merquery.Queries = {
                   'Campaign.click_count, Campaign.conversion_count ' +
 
                   //'ORDER BY Demographics.emailmd5 Limit ' + "" +Merquery.getLimit() +"" +';'
-                  'ORDER BY Demographics.emailmd5;'// Limit ' + "20" + ';';
+                  'ORDER BY Demographics.emailmd5 Limit ' + "20" + ';';
 
                   Merquery.Util.log(queryString + inputs + endString);
 
@@ -187,56 +187,6 @@ Merquery.Queries = {
         });
         request.execute(Merquery.renderResults);
     },
-
-    createQueryArray : function () {
-
-            var myInputs = $("input[data-group='input']");
-            var queryObject = {};
-            var queriesArray = [];
-
-
-            for (var i = 0; i < myInputs.length; i++) {
-                var textBox = $(myInputs[i]);
-                var field = $(textBox).data("field"); //name, age,
-                if (textBox.val()) {
-                    if (field == "email") {
-                        queryObject.email = textBox.val();
-                    } else if (field == "Demographics_city") {
-                        queryObject.city = textBox.val();
-                    } else if (field == "demo_age") {
-                        queryObject.age = textBox.val();
-                    } else if (field == "demo_gender") {
-                        queryObject.gender = textBox.val();
-                    } else if (field == "demo_ethnicity") {
-                        queryObject.ethnicity = textBox.val();
-                    } else if (field == "demo_maritalStatus") {
-                        queryObject.maritalStatus = textBox.val();
-                    } else if (field == "demo_childrenStatus") {
-                        queryObject.childrenStatus = textBox.val();
-                    } else if (field == "demo_sexualOrientation") {
-                        queryObject.sexualOrientation = textBox.val();
-                    } else if (field == "demo_income") {
-                        queryObject.income = textBox.val();
-                    } else if (field == "demo_education") {
-                        queryObject.education = textBox.val();
-                    } else if (field == "geo_address") {
-                        queryObject.address = textBox.val();
-                    } else if (field == "geo_region") {
-                        queryObject.region = textBox.val();
-                    } else if (field == "geo_city") {
-                        queryObject.geoCity = textBox.val();
-                    } else if (field == "geo_zipCode") {
-                        queryObject.zipCode = textBox.val();
-                    } else if (field == "geo_country") {
-                        queryObject.country = textBox.val();
-                    }
-
-                }
-            }
-            Merquery.Util.log(queryObject);
-            queriesArray.push(queryObject);
-            return queriesArray;
-        }
 
 
 };
