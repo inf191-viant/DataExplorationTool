@@ -8,20 +8,14 @@
     if(typeof Merquery == "undefined" ) {
         Merquery = {};
     }
-    Merquery.showLoad = function() {
-    $("#divADV").show();
-    }
 
-    Merquery.hideLoad = function() {
-    $("#divADV").hide();
-    }
 
     Merquery.renderResults = function (response) {
         Merquery.showLoad();
     
         Merquery.Util.log(response);
         if ($('#header').empty()) {
-            $('#header').append("Results for city");
+            $('#header').append("Results");
             $('#header').addClass("page-header");
         }
         $('#result').empty();
@@ -128,7 +122,7 @@
             initTable("result");
             Merquery.Paginator.initPagination();
             Merquery.hideLoad();
-            $("#page-nav").show();
+            Merquery.showNav();
     };
 
     //Left navigation specifications
@@ -259,7 +253,7 @@
     
         $("#get_user").click(function () {
             Merquery.showLoad();
-            $("#page-nav").hide();
+            Merquery.hideNav();
             document.getElementById("theImage").style.visibility = "hidden";
             $("#result").empty();
             Merquery.BreadCrumbs.clearBreadCrumbs();

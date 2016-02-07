@@ -82,6 +82,9 @@ Merquery.Queries = {
     //breadCrumbQuery takes the breadcrumbs and formulates the query with additional conditions
     //parameters: {var queryCrumbs}
     breadCrumbQuery: function(queryCrumbs) {
+        Merquery.hideNav();
+        Merquery.showLoad();
+        $('#result').empty();
         var whereClause = Merquery.sqlWhereClause.formWhereClause(queryCrumbs);
 
         var request = gapi.client.bigquery.jobs.query({

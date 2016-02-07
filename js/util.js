@@ -55,6 +55,22 @@ Merquery.SchemaManager = {
     }
 }
 
+
+
+    Merquery.showLoad = function() {
+    $("#divADV").show();
+    }
+
+    Merquery.hideLoad = function() {
+    $("#divADV").hide();
+    }
+    Merquery.hideNav = function () {
+    $("#page-nav").hide();
+    }
+    Merquery.showNav= function() {
+    $("#page-nav").show();
+    }
+
 //for pagination of table
 //http://www.bilalakil.me/simplepagination/comment-page-1/
 Merquery.Paginator = {
@@ -83,7 +99,7 @@ Merquery.Paginator = {
             $("#page-nav").pagination({
                  items: numPages,
                  itemsOnPage: perPage,
-                 cssStyle: "light-theme",
+                 cssStyle: "dark-theme",
                  // We implement the actual pagination
                  //   in this next function. It runs on
                  //   the event that a user changes page
