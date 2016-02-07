@@ -20,11 +20,12 @@
         }
         $('#result').empty();
         $('#breadcrumbs').empty();
-        Merquery.BreadCrumbs.formBreadcrumb();
+        Merquery.BreadCrumbs.displayBreadcrumbs();
     
         var values = [[]];
         var fields = response.result.schema.fields;
         var data = [];
+        var crumbs = Merquery.BreadCrumbs.crumbs;
         rowCount = response.result.totalRows;
         Merquery.SchemaManager.makeSchema(fields);
     
@@ -76,14 +77,21 @@
     
                     field.data("queryField", fields[j].name);            //field.data("queryField", "CRM_EmailMD5");
                     field.data("value", test[fields[j].name]);
-    
+                    field.data("type", fields[j].type);
+
                     var fieldValue = field.data("value");
-    
+                    var userValues;
                     field.click(function () {
-                        //Merquery.Queries.standardQuery($(this).data("value"), $(this).data("queryField"), selText);
-                        Merquery.BreadCrumbs.crumbs[$(this).data("queryField")]= $(this).data("value");
-                        //Merquery.BreadCrumbs.formBreadcrumb();
-                        Merquery.Queries.breadCrumbQuery(Merquery.BreadCrumbs.crumbs);
+                        userValues = {
+                            queryField: $(this).data("queryField"),
+                            input: $(this).data("value"),
+                            querytype: $(this).data("type")
+                        };
+
+                        if (Merquery.BreadCrumbs.checkForDuplicateInputs(userValues)) {
+                            crumbs.push(userValues);
+                            Merquery.Queries.runQuery(crumbs);
+                        }
                     });
     
                     // switch the commented line to return to old database
@@ -256,12 +264,12 @@
             Merquery.hideNav();
             document.getElementById("theImage").style.visibility = "hidden";
             $("#result").empty();
-            Merquery.BreadCrumbs.clearBreadCrumbs();
+            Merquery.BreadCrumbs.clearBreadcrumbs();
             $('#breadcrumbs').empty();
             //Capture user inputs
             var userValues = {};
             var genderValues = {};
-            var userInputs= [];
+            var userInputs= Merquery.BreadCrumbs.crumbs;
             var x = document.getElementById("genderSelect").value;
             genderValues  = {
                  queryField: "Demographics_gender",
@@ -292,7 +300,7 @@
         if(e.which === 13){
             document.getElementById("theImage").style.visibility = "hidden";
             $("#result").empty();
-            Merquery.BreadCrumbs.clearBreadCrumbs();
+            Merquery.BreadCrumbs.clearBreadcrumbs();
             $('#breadcrumbs').empty();
             Merquery.Queries.runQuery();
         }
