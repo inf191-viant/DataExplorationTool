@@ -22,20 +22,6 @@ Merquery.TableAndFieldsFormatter = {
     }
 };
 
-Merquery.sqlWhereClause = {
-    formWhereClause: function(breadcrumbs) {
-        var whereClause = 'where ';
-
-        for (var prop in breadcrumbs) {
-            var fieldName = Merquery.TableAndFieldsFormatter.formatFieldName(prop);
-            var fieldValue = breadcrumbs[prop];
-            whereClause += fieldName + ' like "' + fieldValue + '" AND ';
-        }
-        var cutOff =  whereClause.length - 5;
-        return whereClause.substr(0, cutOff);
-    }
-};
-
 
 Merquery.SchemaManager = {
     // end http://uniondesign.ca/simple-accordion-without-jquery-ui/
@@ -77,6 +63,23 @@ Merquery.Paginator = {
     paginate: function(toPag) {
         toPag.addClass("paginate");
     },
+
+    //Returns the total count of rows
+    totalRowCount:function () {
+        return rowCount;
+    },
+
+    // Checks whether the count of results returned from the query with the number
+    // of how many profiles we want to show on a page
+    checkResultCountPerPage: function() {
+        var perPage = parseInt(Merquery.getLimit());
+        var totalRowCount = Merquery.Paginator.totalRowCount();
+        if (perPage > totalRowCount) {
+            return totalRowCount;
+        }
+        return perPage;
+    },
+
     initPagination: function(){
         jQuery(function($) {
              // Grab whatever we need to paginate
@@ -92,7 +95,8 @@ Merquery.Paginator = {
 
             //Displays the number of rows on a page
             $('#page-counter').empty();
-            $('#page-counter').append("<p>Showing: 1-" + perPage + " of "+Merquery.BreadCrumbs.totalRowCount() +" items</p>");
+            $('#page-counter').append("<p>Showing: 1-" + Merquery.Paginator.checkResultCountPerPage() +
+                " of "+Merquery.Paginator.totalRowCount() +" profiles</p>");
 
 
              // Apply simplePagination to our placeholder
@@ -115,7 +119,8 @@ Merquery.Paginator = {
                               .slice(start, end).show();
                      //Displays the number of rows on a page
                      $('#page-counter').empty();
-                     $('#page-counter').append("<p>Showing: "+ start + "-" + end + " of " + Merquery.BreadCrumbs.totalRowCount() + " rows</p>").show();
+                     $('#page-counter').append("<p>Showing: "+ (parseInt(start)+1) + "-" + end + " of " +
+                         Merquery.Paginator.totalRowCount() + " profiles</p>").show();
 
                  }
             });
