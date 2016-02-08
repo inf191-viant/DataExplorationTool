@@ -246,8 +246,8 @@
 
     var gender = {
         type: 'radio',
-        values: ['m', 'f','u'],
-        displayName: ['Male', 'Female','Undefined']
+        values: ['u','m', 'f','-1'],
+        displayName: ['Not Specified','Male', 'Female','Unknown']
     }
 
     //Search button functionality
@@ -271,13 +271,15 @@
             var genderValues = {};
             var userInputs= Merquery.BreadCrumbs.crumbs;
             var x = document.getElementById("genderSelect").value;
-            genderValues  = {
-                 queryField: "Demographics_gender",
-                 input: x,
-                 querytype: "STRING"
-                 };
-            userInputs.push(genderValues);
-
+            //If Gender is not specified ("u")
+            if(x != 'u'){
+                genderValues  = {
+                     queryField: "Demographics_gender",
+                     input: x,
+                     querytype: "STRING"
+                     };
+                userInputs.push(genderValues);
+            }
             $('input').each(function () {
                 if($(this).val().length !=0){
                     userValues  = {
