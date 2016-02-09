@@ -126,6 +126,7 @@ Merquery.Paginator = {
             });
 
         });
+        $('#export').empty();
         $('#export').append("<button>Export data</button>");
 
     }

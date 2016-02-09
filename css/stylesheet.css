@@ -286,3 +286,7 @@ h1 {
 #page-counter {
 text-align: center;
 }
+
+#export {
+text-align: right;
+}
