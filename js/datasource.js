@@ -12,7 +12,33 @@
 
     Merquery.renderResults = function (response) {
         Merquery.showLoad();
-    
+
+            //Showing messages on successful and unsuccessful queries
+            if(response.code == "400"){
+                $("#messageFailure").empty();
+                $("#messageSuccess").empty();
+                $("#messageFailure").removeAttr("style");
+                $("#messageFailure").removeClass("glyphicon glyphicon-ok");
+                $("#messageFailure").removeClass("alert alert-success");
+                $("#messageFailure").addClass("glyphicon glyphicon-exclamation-sign");
+                $("#messageFailure").addClass("alert alert-danger");
+                $("#messageFailure").append(response.message);
+             }
+             if(response.result.jobComplete){
+                $("#messageSuccess").empty();
+                $("#messageFailure").empty();
+                $("#messageSuccess").removeAttr("style");
+                $("#messageFailure").removeClass("glyphicon glyphicon-exclamation-sign");
+                $("#messageFailure").removeClass("alert alert-danger");
+                $("#messageSuccess").addClass("glyphicon glyphicon-ok");
+                $("#messageSuccess").addClass("alert alert-success");
+                $("#messageSuccess").append("Successful Query");
+                setTimeout(function() {
+                       $("#messageSuccess").fadeOut().empty();
+                            }, 5000);
+             }
+
+
         Merquery.Util.log(response);
         if ($('#header').empty()) {
             $('#header').append("Results");
@@ -37,7 +63,6 @@
                         for (var i = 0; i < fields.length; i++) {
                             if (fields[i].name == prop) {
                                 thisData[fields[i].name] = row.f[i].v;
-
                             }
                         }
                     }
@@ -266,6 +291,11 @@
             $("#result").empty();
             Merquery.BreadCrumbs.clearBreadcrumbs();
             $('#breadcrumbs').empty();
+
+
+
+
+
             //Capture user inputs
             var userValues = {};
             var genderValues = {};
