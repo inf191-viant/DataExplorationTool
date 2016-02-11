@@ -124,10 +124,7 @@ display: block;
 .placeholder {
   margin-bottom: 20px;
 }
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-}
+
 
 /* Our code */
 
@@ -155,11 +152,9 @@ th, td, tr {
 	font-size: 1em;
 }
 img {
-  position: absolute;
+  position: center;
   top: 0; bottom:0; left: 0; right:50;
-  margin: 40px 0px 0px 40px;
-  width: 1305px;
-  height: 620px;
+  margin: 150px 0px 0px 390px;
 }
 
 #popup, .bMulti {

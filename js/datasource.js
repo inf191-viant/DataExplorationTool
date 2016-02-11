@@ -164,6 +164,7 @@
         $('.tree-toggle').click(function () {
             $(this).parent().children('ul.tree').toggle(200);
         });
+        Merquery.hideLoad();
 
     });
     var getDisplayName =function(fieldName) {
@@ -287,7 +288,6 @@
         $("#get_user").click(function () {
             Merquery.showLoad();
             Merquery.hideNav();
-            document.getElementById("theImage").style.visibility = "hidden";
             $("#result").empty();
             Merquery.BreadCrumbs.clearBreadcrumbs();
             $('#breadcrumbs').empty();
@@ -330,7 +330,7 @@
     //If enter is pressed in a textbox then the search functionality will be activated.
     function handle(e){
         if(e.which === 13){
-            document.getElementById("theImage").style.visibility = "hidden";
+
             $("#result").empty();
             Merquery.BreadCrumbs.clearBreadcrumbs();
             $('#breadcrumbs').empty();
