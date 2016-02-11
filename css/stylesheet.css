@@ -173,7 +173,7 @@ img {
   font: bold 325% 'Petrona',sans;
 }
 
-
+/*breadcrumbs*/
 #breadcrumbs a {
     display: inline-block;
     color: #000;
@@ -278,8 +278,8 @@ h1 {
 
   padding: 20px 0;
 }
-#page-counter {
-text-align: center;
+#result-count {
+text-align: left;
 }
 
 #export {
