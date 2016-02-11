@@ -108,6 +108,7 @@ Merquery.Queries = {
         // For loading indicator
         Merquery.hideNav();
         Merquery.showLoad();
+        Merquery.Paginator.hideResultsCount();
         $('#result').empty();
 
         var queryString;
