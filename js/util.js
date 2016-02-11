@@ -69,6 +69,14 @@ Merquery.Paginator = {
         return rowCount;
     },
 
+    showResultsCount: function(){
+        $('#result-count').show();
+    },
+
+    hideResultsCount: function() {
+        $('#result-count').hide();
+    },
+
     // Checks whether the count of results returned from the query with the number
     // of how many profiles we want to show on a page
     checkResultCountPerPage: function() {
@@ -94,8 +102,8 @@ Merquery.Paginator = {
              pageParts.slice(perPage).hide();
 
             //Displays the number of rows on a page
-            $('#page-counter').empty();
-            $('#page-counter').append("<p>Showing: 1-" + Merquery.Paginator.checkResultCountPerPage() +
+            $('#result-count').empty();
+            $('#result-count').append("<p>Showing: 1-" + Merquery.Paginator.checkResultCountPerPage() +
                 " of "+Merquery.Paginator.totalRowCount() +" profiles</p>");
 
 
@@ -118,8 +126,8 @@ Merquery.Paginator = {
                      pageParts.hide()
                               .slice(start, end).show();
                      //Displays the number of rows on a page
-                     $('#page-counter').empty();
-                     $('#page-counter').append("<p>Showing: "+ (parseInt(start)+1) + "-" + end + " of " +
+                     $('#result-count').empty();
+                     $('#result-count').append("<p>Showing: "+ (parseInt(start)+1) + "-" + end + " of " +
                          Merquery.Paginator.totalRowCount() + " profiles</p>").show();
 
                  }
