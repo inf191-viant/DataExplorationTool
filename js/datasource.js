@@ -154,6 +154,7 @@
             //Calls the sort function to add sorting functionality to the table
             initTable("result");
             Merquery.Paginator.initPagination();
+            Merquery.Paginator.showResultsCount();
             Merquery.hideLoad();
             Merquery.showNav();
     };
