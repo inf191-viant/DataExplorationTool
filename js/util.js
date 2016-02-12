@@ -88,6 +88,14 @@ Merquery.Paginator = {
         return perPage;
     },
 
+    startingCount: function() {
+        var inititalNum = 0;
+        if (Merquery.Paginator.totalRowCount() > 0){
+            inititalNum = 1;
+        }
+        return inititalNum;
+    },
+
     initPagination: function(){
         jQuery(function($) {
              // Grab whatever we need to paginate
@@ -101,9 +109,10 @@ Merquery.Paginator = {
              // So to start with... hide everything else
              pageParts.slice(perPage).hide();
 
+            var initialNum = Merquery.Paginator.startingCount();
             //Displays the number of rows on a page
             $('#result-count').empty();
-            $('#result-count').append("<p>Showing: 1-" + Merquery.Paginator.checkResultCountPerPage() +
+            $('#result-count').append("<p>Showing: " + (parseInt(initialNum)) + "-" + Merquery.Paginator.checkResultCountPerPage() +
                 " of "+Merquery.Paginator.totalRowCount() +" profiles</p>");
 
 
