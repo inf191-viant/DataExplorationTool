@@ -278,10 +278,19 @@ h1 {
 
   padding: 20px 0;
 }
+
+/*Display Result count*/
 #result-count {
-text-align: left;
+    text-align: left;
 }
 
-#export {
-text-align: right;
+/*Export Button*/
+#export-button {
+    position: fixed;
+    float: right;
+    right: 16px;
+    bottom: 5px;
+    z-index: 9999;
+    width: 5%;
+    height: 25px;
 }
