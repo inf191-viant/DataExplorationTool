@@ -109,6 +109,7 @@ Merquery.Queries = {
         Merquery.hideNav();
         Merquery.showLoad();
         Merquery.Paginator.hideResultsCount();
+        $('#export').empty();
         $('#result').empty();
 
         var queryString;

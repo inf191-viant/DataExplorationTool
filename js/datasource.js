@@ -157,6 +157,17 @@
             Merquery.Paginator.showResultsCount();
             Merquery.hideLoad();
             Merquery.showNav();
+
+	    //Copies the entire table from result to exportedTable
+            var source = document.getElementById('result');
+            var destination = document.getElementById('exportedTable');
+            var copy = source.cloneNode(true);
+            copy.setAttribute('id', 'exportedTable');
+            destination.parentNode.replaceChild(copy, destination);
+            $('#exportedTable tr').removeAttr('class');
+            $('#exportedTable tr').removeAttr('style');
+            $('#exportedTable').attr('style', 'display: none;');
+
     };
 
     //Left navigation specifications
@@ -344,8 +355,11 @@
     $(document).ready(function () {
         $("#export").click(function (e) {
         if(result.firstChild != null){
-            window.open('data:application/vnd.ms-excel,' + encodeURIComponent(result.innerText));
-            e.preventDefault();
+                $('#exportedTable').removeAttr('style');
+                window.open('data:application/vnd.ms-excel,' + encodeURIComponent(exportedTable.innerText));
+                $('#exportedTable').attr('style', 'display: none;');
+                e.preventDefault();
+
             }
         });
     });
