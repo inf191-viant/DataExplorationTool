@@ -144,7 +144,7 @@ Merquery.Paginator = {
 
         });
         $('#export').empty();
-        $('#export').append("<button>Export data</button>");
+        $('#export').append("<button id='export-button' class='fixed-nav-bar'>Export data</button>");
 
     }
 
