@@ -23,6 +23,7 @@
                 $("#messageFailure").addClass("glyphicon glyphicon-exclamation-sign");
                 $("#messageFailure").addClass("alert alert-danger");
                 $("#messageFailure").append(response.message);
+                Merquery.hideLoad();
              }
              if(response.result.jobComplete){
                 $("#messageSuccess").empty();
