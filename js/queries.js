@@ -107,7 +107,7 @@ Merquery.Queries = {
             "Device.device_id, Device.device_name, Device.device_type_id, Device.device_type_name, " +
             "Device.operating_system, Device.last_seen, " +
             " Purchase.advertiser_id, Purchase.last_sales_amount, Purchase.last_purchase_date, Purchase.ltv_online, Purchase.ltv_offline " +
-            'ORDER BY Demographics.emailmd5 Limit ' + '20' + ';';
+            'ORDER BY Demographics.emailmd5;'; // Limit ' + '20' + ';';
 
         var request = gapi.client.bigquery.jobs.query({
             'projectId': project_id,
@@ -188,8 +188,8 @@ Merquery.Queries = {
             "Behavior.id, Behavior.name, Behavior.last_seen, Behavior.count, " +
             "Device.device_id, Device.device_name, Device.device_type_id, Device.device_type_name, " +
             "Device.operating_system, Device.last_seen, " +
-            " Purchase.advertiser_id, Purchase.last_sales_amount, Purchase.last_purchase_date, Purchase.ltv_online, Purchase.ltv_offline " +
-            'Limit ' + "20" + ';';
+            " Purchase.advertiser_id, Purchase.last_sales_amount, Purchase.last_purchase_date, Purchase.ltv_online, Purchase.ltv_offline;";
+            //+ 'Limit ' + "20" + ';';
 
 
                   Merquery.Util.log(queryString + inputs + endString);

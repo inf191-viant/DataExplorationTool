@@ -56,14 +56,34 @@
         <p class="helpButton"><a href="#" onclick="overlay()">Help</a></p>
       </div>
       <div class="navbar-header">
-        <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>-->
-          <!--<span class="icon-bar">Help</span>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar">Help</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button>-->
+        </button>
 
-
+      <div id="helpDialog">
+        <div class="modalHeader">
+          <p>MerQuery, a Viant Inc. exclusive...</p>
+          <hr>
+          <p>Welcome! MerQuery is an engaging user experience, effectively
+          allowing you the ability to search through the digital warehouse of
+          Viant's user profile data.</p>
+          <br>
+          <p>To use the system, just ensure you're logged into your Google BigQuery
+          credentials through Specific Media. Just go ahead and plug information into
+          the search fields on the right, select the number of results you want, and hit 'Enter';
+          we'll take care of the rest.</p>
+          <br>
+          <p>You can click through all hyperlinked fields and bring up individual user profiles
+          when you see an icon next to the 'emailMD5' column entry. All search results can be exported
+          out into an Excel file for later use. Enjoy!</p>
+            <p>Questions? Contact <a href="mailto:chrisdoe@viantinc.com?subject=MerQuery">Chris Doe</a> at Viant, Inc.</p>
+          <hr>
+          <a href="#" onclick="overlay()">Got it!</a>
+        </div>
+        </div>
       </div>
 
 
@@ -115,28 +135,6 @@
         <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
         <tr><div id="messageFailure"  role="alert"></div></tr>
         <tr><div id="messageSuccess"  role="alert"></div></tr>
-
-        <div id="helpDialog">
-          <div class="modalHeader">
-            <p>MerQuery, a Viant Inc. exclusive...</p>
-            <hr>
-            <p>Welcome! MerQuery is an engaging user experience, effectively
-              allowing you the ability to search through the digital warehouse of
-              Viant's user profile data.</p>
-            <br>
-            <p>To use the system, just ensure you're logged into your Google BigQuery
-              credentials through Specific Media. Just go ahead and plug information into
-              the search fields on the left and hit 'Search';
-              we'll take care of the rest.</p>
-            <br>
-            <p>You can click through all hyperlinked fields and bring up individual user profiles
-              when you see an icon next to the 'emailMD5' column entry. All search results can be exported
-              out into an Excel file for later use. Enjoy!</p>
-            <p>Questions? Contact <a href="mailto:chrisdoe@viantinc.com?subject=MerQuery">Chris Doe</a> at Viant, Inc.</p>
-            <hr>
-            <a href="#" onclick="overlay()">Got it!</a>
-          </div>
-        </div>
 
           <h1 id="header"></h1>
           <div id="result-count"></div>

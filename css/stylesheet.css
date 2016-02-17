@@ -296,7 +296,7 @@ img {
 
 #helpDialog {
     visibility: hidden;
-    position: relative;
+    position: absolute;
     left: 0px;
     top: 0px;
     width: 100%;
@@ -307,14 +307,13 @@ img {
 
 #helpDialog div {
     display: block;
-    width: 500px;
+    width: 75em;
     margin: 100px auto;
     background-color: #fff;
     border: 1px solid #000;
     padding: 15px;
     text-align: center;
 }
-
 *, html {
   margin: 0;
   padding: 0;
