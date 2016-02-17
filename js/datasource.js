@@ -44,6 +44,7 @@
         if ($('#header').empty()) {
             $('#header').append("Results");
             $('#header').addClass("page-header");
+            $('#header').attr('style', 'text-align: center;');
         }
         $('#result').empty();
         $('#breadcrumbs').empty();
@@ -247,7 +248,7 @@
                         tdTag.append(columnHeaders[i]);
                         trTag.append(tdTag);
                         var radioTag;
-                        var selectTag = $("<select id='genderSelect' style='width: 140px;' size: '30'></select>");
+                        var selectTag = $("<select id='genderSelect' class='input-box'></select>");
                         radioTag = $("<td></td>");
                         radioTag.attr("id", columnHeaders[i]);
                         for(var k=0; k < gender.values.length; k++){
@@ -260,7 +261,7 @@
                         trTag.append(radioTag);
                     }else{
                         var preTag = $("<td class='widthSet'></td>")
-                        var inputTag = $("<input type='text'>");
+                        var inputTag = $("<input class='input-box' type='text'>");
                         inputTag.attr("id", columnHeaders[i]);
                         inputTag.attr("queryfield", databaseCoumns[i]);
                         inputTag.attr("type", columnType[i]);

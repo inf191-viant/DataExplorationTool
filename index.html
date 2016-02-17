@@ -33,6 +33,7 @@
     <script type="text/javascript" src="js/popup.js"></script>
     <script type="text/javascript" src="js/datasource.js"></script>
     <script type="text/javascript" src="js/sortTable.js"></script>
+    <script type="text/javascript" src="js/leftNavigation.js"></script>
 
     <!-- Script for Help box -->
     <script type="text/javascript">
@@ -68,7 +69,7 @@
           <hr>
           <p>Welcome! MerQuery is an engaging user experience, effectively
           allowing you the ability to search through the digital warehouse of
-          Viant's user profile data (anonymized, of course).</p>
+          Viant's user profile data.</p>
           <br>
           <p>To use the system, just ensure you're logged into your Google BigQuery
           credentials through Specific Media. Just go ahead and plug information into
@@ -85,42 +86,52 @@
         </div>
       </div>
 
-        <a class="navbar-brand" href="#">MerQuery</a>
+
       </div>
     </div>
   </nav>
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav nav-sidebar">
-          <div class="row">
-            <div class="span3">
-              <div class="well">
-                <div>
-                  <ul class="nav nav-list">
-                    <li><button id="get_user">Search</button>
-                      <div class="dropdown">
-                        <!--<button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">Results Shown-->
-                        Show: <button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">10
-                          <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">10</a></li>
-                          <li><a href="#">20</a></li>
-                          <li><a href="#">50</a></li>
-                          <li><a href="#">100</a></li>
-                          <li><a href="#">250</a></li>
-                          <li><a href="#">500</a></li>
-                          <li><a href="#">1000</a></li>
-                        </ul>
-                      </div>
-                      <table id="navigationBar"></table>
-                </div>
-              </div>
-           </ul>
-      </div>
+
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar ">
+      <ul class="nav nav-sidebar">
+        <ul class="nav nav-list">
+          <h1>VIANT AD CLOUD</h1>
+          <h2>Merquery</h2>
+          <p></p>
+          <!--
+          <button type="button" class="btn btn-lg btn-left-nav" id ="close-left-nav">
+            <span class="glyphicon glyphicon-menu-left" area-hidden="true"></span></button>
+          -->
+          <li><button id="get_user">Search</button>
+          </li>
+
+          <div class="dropdown">
+            <!--<button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">Results Shown-->
+            Results Per Page: <button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">10
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">10</a></li>
+              <li><a href="#">20</a></li>
+              <li><a href="#">50</a></li>
+              <li><a href="#">100</a></li>
+              <li><a href="#">250</a></li>
+              <li><a href="#">500</a></li>
+              <li><a href="#">1000</a></li>
+            </ul>
+          </div>
+          <table id="navigationBar"></table>
+        </ul>
+      </ul>
+    </div>
+
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!--
+        <button type="button" class="btn btn-lg btn-left-nav" id ="open-left-nav">
+          <span class="glyphicon glyphicon-menu-right" area-hidden="true"></span></button>
+        <p>Welcome to Merquery.</p>
+        -->
         <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
         <tr><div id="messageFailure"  role="alert"></div></tr>
         <tr><div id="messageSuccess"  role="alert"></div></tr>
@@ -128,23 +139,9 @@
           <h1 id="header"></h1>
           <div id="result-count"></div>
 
-
-			<!--<button id="auth_button" onclick="auth();">Authorize</button>
-			<div id="client_initiated"></div>
-			<button id="dataset_button" style="display:none;" onclick="runQuery();">Run Query</button>
-			<div id="result"></div>
-			<div id="result_box"></div>-->
-
      <div class='container' id="divADV">
        <img src="239.gif" >
           <div class='loader'>
-            <!--<div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;text'></div>-->
           </div>
         </div>
         <table id="result" ></table>

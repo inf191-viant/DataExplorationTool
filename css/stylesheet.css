@@ -3,6 +3,22 @@
  */
 
 
+/* Fonts */
+h1 {
+    color: #f43c37;
+    font-family: "Arial Black";
+    font-size: 15px;
+    margin: auto;
+   	position: center;
+}
+
+h2 {
+    color: #ffffff;
+    font-family: "Arial Black";
+    font-size: 20px;
+    margin: auto;
+    position: center;
+}
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
@@ -25,38 +41,49 @@ body {
  */
 .navbar-fixed-top {
   border: 0;
+  background-color: #ffffff;
+  height: 15px;
+  z-index: 1;
 }
 
 /*
- * Sidebar
+SIDEBAR
  */
-
-/* Hide for mobile, show later */
-.sidebar {
-  display: none;
-}
-@media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 51px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding:20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
-    width: 330px;
-  }
+/* SEARCH BUTTON */
+#get_user {
+  color: #000;
 }
 
 /* Sidebar navigation */
+
+.sidebar {
+    background-color: #222222;
+    top: 0px;
+    bottom: 0px;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 2;
+    width: 280px;
+    overflow: hidden;
+
+
+    /*transform: translate(0px, 0px);
+    transition: all 1s ease-out;*/
+}
+
 .nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
+  margin: 20px 20px 20px 20px;
+  color: #dddddd;
+  background-color: #222222;
+  position: relative;
+}
+
+#navigationBar {
+    color: #dddddd;
+}
+
+.nav-sidebar > a:hover {
+  color: #ffffff;
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
@@ -65,15 +92,19 @@ body {
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
-  color: #fff;
+  color: #ffffff;
   background-color: #428bca;
 }
-/* size of tables within side nav */
 
-.sideNavTable {
-width:320px;
+/* Input Box for Left Nav */
+.input-box {
+    width: 140px;
+    color: #000;
 }
-/*to set width of col */
+
+
+
+/*to set width of col OBSOLETE*/
 .widthSet {
 width: 50%;
 padding: 4px 0px 0px 4px;
@@ -97,43 +128,15 @@ display: block;
  */
 
 .main {
-  padding: 20px;
+  padding: 10px;
+  margin-left: 290px;
+
 }
-@media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 125px;
-  }
-}
+
 .main .page-header {
   margin-top: 0;
 }
 
-
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.placeholders h4 {
-  margin-bottom: 0;
-}
-.placeholder {
-  margin-bottom: 20px;
-}
-
-
-/* Our code */
-
-.resultContainer {
-            background-color: blue;
-            margin: 10px 10px 10px 100px;
-            color: white;
-            font-weight: bold;
-}
 
 /* Bold category names */
 
@@ -142,10 +145,10 @@ display: block;
 }
 */
 
-/* Make every odd row in table gray */
+/* Make every odd row in table gray
 tr:nth-child(odd) {
   background-color: #f5f5f5;
-}
+} */
 
 th, td, tr {
 	padding: 12px;
@@ -173,7 +176,7 @@ img {
   font: bold 325% 'Petrona',sans;
 }
 
-/*breadcrumbs*/
+/* BREADCRUMBS */
 #breadcrumbs a {
     display: inline-block;
     color: #000;
@@ -195,6 +198,62 @@ img {
     background: #B00000;
 }
 
+/* BUTTONS */
+
+/* Hide Left Nav Button */
+
+.btn-left-nav {
+  background-color: transparent;
+  position: absolute;
+  top: 0px;
+  right: 3px;
+}
+
+.btn-left-nav:focus{
+  outline: 0 !important;
+}
+
+.glyphicon-menu-left {
+  color: #ffffff;
+  position: absolute;
+  top: 0px;
+  right: 3px;
+}
+
+.glyphicon-menu-left:hover, .glyphicon-menu-left:active {
+  color: #888888;
+  position: absolute;
+  top: 0px;
+  right: 3px;
+}
+
+/* Show Left Nav Button */
+.btn-right-nav {
+  background-color: transparent;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+}
+
+.glyphicon-menu-right {
+  color: #000000;
+  position: absolute;
+  top: 0px;
+  left: 500px;
+}
+
+.glyphicon-menu-right:hover, .glyphicon-menu-right:active {
+  color: #888888;
+  position: absolute;
+  top: 0px;
+  left: 500px;
+}
+
+.container-fluid {
+  position: relative;
+}
+
+/* Check what this is later */
 .button.b-close, .button.bClose {
   border-radius: 7px 7px 7px 7px;
   box-shadow: none;
@@ -218,16 +277,7 @@ img {
   position: fixed;
 }
 
-.navbar-brand {
-	font-family: "Arial Black";
-    font-size: 50px;
-    position: center;
-	margin: auto;
-	text-decoration: none;
-	text-align: center;
-	color: #ff3f28;
-	background-color: black;
-}
+
 
 .navbar-header {
 	text-align: center;
@@ -269,15 +319,6 @@ img {
   padding: 0;
 }
 
-
-h1 {
-  text-align: center;
-  font-size: 34px;
-  font-weight: 100;
-  text-transform: uppercase;
-
-  padding: 20px 0;
-}
 
 /*Display Result count*/
 #result-count {
