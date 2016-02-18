@@ -103,7 +103,7 @@
           <button type="button" class="btn btn-lg btn-left-nav" id ="close-left-nav">
             <span class="glyphicon glyphicon-menu-left" area-hidden="true"></span></button>
           -->
-          <li><button id="get_user">Search</button>
+          <li><button id="get_user" onclick="Merquery.search();">Search</button>
           </li>
 
           <div class="dropdown">
@@ -148,15 +148,7 @@
 
      <div class='container' id="divADV">
        <img src="239.gif" >
-          <div class='loader'>
-            <!--<div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;dot'></div>
-            <div class='loader&#45;&#45;text'></div>-->
-          </div>
+          <div class='loader'></div>
         </div>
         <table id="result" ></table>
         <table id="exportedTable" style="display: none;" ></table>

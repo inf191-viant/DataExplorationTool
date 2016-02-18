@@ -11,7 +11,7 @@ Merquery.Queries = {
         var queryString;
         var endString;
 
-        queryString =  "SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity," +
+        queryString =  "SELECT Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity," +
             " Demographics.sexorient,Demographics.marital, Demographics.children, Address.Address1, Address.Address2, Address.City," +
             " Address.State, Address.Zip, Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name," +
             " Campaign.impression_count, Campaign.click_count, Campaign.conversion_count, Behavior.id, Behavior.name, Behavior.last_seen," +
@@ -20,7 +20,7 @@ Merquery.Queries = {
             " Purchase.ltv_offline " +
 
 
-            "FROM (SELECT emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children FROM [formal-cascade-571:uci.demo_info] " +
+            "FROM (SELECT firstname, lastname, emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children FROM [formal-cascade-571:uci.demo_info] " +
             "where emailmd5 is not null ) AS Demographics " +
 
             "LEFT JOIN EACH (SELECT emailmd5, Address1, Address2, City, State, Zip FROM [formal-cascade-571:uci.address_info]) "+
@@ -40,7 +40,7 @@ Merquery.Queries = {
 
         'where ' + formattedFieldName + ' like "' + fieldValue;
 
-        endString = '" GROUP each BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, ' +
+        endString = '" GROUP each BY Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, ' +
             "Demographics.city, Demographics.ethnicity, Demographics.sexorient, Demographics.marital, " +
             "Demographics.children, Address.Address1, Address.Address2, Address.City, Address.State, " +
             "Address.Zip, Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, "+
@@ -53,7 +53,7 @@ Merquery.Queries = {
 
 
         var request = gapi.client.bigquery.jobs.query({
-            'projectId': project_id,
+            'projectId': Merquery.Constants.project_id,
             'timeoutMs': '30000',
             'query': queryString + endString
 
@@ -69,7 +69,7 @@ Merquery.Queries = {
         var queryString;
         var endString;
 
-        queryString =  "SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity," +
+        queryString =  "SELECT Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity," +
             " Demographics.sexorient,Demographics.marital, Demographics.children, Address.Address1, Address.Address2, Address.City," +
             " Address.State, Address.Zip, Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name," +
             " Campaign.impression_count, Campaign.click_count, Campaign.conversion_count, Behavior.id, Behavior.name, Behavior.last_seen," +
@@ -78,7 +78,7 @@ Merquery.Queries = {
             " Purchase.ltv_offline " +
 
 
-            "FROM (SELECT emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children FROM [formal-cascade-571:uci.demo_info] " +
+            "FROM (SELECT firstname, lastname, emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children FROM [formal-cascade-571:uci.demo_info] " +
             "where emailmd5 is not null ) AS Demographics " +
 
             "LEFT JOIN EACH (SELECT emailmd5, Address1, Address2, City, State, Zip FROM [formal-cascade-571:uci.address_info]) "+
@@ -98,7 +98,7 @@ Merquery.Queries = {
 
             'where ' + formattedFieldName + ' like "' + fieldValue;
 
-        endString = '" GROUP each BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, ' +
+        endString = '" GROUP each BY Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, ' +
             "Demographics.city, Demographics.ethnicity, Demographics.sexorient, Demographics.marital, " +
             "Demographics.children, Address.Address1, Address.Address2, Address.City, Address.State, " +
             "Address.Zip, Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, "+
@@ -107,10 +107,10 @@ Merquery.Queries = {
             "Device.device_id, Device.device_name, Device.device_type_id, Device.device_type_name, " +
             "Device.operating_system, Device.last_seen, " +
             " Purchase.advertiser_id, Purchase.last_sales_amount, Purchase.last_purchase_date, Purchase.ltv_online, Purchase.ltv_offline " +
-            'ORDER BY Demographics.emailmd5;'; // Limit ' + '20' + ';';
+            'ORDER BY Demographics.emailmd5 Limit ' + '50' + ';';
 
         var request = gapi.client.bigquery.jobs.query({
-            'projectId': project_id,
+            'projectId': Merquery.Constants.project_id,
             'timeoutMs': '30000',
             'query': queryString + endString
         });
@@ -135,7 +135,7 @@ Merquery.Queries = {
         var endString;
         var inputs;
 
-        queryString =  "SELECT Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity," +
+        queryString =  "SELECT Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, Demographics.ethnicity," +
             " Demographics.sexorient,Demographics.marital, Demographics.children, Address.Address1, Address.Address2, Address.City," +
             " Address.State, Address.Zip, Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, Campaign.campaign_name," +
             " Campaign.impression_count, Campaign.click_count, Campaign.conversion_count, Behavior.id, Behavior.name, Behavior.last_seen," +
@@ -144,7 +144,7 @@ Merquery.Queries = {
             " Purchase.ltv_offline " +
 
 
-            "FROM (SELECT emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children FROM [formal-cascade-571:uci.demo_info] " +
+            "FROM (SELECT firstname, lastname, emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children FROM [formal-cascade-571:uci.demo_info] " +
             "where emailmd5 is not null ) AS Demographics " +
 
             "LEFT JOIN EACH (SELECT emailmd5, Address1, Address2, City, State, Zip FROM [formal-cascade-571:uci.address_info]) "+
@@ -180,7 +180,7 @@ Merquery.Queries = {
             }
         }
 
-        endString = " GROUP each BY Demographics.emailmd5, Demographics.birthdate, Demographics.gender, " +
+        endString = " GROUP each BY Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, " +
             "Demographics.city, Demographics.ethnicity, Demographics.sexorient, Demographics.marital, " +
             "Demographics.children, Address.Address1, Address.Address2, Address.City, Address.State, " +
             "Address.Zip, Campaign.advertiser_id, Campaign.advertiser_name, Campaign.campaign_id, "+
@@ -188,15 +188,15 @@ Merquery.Queries = {
             "Behavior.id, Behavior.name, Behavior.last_seen, Behavior.count, " +
             "Device.device_id, Device.device_name, Device.device_type_id, Device.device_type_name, " +
             "Device.operating_system, Device.last_seen, " +
-            " Purchase.advertiser_id, Purchase.last_sales_amount, Purchase.last_purchase_date, Purchase.ltv_online, Purchase.ltv_offline;";
-            //+ 'Limit ' + "20" + ';';
+            " Purchase.advertiser_id, Purchase.last_sales_amount, Purchase.last_purchase_date, Purchase.ltv_online, Purchase.ltv_offline "
+            + 'Limit ' + "50" + ';';
 
 
-                  Merquery.Util.log(queryString + inputs + endString);
+        Merquery.Util.log(queryString + inputs + endString);
 
         var request = gapi.client.bigquery.jobs.query({
 
-            'projectId': project_id,
+            'projectId': Merquery.Constants.project_id,
             'timeoutMs': '30000',
             'query': queryString + inputs + endString
 

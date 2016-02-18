@@ -1,10 +1,5 @@
 (function(){
-    // Schema based on GBQ
 
-    
-    
-    
-    
     if(typeof Merquery == "undefined" ) {
         Merquery = {};
     }
@@ -200,6 +195,7 @@
         category = {};
         columnNames = {};
         type = {};
+        schema = {};
         for(var i=0; i<fields.length; i++) {
 
         var originalCategoryName = fields[i].name;
@@ -265,6 +261,7 @@
                         inputTag.attr("id", columnHeaders[i]);
                         inputTag.attr("queryfield", databaseCoumns[i]);
                         inputTag.attr("type", columnType[i]);
+                        inputTag.attr("onkeypress", "Merquery.handle(event)");
                         preTag.append(inputTag);
                         tdTag.append(columnHeaders[i]);
                         trTag.append(tdTag);
@@ -290,7 +287,8 @@
         displayName: ['Not Specified','Male', 'Female','Unknown']
     }
 
-    //Search button functionality
+
+    //Create schema functionality
     $(document).ready(function() {
         var getSchema = function() {
             Merquery.Queries.standardQuery("washington", "Demographics_city", 1, createSchema);
@@ -298,60 +296,12 @@
         setTimeout(function () {
             Merquery.AuthenticationManager.auth(getSchema);
         }, 4000);
-    
-        $("#get_user").click(function () {
-            Merquery.showLoad();
-            Merquery.hideNav();
-            $("#result").empty();
-            Merquery.BreadCrumbs.clearBreadcrumbs();
-            $('#breadcrumbs').empty();
 
 
-
-
-
-            //Capture user inputs
-            var userValues = {};
-            var genderValues = {};
-            var userInputs= Merquery.BreadCrumbs.crumbs;
-            var x = document.getElementById("genderSelect").value;
-            //If Gender is not specified ("u")
-            if(x != 'u'){
-                genderValues  = {
-                     queryField: "Demographics_gender",
-                     input: x,
-                     querytype: "STRING"
-                     };
-                userInputs.push(genderValues);
-            }
-            $('input').each(function () {
-                if($(this).val().length !=0){
-                    userValues  = {
-                            queryField: $(this).attr('queryfield'),
-                            input: $(this).val(),
-                            querytype: $(this).attr('type')
-                     };
-                     userInputs.push(userValues);
-                     }
-              });
-            Merquery.Queries.runQuery(userInputs);
-          });
-
-        $("id_textfields").keypress(handle);
     });
     
-    
-    //If enter is pressed in a textbox then the search functionality will be activated.
-    function handle(e){
-        if(e.which === 13){
 
-            $("#result").empty();
-            Merquery.BreadCrumbs.clearBreadcrumbs();
-            $('#breadcrumbs').empty();
-            Merquery.Queries.runQuery();
-        }
-        return false;
-    }
+
     
     //Exports the data in the table to an xls file
     $(document).ready(function () {
@@ -365,6 +315,7 @@
             }
         });
     });
+
     //deciding how many results to show
     //http://stackoverflow.com/questions/17127572/bootstrap-dropdown-get-value-of-selected-item
     $(document).on('click', '.dropdown-menu li a', function() {

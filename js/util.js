@@ -5,6 +5,7 @@ if(typeof Merquery == "undefined" ) {
 Merquery.Util = {};
 //$Todo$ replace all console logs with this method
 Merquery.Util.log = function(info) {
+    console.log(info);
 }
 
 Merquery.TableAndFieldsFormatter = {
@@ -171,8 +172,52 @@ Merquery.Paginator = {
 Merquery.AuthenticationManager = {
     //Authorizes the connection to GBQ
     auth: function(onSuccess) {
-        gapi.auth.authorize(config, function() {
+       gapi.auth.authorize(Merquery.config, function() {
             gapi.client.load('bigquery', 'v2', onSuccess);
         });
     }
+}
+
+//If enter is pressed in a text box then the search functionality will be activated
+Merquery.handle = function(event){
+    if(event.which == 13 || event.keyCode == 13){
+        Merquery.search();
+    }
+    return false;
+}
+
+//Search button functionality
+Merquery.search = function (){
+    Merquery.showLoad();
+    Merquery.hideNav();
+    $("#result").empty();
+    Merquery.BreadCrumbs.clearBreadcrumbs();
+    $('#breadcrumbs').empty();
+
+    //Capture user inputs
+    var userValues = {};
+    var genderValues = {};
+    var userInputs= Merquery.BreadCrumbs.crumbs;
+    var x = document.getElementById("genderSelect").value;
+
+    //If Gender is not specified ("u")
+    if(x != 'u'){
+        genderValues  = {
+             queryField: "Demographics_gender",
+             input: x,
+             querytype: "STRING"
+             };
+        userInputs.push(genderValues);
+    }
+    $('input').each(function () {
+        if($(this).val().length !=0){
+            userValues  = {
+                    queryField: $(this).attr('queryfield'),
+                    input: $(this).val(),
+                    querytype: $(this).attr('type')
+             };
+             userInputs.push(userValues);
+             }
+      });
+    Merquery.Queries.runQuery(userInputs);
 }
