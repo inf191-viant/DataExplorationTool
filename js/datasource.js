@@ -279,9 +279,23 @@
         $("#export").click(function (e) {
         if(result.firstChild != null){
                 $('#exportedTable').removeAttr('style');
-                window.open('data:application/vnd.ms-excel,' + encodeURIComponent(exportedTable.innerText));
+                //window.open('data:application/vnd.ms-excel,' + encodeURIComponent(exportedTable.innerText));
+                var encodedUri = encodeURIComponent(exportedTable.innerText);
+                //var encodedUri = encodeURI(exportedTable);
+                var uri = 'data:application/vnd.ms-excel,';
+                var link = document.createElement("a");
+                link.setAttribute("href", uri + encodedUri);
+                link.setAttribute("download", "MerQueryData.xls");
+
+                link.click();
+                //console.log("in here");
+                //tableToExcel(exportedTable, 'W3C Example Table');
+                //var result = "data:application/vnd.ms-excel," + encodeURIComponent(exportedTable.innerText);
+                //this.href = result;
+                //this.download = "my-custom-filename.xls";
+                //return true;
                 $('#exportedTable').attr('style', 'display: none;');
-                e.preventDefault();
+                //e.preventDefault();
 
             }
         });
