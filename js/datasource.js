@@ -7,40 +7,10 @@
 
     Merquery.renderResults = function (response) {
         Merquery.showLoad();
-
-            //Showing messages on successful and unsuccessful queries
-            if(response.code == "400"){
-                $("#messageFailure").empty();
-                $("#messageSuccess").empty();
-                $("#messageFailure").removeAttr("style");
-                $("#messageFailure").removeClass("glyphicon glyphicon-ok");
-                $("#messageFailure").removeClass("alert alert-success");
-                $("#messageFailure").addClass("glyphicon glyphicon-exclamation-sign");
-                $("#messageFailure").addClass("alert alert-danger");
-                $("#messageFailure").append(response.message);
-                Merquery.hideLoad();
-             }
-             if(response.result.jobComplete){
-                $("#messageSuccess").empty();
-                $("#messageFailure").empty();
-                $("#messageSuccess").removeAttr("style");
-                $("#messageFailure").removeClass("glyphicon glyphicon-exclamation-sign");
-                $("#messageFailure").removeClass("alert alert-danger");
-                $("#messageSuccess").addClass("glyphicon glyphicon-ok");
-                $("#messageSuccess").addClass("alert alert-success");
-                $("#messageSuccess").append("Successful Query");
-                setTimeout(function() {
-                       $("#messageSuccess").fadeOut().empty();
-                            }, 5000);
-             }
-
+        Merquery.ShowMessage(response);
 
         Merquery.Util.log(response);
-        if ($('#header').empty()) {
-            $('#header').append("Results");
-            $('#header').addClass("page-header");
-            $('#header').attr('style', 'text-align: center;');
-        }
+
         $('#result').empty();
         $('#breadcrumbs').empty();
         Merquery.BreadCrumbs.displayBreadcrumbs();
@@ -154,6 +124,7 @@
             Merquery.Paginator.showResultsCount();
             Merquery.hideLoad();
             Merquery.showNav();
+
 
 	    //Copies the entire table from result to exportedTable
             var source = document.getElementById('result');

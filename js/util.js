@@ -46,6 +46,7 @@ Merquery.SchemaManager = {
 
     Merquery.showLoad = function() {
     $("#divADV").show();
+    Merquery.ClearHeader();
     }
 
     Merquery.hideLoad = function() {
@@ -190,6 +191,7 @@ Merquery.handle = function(event){
 Merquery.search = function (){
     Merquery.showLoad();
     Merquery.hideNav();
+    Merquery.ClearMessage();
     $("#result").empty();
     Merquery.BreadCrumbs.clearBreadcrumbs();
     $('#breadcrumbs').empty();
@@ -220,4 +222,53 @@ Merquery.search = function (){
              }
       });
     Merquery.Queries.runQuery(userInputs);
+}
+
+Merquery.ClearHeader = function() {
+    $('#header').empty();
+    $('#header').removeAttr();
+    $('#header').removeClass();
+}
+Merquery.AddHeader = function() {
+    Merquery.ClearHeader();
+    $('#header').append("Results");
+    $('#header').addClass("page-header");
+    $('#header').attr('style', 'text-align: center;');
+
+}
+
+Merquery.ClearMessage = function() {
+    $("#message").empty();
+    $("#message").removeClass();
+}
+
+//Display message when a query has no results or fails
+Merquery.ShowMessage = function (response){
+    if(response.code == "400"){
+        Merquery.ClearHeader();
+        Merquery.ClearMessage();
+        Merquery.hideLoad();
+
+        $("#message").addClass("glyphicon glyphicon-exclamation-sign");
+        $("#message").addClass("alert alert-danger");
+        $("#message").append(response.message);
+
+     }
+     if(response.result.jobComplete && response.result.totalRows > 0){
+        Merquery.ClearMessage();
+        Merquery.ClearHeader();
+        Merquery.AddHeader();
+
+     }
+     if(response.result.jobComplete && response.result.totalRows ==0){
+         Merquery.ClearHeader();
+         Merquery.ClearMessage();
+         Merquery.AddHeader();
+         $("#message").addClass("glyphicon glyphicon-ok");
+         $("#message").addClass("alert alert-success");
+         $("#message").append("No Results");
+
+      }
+
+
 }
