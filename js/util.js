@@ -3,7 +3,6 @@ if(typeof Merquery == "undefined" ) {
 }
 
 Merquery.Util = {};
-//$Todo$ replace all console logs with this method
 Merquery.Util.log = function(info) {
     console.log(info);
 }
