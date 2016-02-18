@@ -144,8 +144,9 @@ Merquery.Paginator = {
             });
 
         });
+        //Adding an Export button in order to export all the data from the table to an excel file
         $('#export').empty();
-        $('#export').append("<button id='export-button' class='fixed-nav-bar'>Export data</button>");
+        $('#export').append("<button id='export-button' onclick='Merquery.Export();' class='fixed-nav-bar'>Export data</button>");
 
     }
 
@@ -270,4 +271,18 @@ Merquery.ShowMessage = function (response){
       }
 
 
+}
+
+//Exports the data in the table to an xls file
+Merquery.Export = function (){
+    if(result.firstChild != null){
+            $('#exportedTable').removeAttr('style');
+            var encodedUri = encodeURIComponent(exportedTable.innerText);
+            var uri = 'data:application/vnd.ms-excel,';
+            var link = document.createElement("a");
+            link.setAttribute("href", uri + encodedUri);
+            link.setAttribute("download", "MerQueryData.xls");
+            link.click();
+            $('#exportedTable').attr('style', 'display: none;');
+        }
 }

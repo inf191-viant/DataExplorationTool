@@ -270,36 +270,7 @@
 
 
     });
-    
 
-
-    
-    //Exports the data in the table to an xls file
-    $(document).ready(function () {
-        $("#export").click(function (e) {
-        if(result.firstChild != null){
-                $('#exportedTable').removeAttr('style');
-                //window.open('data:application/vnd.ms-excel,' + encodeURIComponent(exportedTable.innerText));
-                var encodedUri = encodeURIComponent(exportedTable.innerText);
-                //var encodedUri = encodeURI(exportedTable);
-                var uri = 'data:application/vnd.ms-excel,';
-                var link = document.createElement("a");
-                link.setAttribute("href", uri + encodedUri);
-                link.setAttribute("download", "MerQueryData.xls");
-
-                link.click();
-                //console.log("in here");
-                //tableToExcel(exportedTable, 'W3C Example Table');
-                //var result = "data:application/vnd.ms-excel," + encodeURIComponent(exportedTable.innerText);
-                //this.href = result;
-                //this.download = "my-custom-filename.xls";
-                //return true;
-                $('#exportedTable').attr('style', 'display: none;');
-                //e.preventDefault();
-
-            }
-        });
-    });
 
     //deciding how many results to show
     //http://stackoverflow.com/questions/17127572/bootstrap-dropdown-get-value-of-selected-item
