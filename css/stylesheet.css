@@ -362,3 +362,17 @@ button:active{
     text-align: center;
     height: 25px;
 }
+
+/*Table Header up and down arrows for sorting */
+table.tablesorter thead tr .header {
+	/*background-image: url(bg.gif);*/
+	background-repeat: no-repeat;
+	background-position:  right;
+	cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}

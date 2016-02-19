@@ -32,10 +32,10 @@
   <script type="text/javascript" src="js/queries.js"></script>
   <script type="text/javascript" src="js/popup.js"></script>
   <script type="text/javascript" src="js/datasource.js"></script>
-  <script type="text/javascript" src="js/sortTable.js"></script>
   <script type="text/javascript" src="js/leftNavigation.js"></script>
   <script type="text/javascript" src="js/queryMaker.js"></script>
   <script type="text/javascript" src="js/checkboxes.js"></script>
+  <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
 
   <!-- Script for Help box -->
   <script type="text/javascript">
@@ -122,28 +122,17 @@
 
   </div>
 
-
-
-
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
     <tr><div id="message"  role="alert"></div></tr>
 
     <h1 id="header"></h1>
     <div id="result-count"></div>
-
-
-    <!--<button id="auth_button" onclick="auth();">Authorize</button>
-    <div id="client_initiated"></div>
-    <button id="dataset_button" style="display:none;" onclick="runQuery();">Run Query</button>
-    <div id="result"></div>
-    <div id="result_box"></div>-->
-
     <div class='container' id="divADV">
       <img src="239.gif" >
       <div class='loader'></div>
     </div>
-    <table id="result" ></table>
+    <table id="result" class="tablesorter"></table>
     <table id="exportedTable" style="display: none;" ></table>
     <div id="page-nav" class="fixed-nav-bar"></div>
     <div id="export"></div>

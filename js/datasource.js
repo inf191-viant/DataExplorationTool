@@ -44,6 +44,7 @@
         for(var i=0; i < fields.length; i++) {
             var header = $("<th></th>");
             header.append(getDisplayName(schema[fields[i].name].fieldName));
+
             trTag.append(header);
             thTag.append(trTag);
         }
@@ -119,7 +120,7 @@
     
 
             //Calls the sort function to add sorting functionality to the table
-            initTable("result");
+            $("#result").tablesorter();
             Merquery.Paginator.initPagination();
             Merquery.Paginator.showResultsCount();
             Merquery.BreadCrumbs.showBreadcrumbs();
@@ -140,14 +141,14 @@
     };
 
     //Left navigation specifications
-    $(document).ready(function () {
+  /*  $(document).ready(function () {
         $('label.tree-toggle').parent().children('ul.tree').toggle(0);
         $('.tree-toggle').click(function () {
             $(this).parent().children('ul.tree').toggle(200);
         });
         Merquery.hideLoad();
 
-    });
+    });*/
     var getDisplayName =function(fieldName) {
         var name = fieldName.split("_");
         var formatted;
@@ -264,6 +265,7 @@
 
     //Create schema functionality
     $(document).ready(function() {
+        Merquery.hideLoad();
         var getSchema = function() {
             Merquery.Queries.standardQuery("washington", "Demographics_city", 1, createSchema);
         };
