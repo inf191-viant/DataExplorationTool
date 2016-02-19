@@ -1,180 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
 
-    <title>MerQuery</title>
+  <title>MerQuery</title>
 
-    <!-- stylesheet for pagination-->
-    <link href="css/simplePagination.css" rel="stylesheet">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- stylesheet for pagination-->
+  <link href="css/simplePagination.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/stylesheet.css" rel="stylesheet">
-    <!--stylesheet for loading indicator -->
-    <link href="css/loader.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/stylesheet.css" rel="stylesheet">
+  <!--stylesheet for loading indicator -->
+  <link href="css/loader.css" rel="stylesheet">
 
-	<!-- Scripts for search bar -->
-    <script src="https://apis.google.com/js/client.js"></script>
+  <!-- Scripts for search bar -->
+  <script src="https://apis.google.com/js/client.js"></script>
 
-    <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
-    <script type="text/javascript" src="js/BreadCrumbs.js"></script>
-    <script type="text/javascript" src="js/constants.js"></script>
-    <script type="text/javascript" src="js/util.js"></script>
-    <script type="text/javascript" src="js/queries.js"></script>
-    <script type="text/javascript" src="js/popup.js"></script>
-    <script type="text/javascript" src="js/datasource.js"></script>
-    <script type="text/javascript" src="js/sortTable.js"></script>
-    <script type="text/javascript" src="js/leftNavigation.js"></script>
-    <script type="text/javascript" src="js/queryMaker.js"></script>
-    <script type="text/javascript" src="js/checkboxes.js"></script>
+  <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
+  <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
+  <script type="text/javascript" src="js/BreadCrumbs.js"></script>
+  <script type="text/javascript" src="js/constants.js"></script>
+  <script type="text/javascript" src="js/util.js"></script>
+  <script type="text/javascript" src="js/queries.js"></script>
+  <script type="text/javascript" src="js/popup.js"></script>
+  <script type="text/javascript" src="js/datasource.js"></script>
+  <script type="text/javascript" src="js/sortTable.js"></script>
+  <script type="text/javascript" src="js/leftNavigation.js"></script>
+  <script type="text/javascript" src="js/queryMaker.js"></script>
+  <script type="text/javascript" src="js/checkboxes.js"></script>
 
-    <!-- Script for Help box -->
-    <script type="text/javascript">
-      function overlay() {
-          helpElement = document.getElementById("helpDialog")
-          helpElement.style.visibility = (helpElement.style.visibility == "visible") ? "hidden" : "visible";
-      }
-    </script>
-
-
-
+  <!-- Script for Help box -->
+  <script type="text/javascript">
+    function overlay() {
+      helpElement = document.getElementById("helpDialog")
+      helpElement.style.visibility = (helpElement.style.visibility == "visible") ? "hidden" : "visible";
+    }
+  </script>
 </head>
 
-<body>
-<!--<img src="mercury.jpg" class="img-rounded" id="theImage">-->
- <!-- <div id="top"><img src= "http://lightsinthedark.files.wordpress.com/2012/12/gale-crater.jpg" class="img-rounded" id="theImage"></img></div>-->
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="HelpButtonHeader">
-        <p class="helpButton"><a href="#" onclick="overlay()">Help</a></p>
-      </div>
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar">Help</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
 
-      <div id="helpDialog">
-        <div class="modalHeader">
-          <p>MerQuery, a Viant Inc. exclusive...</p>
-          <hr>
-          <p>Welcome! MerQuery is an engaging user experience, effectively
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+
+
+    <div class="HelpButtonHeader">
+      <button class="helpButton" onclick="overlay()">Help</button>
+    </div>
+
+
+    <div id="helpDialog">
+      <div class="modalHeader">
+        <p>MerQuery, a Viant Inc. exclusive...</p>
+        <hr>
+        <p>Welcome! Merquery is an engaging user experience, effectively
           allowing you the ability to search through the digital warehouse of
           Viant's user profile data.</p>
-          <br>
-          <p>To use the system, just ensure you're logged into your Google BigQuery
+        <br>
+        <p>To use the system, just ensure you're logged into your Google BigQuery
           credentials through Specific Media. Just go ahead and plug information into
           the search fields on the right, select the number of results you want, and hit 'Enter';
           we'll take care of the rest.</p>
-          <br>
-          <p>You can click through all hyperlinked fields and bring up individual user profiles
+        <br>
+        <p>You can click through all hyperlinked fields and bring up individual user profiles
           when you see an icon next to the 'emailMD5' column entry. All search results can be exported
           out into an Excel file for later use. Enjoy!</p>
-            <p>Questions? Contact <a href="mailto:chrisdoe@viantinc.com?subject=MerQuery">Chris Doe</a> at Viant, Inc.</p>
-          <hr>
-          <a href="#" onclick="overlay()">Got it!</a>
-        </div>
-        </div>
-      </div>
-
-
+        <p>Questions? Contact <a href="mailto:chrisdoe@viantinc.com?subject=MerQuery">Chris Doe</a> at Viant, Inc.</p>
+        <hr>
+        <a href="#" onclick="overlay()">Got it!</a>
       </div>
     </div>
-  </nav>
 
 
-  <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar ">
-      <ul class="nav nav-sidebar">
-        <ul class="nav nav-list">
-          <h1>VIANT AD CLOUD</h1>
-          <h2>Merquery</h2>
-          <p></p>
-          <!--
-          <button type="button" class="btn btn-lg btn-left-nav" id ="close-left-nav">
-            <span class="glyphicon glyphicon-menu-left" area-hidden="true"></span></button>
-          -->
-          <li><button id="get_user" onclick="Merquery.search();">Search</button>
-          </li>
+  </div>
+  </div>
+</nav>
 
-          <div class="dropdown">
-            <!--<button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">Results Shown-->
-            Results Per Page: <button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">10
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">10</a></li>
-              <li><a href="#">20</a></li>
-              <li><a href="#">50</a></li>
-              <li><a href="#">100</a></li>
-              <li><a href="#">250</a></li>
-              <li><a href="#">500</a></li>
-              <li><a href="#">1000</a></li>
-            </ul>
-          </div>
-          <table id="navigationBar"></table>
-          <form id="check-boxes"></form>
-        </ul>
+<div id="merquery-header">
+  <p></p>
+  <h1 class="logo">VIANT AD CLOUD</h1>
+  <h2 class="logo">Merquery</h2>
+  <p></p>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar ">
+    <ul class="nav nav-sidebar">
+      <ul class="nav nav-list">
+        <table id="navigationBar"></table>
+        <form id="check-boxes"></form>
+      </ul>
+    </ul>
+  </div>
+
+  <div id="search-footer">
+
+    <div class="dropup">
+      Results Per Page: <button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">10
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">10</a></li>
+        <li><a href="#">20</a></li>
+        <li><a href="#">50</a></li>
+        <li><a href="#">100</a></li>
+        <li><a href="#">250</a></li>
+        <li><a href="#">500</a></li>
+        <li><a href="#">1000</a></li>
       </ul>
     </div>
+    <p></p>
+    <button id="get_user" onclick="Merquery.search();">Search</button>
+
+  </div>
 
 
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <!--
-        <button type="button" class="btn btn-lg btn-left-nav" id ="open-left-nav">
-          <span class="glyphicon glyphicon-menu-right" area-hidden="true"></span></button>
-        <p>Welcome to Merquery.</p>
-        -->
-        <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
-        <tr><div id="message"  role="alert"></div></tr>
-
-          <h1 id="header"></h1>
-          <div id="result-count"></div>
 
 
-			<!--<button id="auth_button" onclick="auth();">Authorize</button>
-			<div id="client_initiated"></div>
-			<button id="dataset_button" style="display:none;" onclick="runQuery();">Run Query</button>
-			<div id="result"></div>
-			<div id="result_box"></div>-->
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
+    <tr><div id="message"  role="alert"></div></tr>
 
-     <div class='container' id="divADV">
-       <img src="239.gif" >
-          <div class='loader'></div>
-        </div>
-        <table id="result" ></table>
-        <table id="exportedTable" style="display: none;" ></table>
-        <div id="page-nav" class="fixed-nav-bar"></div>
-        <div id="export"></div>
-       <div id="popup"></div>
+    <h1 id="header"></h1>
+    <div id="result-count"></div>
 
-            
-          </div>
-		  
-        </div>
-      </div>
+
+    <!--<button id="auth_button" onclick="auth();">Authorize</button>
+    <div id="client_initiated"></div>
+    <button id="dataset_button" style="display:none;" onclick="runQuery();">Run Query</button>
+    <div id="result"></div>
+    <div id="result_box"></div>-->
+
+    <div class='container' id="divADV">
+      <img src="239.gif" >
+      <div class='loader'></div>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="http://dinbror.dk/bpopup/assets/jquery.bpopup-0.9.4.min.js"></script>
-    <script src="http://dinbror.dk/bpopup/assets/jquery.easing.1.3.js"></script>
+    <table id="result" ></table>
+    <table id="exportedTable" style="display: none;" ></table>
+    <div id="page-nav" class="fixed-nav-bar"></div>
+    <div id="export"></div>
+    <div id="popup"></div>
 
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <!--  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
-  </body>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<script src="js/bootstrap.min.js"></script>
+<script src="http://dinbror.dk/bpopup/assets/jquery.bpopup-0.9.4.min.js"></script>
+<script src="http://dinbror.dk/bpopup/assets/jquery.easing.1.3.js"></script>
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!--  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+</body>
 </html>
