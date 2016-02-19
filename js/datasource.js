@@ -250,7 +250,7 @@
         $('#navigationBar').append(tbodyTag);
         Merquery.Util.log(navigationBar);
         Merquery.initAccordion();
-
+        Merquery.checkboxes.createCheckbox(category);
     }
 
 
