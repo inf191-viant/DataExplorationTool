@@ -9,6 +9,14 @@ Merquery.BreadCrumbs = {
         Merquery.BreadCrumbs.crumbs = [];
     },
 
+    showBreadcrumbs: function(){
+        $('#breadcrumbs').show();
+    },
+
+    hideBreadcrumbs: function() {
+        $('#breadcrumbs').hide();
+    },
+
     // Forms and displays the breadcrumbs
     displayBreadcrumbs: function() {
         var crumbs = Merquery.BreadCrumbs.crumbs;
