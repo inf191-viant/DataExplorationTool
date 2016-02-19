@@ -254,7 +254,8 @@ Merquery.ShowMessage = function (response){
         Merquery.hideLoad(); 
         $("#message").addClass("glyphicon glyphicon-exclamation-sign"); 
         $("#message").addClass("alert alert-danger"); 
-        if(response.message == "Field 'undefined' not found on either side of the JOIN"){ 
+        if(response.message == "Field 'undefined' not found on either side of the JOIN"
+        || response.message.substr(0,11) == "Encountered"){ 
            $("#message").append(" All search fields are blank. Please enter a search value and try again."); 
         }else if(response.message.indexOf("Argument type mismatch") >=0){ 
            var columnName = response.message.split("'");
@@ -302,6 +303,7 @@ Merquery.ShowMessage = function (response){
          Merquery.ClearHeader();
          Merquery.ClearMessage();
          Merquery.AddHeader();
+         Merquery.hideLoad();
          $("#message").addClass("glyphicon glyphicon-ok");
          $("#message").addClass("alert alert-success");
          $("#message").append("No Results");
