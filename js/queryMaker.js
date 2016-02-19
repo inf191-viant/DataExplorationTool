@@ -100,15 +100,15 @@ Merquery.queryMaker = {
             var formattedFieldName;
             if(i ==0){
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField);
-                whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + userInputs[i].input + '%"';
+                whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + (userInputs[i].input).toLowerCase() + '%"';
             }
             else if(i>0){
                 whereString += ' AND ';
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField)
                 if(userInputs[i].querytype == 'STRING')
-                    whereString += 'lower(' + formattedFieldName + ') ' + ' like "%' + userInputs[i].input + '%"';
+                    whereString += 'lower(' + formattedFieldName + ') ' + ' like "%' + (userInputs[i].input).toLowerCase() + '%"';
                 else
-                    whereString += formattedFieldName + ' = ' + userInputs[i].input;
+                    whereString += formattedFieldName + ' = ' + (userInputs[i].input).toLowerCase();
             }
         }
 
