@@ -152,7 +152,9 @@
         var formatted;
         if(name.length >2){
             formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
-            formatted = formatted.concat(" ", name[2].substr(0,1).toUpperCase()+name[2].substr(1).toLowerCase());
+            for(var i=2; i < name.length; i++){
+                formatted = formatted.concat(" ", name[i].substr(0,1).toUpperCase()+name[i].substr(1).toLowerCase());
+            }
         }
         else{
             formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
