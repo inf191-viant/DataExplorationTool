@@ -122,6 +122,7 @@
             initTable("result");
             Merquery.Paginator.initPagination();
             Merquery.Paginator.showResultsCount();
+            Merquery.BreadCrumbs.showBreadcrumbs();
             Merquery.hideLoad();
             Merquery.showNav();
 
