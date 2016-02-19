@@ -128,6 +128,7 @@ Merquery.Queries = {
         Merquery.hideNav();
         Merquery.showLoad();
         Merquery.Paginator.hideResultsCount();
+        Merquery.BreadCrumbs.hideBreadcrumbs();
         $('#export').empty();
         $('#result').empty();
 
