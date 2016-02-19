@@ -196,6 +196,10 @@ Merquery.search = function (){
     Merquery.BreadCrumbs.clearBreadcrumbs();
     $('#breadcrumbs').empty();
 
+    // Capture the checked boxes to know which tables to display
+    Merquery.checkboxes.getSelectedCheckboxes();
+
+
     //Capture user inputs
     var userValues = {};
     var genderValues = {};
@@ -212,7 +216,7 @@ Merquery.search = function (){
         userInputs.push(genderValues);
     }
     $('input').each(function () {
-        if($(this).val().length !=0){
+        if($(this).val().length !=0 && $(this).attr('type') != "checkbox"){
             userValues  = {
                     queryField: $(this).attr('queryfield'),
                     input: $(this).val().toLowerCase(),
