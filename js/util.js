@@ -215,7 +215,7 @@ Merquery.search = function (){
         if($(this).val().length !=0){
             userValues  = {
                     queryField: $(this).attr('queryfield'),
-                    input: $(this).val(),
+                    input: $(this).val().toLowerCase(),
                     querytype: $(this).attr('type')
              };
              userInputs.push(userValues);

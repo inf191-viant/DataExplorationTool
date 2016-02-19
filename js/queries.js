@@ -168,13 +168,13 @@ Merquery.Queries = {
             var formattedFieldName;
             if(i ==0){
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField)
-                inputs =  formattedFieldName + ' like "' + userInputs[i].input + '"';
+                inputs =  'lower(' + formattedFieldName + ') ' + ' like "%' + userInputs[i].input + '%"';
             }
             else if(i>0){
                 inputs = inputs + ' AND ';
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField)
                 if(userInputs[i].querytype == 'STRING')
-                    inputs =  inputs + formattedFieldName + ' like "' + userInputs[i].input + '"';
+                    inputs =  inputs + 'lower(' + formattedFieldName + ') ' + ' like "%' + userInputs[i].input + '%"';
                 else
                     inputs =  inputs + formattedFieldName + ' = ' + userInputs[i].input;
             }
