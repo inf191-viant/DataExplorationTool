@@ -132,16 +132,21 @@ Merquery.Queries = {
         $('#export').empty();
         $('#result').empty();
 
+        if (Merquery.BreadCrumbs.crumbs.length ==0){
+            Merquery.ClearHeader();
+            Merquery.ClearMessage();
+            Merquery.hideLoad();
+        } else {
+            var request = gapi.client.bigquery.jobs.query({
 
-        var request = gapi.client.bigquery.jobs.query({
+                'projectId': Merquery.Constants.project_id,
+                'timeoutMs': '30000',
+                'query': Merquery.queryMaker.formQuery()
 
-            'projectId': Merquery.Constants.project_id,
-            'timeoutMs': '30000',
-            'query': Merquery.queryMaker.formQuery()
-
-        });
-        request.execute(Merquery.renderResults);
-    },
+            });
+            request.execute(Merquery.renderResults);
+        }
+    }
 
 
 };
