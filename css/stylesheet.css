@@ -139,9 +139,14 @@ SIDEBAR
 .accordion-toggle{
     cursor: pointer;
     display: block;
+    color: white;
+}
+.accordion-toggle:hover {
+color: red;
 }
 .accordion-content {
     display: none;
+
 }
 .accordion-content.default {
     display: block;

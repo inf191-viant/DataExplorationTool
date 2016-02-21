@@ -200,10 +200,15 @@
           }
         Merquery.Util.log("category " + category);
         Merquery.Util.log( category);
+        var num = 0;
         var tbodyTag = $("<div id='accordion'><tbody></tbody></div>");
         for(var prop in category) {
             if(category.hasOwnProperty(prop)) {
+                num++;
                 var accordionTag= $("<div class='accordion-content'></div>")
+                if (num==1) {
+                var accordionTag=$("<div class='accordion-content default'></div>")
+                }
                 var divider = $("<li class='divider'></li>");
                 var labelTag = $("<label class='accordion-toggle'></label>");
                 labelTag.append(""+prop+ '<br>');
