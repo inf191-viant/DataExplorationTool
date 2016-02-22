@@ -364,6 +364,8 @@ button:active{
 /*Export Button*/
 #export-button {
     position: fixed;
+    padding-top: 0px;
+    padding-bottom: 10px;
     float: right;
     right: 16px;
     bottom: 5px;

@@ -146,7 +146,7 @@ Merquery.Paginator = {
         });
         //Adding an Export button in order to export all the data from the table to an excel file
         $('#export').empty();
-        $('#export').append("<button id='export-button' onclick='Merquery.Export();' class='fixed-nav-bar'>Export data</button>");
+        $('#export').append("<button id='export-button' onclick='Merquery.Export();' class='fixed-nav-bar'>Export</button>");
 
     }
 
