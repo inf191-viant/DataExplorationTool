@@ -75,6 +75,9 @@
                     var fieldValue = field.data("value");
                     var userValues;
                     field.click(function () {
+                        Merquery.BreadCrumbs.clearBreadcrumbs();
+                        $('breadcrumbs').empty();
+                        crumbs = Merquery.BreadCrumbs.crumbs;
                         userValues = {
                             queryField: $(this).data("queryField"),
                             input: $(this).data("value"),
