@@ -223,6 +223,7 @@ Merquery.Popup  = {
 
 
         Merquery.Popup.popUp(indivInfo);
+        //$("#divADV2").hide();
 
     }
     

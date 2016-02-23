@@ -107,6 +107,9 @@
                         myButton.data("queryfield",fields[j].name);
     
                         myButton.click(function () {
+                            $('#popup').bPopup().empty();
+                            $('#divADV2').show();
+                            $('#popup').bPopup().append("<img id='divADV2' id='popimg' src= '365.gif'/>");
                             Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
     
                         });

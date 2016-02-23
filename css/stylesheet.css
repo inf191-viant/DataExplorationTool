@@ -185,9 +185,22 @@ th, td, tr {
     font-size: 1em;
 }
 img {
-    position: center;
-    top: 0; bottom:0; left: 0; right:50;
-    margin: 150px 0px 0px 390px;
+
+    position:fixed;
+    left: 50%;
+    top: 50%
+    right: 50%;
+    bottom: 50%;
+   /* top: 0; bottom:0; left: 0; right:50;
+    margin: 150px 0px 0px 390px;*/
+}
+
+#popimg {
+ position:center;
+    left: 50%;
+    top: 30%
+    right: 50%;
+    bottom: 70%;
 }
 
 #popup, .bMulti {
