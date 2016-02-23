@@ -187,6 +187,27 @@ Merquery.handle = function(event){
     return false;
 }
 
+//Reset button functionality
+Merquery.reset = function (){
+    var userInputs= {};
+
+    //Clears all the input fields except the checkbox fields
+    var inputFields = document.getElementsByTagName("input");
+    var input = inputFields.length;
+    for (var i = 0; i < input; ++i){
+        if(inputFields[i].type !="checkbox"){
+            inputFields[i].value="";
+        }
+    }
+
+    //Clears all the dropdown fields
+    var dropDownFields = document.getElementsByTagName("select");
+    var dropdown = dropDownFields.length;
+    for (var i = 0; i < dropdown; ++i){
+      dropDownFields[i].value="u";
+    }
+}
+
 //Search button functionality
 Merquery.search = function (){
     Merquery.showLoad();
@@ -225,6 +246,7 @@ Merquery.search = function (){
              userInputs.push(userValues);
              }
       });
+
     Merquery.Queries.runQuery(userInputs);
 }
 
