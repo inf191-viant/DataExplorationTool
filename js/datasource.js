@@ -208,9 +208,11 @@
         Merquery.Util.log( category);
         var num = 0;
         var tbodyTag = $("<div id='accordion'><tbody></tbody></div>");
+        var categoryCounter = -1;
         for(var prop in category) {
             if(category.hasOwnProperty(prop)) {
                 num++;
+                categoryCounter++;
                 var accordionTag= $("<div class='accordion-content'></div>")
                 if (num==1) {
                 var accordionTag=$("<div class='accordion-content default'></div>")
@@ -220,6 +222,7 @@
                 labelTag.append(""+prop+ '<br>');
                 tbodyTag.append(labelTag);
 
+                var placeholders = Merquery.databaseConstants.query[categoryCounter].placeholder.split(", ");
                 var databaseCoumns = columnNames[prop];
                 var columnHeaders  = category[prop];
                 var columnType = type[prop];
@@ -248,6 +251,7 @@
                         inputTag.attr("queryfield", databaseCoumns[i]);
                         inputTag.attr("type", columnType[i]);
                         inputTag.attr("onkeypress", "Merquery.handle(event)");
+                        inputTag.attr("placeholder", placeholders[i]);
                         preTag.append(inputTag);
                         tdTag.append(columnHeaders[i]);
                         trTag.append(tdTag);
