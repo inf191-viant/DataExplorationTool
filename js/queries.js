@@ -66,7 +66,6 @@ Merquery.Queries = {
 
     //Runs the query when the search button is clicked
     runQuery: function(userInputs) {
-        //Merquery.Queries.createQueryArray();
 
         // For loading indicator
         Merquery.hideNav();
@@ -89,6 +88,10 @@ Merquery.Queries = {
 
             });
             request.execute(Merquery.renderResults);
+        }
+
+        if(userInputs.length ==0){
+           Merquery.ShowMessage(null, userInputs);
         }
     }
 

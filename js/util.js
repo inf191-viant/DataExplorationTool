@@ -197,6 +197,8 @@ Merquery.reset = function (){
     for (var i = 0; i < input; ++i){
         if(inputFields[i].type !="checkbox"){
             inputFields[i].value="";
+        }else{
+            inputFields[i].checked = true;
         }
     }
 
@@ -206,6 +208,16 @@ Merquery.reset = function (){
     for (var i = 0; i < dropdown; ++i){
       dropDownFields[i].value="u";
     }
+
+    //Clear the table of results
+    Merquery.ClearHeader();
+    Merquery.ClearMessage();
+    Merquery.Paginator.hideResultsCount();
+    Merquery.hideNav();
+    $('#result').empty();
+    $('#breadcrumbs').empty();
+    $('#export').empty();
+
 }
 
 //Search button functionality
@@ -219,7 +231,6 @@ Merquery.search = function (){
 
     // Capture the checked boxes to know which tables to display
     Merquery.checkboxes.getSelectedCheckboxes();
-
 
     //Capture user inputs
     var userValues = {};
@@ -247,6 +258,7 @@ Merquery.search = function (){
              }
       });
 
+
     Merquery.Queries.runQuery(userInputs);
 }
 
@@ -268,71 +280,85 @@ Merquery.ClearMessage = function() {
     $("#message").removeClass();
 }
 
+
+
+
 //Display message when a query has no results or fails
-Merquery.ShowMessage = function (response){
-    if(response.code == "400"){
-        Merquery.ClearHeader();
-        Merquery.ClearMessage();
-        Merquery.hideLoad(); 
-        $("#message").addClass("glyphicon glyphicon-exclamation-sign"); 
-        $("#message").addClass("alert alert-danger"); 
-        if(response.message == "Field 'undefined' not found on either side of the JOIN"
-        || response.message.substr(0,11) == "Encountered"){ 
-           $("#message").append(" All search fields are blank. Please enter a search value and try again."); 
-        }else if(response.message.indexOf("Argument type mismatch") >=0){ 
-           var columnName = response.message.split("'");
-           $("#message").append("You did not enter "); 
-           if(columnName[2].indexOf(" is type int64") >=0){
-                $("#message").append(" an Integer for the field "); 
-           }
-           if(columnName[2].indexOf(" is type string") >=0){
-                $("#message").append(" a String for the field "); 
-           }
-           if(columnName[2].indexOf(" is type double") >=0){
-               $("#message").append(" a Double for the field "); 
-           }
-           var format = columnName[1].split(".");
-           var formattedName = format[1].split("_");
-           var errorFieldName;
-           if(formattedName.length >0){
-                errorFieldName = formattedName[0].substr(0,1).toUpperCase() + formattedName[0].substr(1).toLowerCase();
-                for(var i=1; i < formattedName.length; i++){
-                     errorFieldName = errorFieldName.concat(" ", formattedName[i].substr(0,1).toUpperCase()+formattedName[i].substr(1).toLowerCase());
+Merquery.ShowMessage = function (response, userInputs){
+   if(response != null){
+        if(response.code == "400"){
+            Merquery.ClearHeader();
+            Merquery.ClearMessage();
+            Merquery.hideLoad(); 
+            $("#message").addClass("glyphicon glyphicon-exclamation-sign"); 
+            $("#message").addClass("alert alert-danger"); 
+            if(response.message == "Field 'undefined' not found on either side of the JOIN"
+            || response.message.substr(0,11) == "Encountered"){ 
+               $("#message").append(" All search fields are blank. Please enter a search value and try again."); 
+            }else if(response.message.indexOf("Argument type mismatch") >=0){ 
+               var columnName = response.message.split("'");
+               $("#message").append("You entered '");
+               $("#message").append(userInputs[0].input);
+               if(columnName[2].indexOf(" is type int64") >=0){
+                    $("#message").append("'. Please enter an Integer such as '5' for the field ");
+               }
+               if(columnName[2].indexOf(" is type string") >=0){
+                    $("#message").append("'. Please enter a String such as 'test' for the field ");
+               }
+               if(columnName[2].indexOf(" is type double") >=0){
+                   $("#message").append("'. Please enter a Double such as '5.0' for the field ");
+               }
+               var format = columnName[1].split(".");
+               var formattedName = format[1].split("_");
+               var errorFieldName;
+               if(formattedName.length >0){
+                    errorFieldName = formattedName[0].substr(0,1).toUpperCase() + formattedName[0].substr(1).toLowerCase();
+                    for(var i=1; i < formattedName.length; i++){
+                         errorFieldName = errorFieldName.concat(" ", formattedName[i].substr(0,1).toUpperCase()+formattedName[i].substr(1).toLowerCase());
+                    }
+               }else{
+                    errorFieldName = formattedName[0].substr(0,1).toUpperCase() + formattedName[0].substr(1).toLowerCase();
+               }
+               $("#message").append(errorFieldName);
+               //$("#message").append(". Please try again."); 
+               $("#message").append(".");
+            }else if(response.message.indexOf("Field") >=0){ 
+                var columnName = response.message.split("'");
+                if(columnName[2].indexOf(" not found on either side of the JOIN") >=0){
+                    $("#message").append("'"+columnName[1] + "'" + " is an invalid entry. Please try again.");
+                }else{
+                    $("#message").append(response.message); 
                 }
-           }else{
-                errorFieldName = formattedName[0].substr(0,1).toUpperCase() + formattedName[0].substr(1).toLowerCase();
-           }
-           $("#message").append(errorFieldName);
-           $("#message").append(". Please try again."); 
-        }else if(response.message.indexOf("Field") >=0){ 
-            var columnName = response.message.split("'");
-            if(columnName[2].indexOf(" not found on either side of the JOIN") >=0){
-                $("#message").append("'"+columnName[1] + "'" + " is an invalid entry. Please try again.");
-            }else{
-                $("#message").append(response.message); 
+
             }
 
-        }
+           }
+         if(response.result.jobComplete && response.result.totalRows > 0){
+            Merquery.ClearMessage();
+            Merquery.ClearHeader();
+            Merquery.AddHeader();
 
-       }
-     if(response.result.jobComplete && response.result.totalRows > 0){
-        Merquery.ClearMessage();
-        Merquery.ClearHeader();
-        Merquery.AddHeader();
+         }
+         if(response.result.jobComplete && response.result.totalRows ==0){
+             Merquery.ClearHeader();
+             Merquery.ClearMessage();
+             Merquery.AddHeader();
+             Merquery.hideLoad();
+             $("#message").addClass("glyphicon glyphicon-ok");
+             $("#message").addClass("alert alert-success");
+             $("#message").append("No Results");
 
-     }
-     if(response.result.jobComplete && response.result.totalRows ==0){
-         Merquery.ClearHeader();
-         Merquery.ClearMessage();
-         Merquery.AddHeader();
-         Merquery.hideLoad();
-         $("#message").addClass("glyphicon glyphicon-ok");
-         $("#message").addClass("alert alert-success");
-         $("#message").append("No Results");
-
+          }
       }
 
+      if(userInputs.length ==0){
+          $("#message").addClass("glyphicon glyphicon-exclamation-sign"); 
+          $("#message").addClass("alert alert-danger"); 
+          $("#message").append(" All search fields are blank. Please enter a search value and try again."); 
+       }
+
 }
+
 
 
 //Exports the data in the table to an xls file

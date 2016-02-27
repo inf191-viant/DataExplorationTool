@@ -7,7 +7,7 @@
 
     Merquery.renderResults = function (response) {
         Merquery.showLoad();
-        Merquery.ShowMessage(response);
+        Merquery.ShowMessage(response, Merquery.BreadCrumbs.crumbs);
 
         Merquery.Util.log(response);
 
@@ -146,15 +146,6 @@
 
     };
 
-    //Left navigation specifications
-  /*  $(document).ready(function () {
-        $('label.tree-toggle').parent().children('ul.tree').toggle(0);
-        $('.tree-toggle').click(function () {
-            $(this).parent().children('ul.tree').toggle(200);
-        });
-        Merquery.hideLoad();
-
-    });*/
     var getDisplayName =function(fieldName) {
         var name = fieldName.split("_");
         var formatted;
