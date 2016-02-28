@@ -36,6 +36,7 @@
   <script type="text/javascript" src="js/queryMaker.js"></script>
   <script type="text/javascript" src="js/checkboxes.js"></script>
   <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+  <script type="text/javascript" src="js/md5-min.js"></script>
 
   <!-- Script for Help box -->
   <script type="text/javascript">
@@ -53,10 +54,9 @@
   <div class="container-fluid">
 
 
-    <div class="HelpButtonHeader">
-      <button class="helpButton" onclick="overlay()">Help</button>
-    </div>
+    <button class="helpButton" onclick="overlay()">Help</button>
 
+    <button id='export-button' onclick='Merquery.Export();'>Export</button>
 
     <div id="helpDialog">
       <div class="modalHeader">
@@ -130,10 +130,11 @@
     <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
     <tr><div id="message"  role="alert"></div></tr>
 
-    <h1 id="header"></h1>
+    <h3 id="header"></h3>
     <div id="result-count"></div>
     <div class='container' id="divADV">
-      <img src="239.gif" >
+      <!-- Loading indicator from : http://preloaders.net/en/circular/3 -->
+      <img src="loading_indicator.gif" >
       <div class='loader'></div>
     </div>
     <table id="result" class="tablesorter"></table>
