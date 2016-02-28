@@ -92,7 +92,7 @@
     
                     // switch the commented line to return to old database
                     //if(fields[j].name == "CRM_EmailMD5") {
-                    if (fields[j].name == "Demographics_emailmd5") {
+                    if (fields[j].name == "Demographics_lastname") {
                         var queryField = fields[j].name;
                        // var queryValue = test[fields[j].name];
                         var queryValue = $("<a></a>");
@@ -109,7 +109,8 @@
                         myButton.click(function () {
                             $('#popup').bPopup().empty();
                             $('#divADV2').show();
-                            $('#popup').bPopup().append("<img id='divADV2' id='popimg' src= '365.gif'/>");
+                            // Loading indicator from : http://preloaders.net/en/circular/3
+                            $('#popup').bPopup().append("<img id='divADV2' id='popimg' src= 'loading_indicator.gif'/>");
                             Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
     
                         });
