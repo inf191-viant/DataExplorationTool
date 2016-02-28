@@ -48,6 +48,14 @@ h2 {
 
 }
 
+h3 {
+    color:#111111;
+    font-family: "Arial";
+    font-size: 20px;
+    margin: auto;
+    position: center;
+}
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
@@ -225,7 +233,7 @@ img {
     color: #000;
     background: #eee;
     padding: 2px 10px 2px 5px;
-    margin: 0 1px 5px 0;
+    margin: 0 5px 5px 0;
     text-decoration: none;
     border-radius: 3px;
 }
@@ -318,7 +326,7 @@ button:active{
     text-decoration: none;
 }
 
-.dropdown-toggle{
+.dropdown-toggle, .helpButton{
     border: solid #4ccdc4 2px;
     border-radius: 0px;
     background: #4ccdc4;
@@ -327,17 +335,18 @@ button:active{
 
 .dropdown-toggle:hover,
 .dropdown-toggle:active,
-.dropdown-toggle:focus {
+.dropdown-toggle:focus,
+.helpButton:hover,
+.helpButton:active,
+.helpButton:focus{
     background: #378680 !important;
     border: solid #378680 2px !important;
 }
 
-.helpButton {
+.helpButton,
+#export-button {
     float: right;
-    background-color:  #f43c37;
-    font-size: 16px;
-    color: white;
-    display: inline-block;
+    margin: 5px;
 }
 
 #helpDialog {
@@ -374,7 +383,7 @@ button:active{
     text-align: left;
 }
 
-/*Export Button*/
+/*Export Button
 #export-button {
     position: fixed;
     padding-top: 0px;
@@ -387,6 +396,7 @@ button:active{
     text-align: center;
     height: 25px;
 }
+*/
 
 /*Table Header up and down arrows for sorting */
 table.tablesorter thead tr .header {
