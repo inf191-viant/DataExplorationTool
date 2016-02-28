@@ -20,7 +20,7 @@ Merquery.queryMaker = {
                 var categoryNotSelected = checkedBoxes.indexOf(queryPieces[j].category) == -1;
                 if (i == 0) {
                     if (j!=0 && queryPieces[j].category == checkedBoxes[i] && categoryNotInFromString) {
-                        queryString += "Demographics.emailmd5, " + queryPieces[j].columnNames;
+                        queryString += "Demographics.firstname, Demographics.lastname, " + queryPieces[j].columnNames;
                         fromString += " LEFT JOIN EACH " + queryPieces[j].fromStatement;
                     }
                     else if (j==0 && queryPieces[j].category == checkedBoxes[i] && categoryNotInFromString) {
@@ -50,20 +50,30 @@ Merquery.queryMaker = {
 
         whereString += ' WHERE ';
 
-
         for(var i=0; i<userInputs.length; i++){
             var formattedFieldName;
-            if(i ==0){
+            var input;
+
+            // hashes the email
+            if (userInputs[i].queryField == "Demographics_emailmd5"){
+                input = hex_md5(userInputs[i].input).toLowerCase()
+            }
+            else{
+                input = (userInputs[i].input).toLowerCase();
+            }
+
+            // forms the where clause in the sql statement
+            if(i==0){
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField);
-                whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + (userInputs[i].input).toLowerCase() + '%"';
+                whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + input + '%"';
             }
             else if(i>0){
                 whereString += ' AND ';
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField)
                 if(userInputs[i].querytype == 'STRING')
-                    whereString += 'lower(' + formattedFieldName + ') ' + ' like "%' + (userInputs[i].input).toLowerCase() + '%"';
+                    whereString += 'lower(' + formattedFieldName + ') ' + ' like "%' + input + '%"';
                 else
-                    whereString += formattedFieldName + ' = ' + (userInputs[i].input).toLowerCase();
+                    whereString += formattedFieldName + ' = ' + input;
             }
         }
 
