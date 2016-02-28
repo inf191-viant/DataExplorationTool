@@ -27,7 +27,7 @@ Merquery.databaseConstants = {
                    "Demographics.ethnicity, Demographics.sexorient, Demographics.marital, Demographics.children",
                    fromStatement: "(SELECT firstname, lastname, emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children " +
                    "FROM [formal-cascade-571:uci.demo_info] where emailmd5 is not null ) AS Demographics",
-                   placeholder: "John, Smith, abc111bbccd22233e4ff555, 12345600000, N/A, Irvine, h, s, d, p"
+                   placeholder: "John, Smith, some@email.com, 12345600000, N/A, Irvine, h, s, d, p"
                },
                {
                    category: "Address",
