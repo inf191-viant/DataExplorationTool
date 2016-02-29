@@ -4,14 +4,17 @@ if(typeof Merquery == "undefined" ) {
 Merquery.Popup  = {
 
     popUp: function (info) {
-        $('#popup').bPopup({
+       /* $('#popup').bPopup({
             easing: 'easeOutBack',
             speed: 450,
             transition: 'slideDown'
-        });
+        });*/
     
-        $('#popup').bPopup().empty();
-        $('#popup').bPopup().append(info);
+       // $('#popup').bPopup().empty();
+       // $('#popup').bPopup().append(info);
+       $("#popimg").hide();
+       $('#myModal').find('.modal-body').append(info);
+       //$(this).find('.modal-title').text(titleData + ' Form');
     },
     
     //Renders the results in the popUp after the query is run
@@ -221,9 +224,9 @@ Merquery.Popup  = {
             finalCampaignLine + "</td></tr><tr><td>Behaviors<hr></td><td>" + finalBehaviorLine + "</td></tr><tr><td>Devices<hr></td><td>" + finalDeviceLine +
             "</td></tr><tr><td>Purchases<hr></td><td>" + finalPurchaseLine + "</td></tr></tbody></table>";
 
-
+        $("#popimg").hide();
         Merquery.Popup.popUp(indivInfo);
-        //$("#divADV2").hide();
+
 
     }
     

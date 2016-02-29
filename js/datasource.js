@@ -101,16 +101,18 @@
                         queryValue.text(test[fields[j].name]);
                         column.append(field);
     
-                        var myButton = $("<button type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm'>" +
+                        var myButton = $("<button type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
                                         "<span class = 'glyphicon glyphicon-user'></span></button>");
                         column.append(myButton);
                         myButton.data("queryfield",fields[j].name);
     
                         myButton.click(function () {
-                            $('#popup').bPopup().empty();
-                            $('#divADV2').show();
+                            //$('#popup').bPopup().empty();
+                            $('#popimg').show();
                             // Loading indicator from : http://preloaders.net/en/circular/3
-                            $('#popup').bPopup().append("<img id='divADV2' id='popimg' src= 'loading_indicator.gif'/>");
+                            //$('#popup').bPopup().append("<img id='divADV2' id='popimg' src= 'loading_indicator.gif'/>");
+                            //$('#myModal').append("<img id='divADV2' id='popimg' src= 'loading_indicator.gif'/>");
+                            $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
                             Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
     
                         });
