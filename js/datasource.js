@@ -128,6 +128,7 @@
 
             //Calls the sort function to add sorting functionality to the table
             $("#result").tablesorter();
+            $("#export-button").prop('disabled', false);
             Merquery.Paginator.initPagination();
             Merquery.Paginator.showResultsCount();
             Merquery.BreadCrumbs.showBreadcrumbs();

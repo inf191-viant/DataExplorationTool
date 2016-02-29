@@ -10,20 +10,22 @@ Merquery.Queries = {
         var formedQuery = "";
         var queryString = "";
         var fromString = "";
+        var groupByString = "";
         var whereString = ' where ' + formattedFieldName + ' like "' + fieldValue + '"';
 
         for (var i = 0; i < Merquery.databaseConstants.query.length; i++) {
            if (i == 0) {
                 queryString += Merquery.databaseConstants.query[i].columnNames;
                 fromString += " FROM " + Merquery.databaseConstants.query[i].fromStatement;
+                groupByString += Merquery.databaseConstants.query[i].groupByStatement;
             }
             else {
                 queryString += ", " + Merquery.databaseConstants.query[i].columnNames;
                 fromString += " LEFT JOIN EACH " + Merquery.databaseConstants.query[i].fromStatement;
+                groupByString += ", " +Merquery.databaseConstants.query[i].groupByStatement;
             }
         }
-        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + queryString + ' Limit ' + limit + ';';
-
+        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit ' + limit + ';';
         var request = gapi.client.bigquery.jobs.query({
             'projectId': Merquery.Constants.project_id,
             'timeoutMs': '30000',
@@ -40,19 +42,22 @@ Merquery.Queries = {
         var formedQuery = "";
         var queryString = "";
         var fromString = "";
+        var groupByString = "";
         var whereString = ' where ' + formattedFieldName + ' like "' + fieldValue + '"';
 
         for (var i = 0; i < Merquery.databaseConstants.query.length; i++) {
            if (i == 0) {
                 queryString += Merquery.databaseConstants.query[i].columnNames;
                 fromString += " FROM " + Merquery.databaseConstants.query[i].fromStatement;
+                groupByString += Merquery.databaseConstants.query[i].groupByStatement;
             }
             else {
                 queryString += ", " + Merquery.databaseConstants.query[i].columnNames;
                 fromString += " LEFT JOIN EACH " + Merquery.databaseConstants.query[i].fromStatement;
+                groupByString += ", " + Merquery.databaseConstants.query[i].groupByStatement;
             }
         }
-        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + queryString + ' Limit 5 ;';
+        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit 5 ;';
 
         var request = gapi.client.bigquery.jobs.query({
             'projectId': Merquery.Constants.project_id,
@@ -74,6 +79,7 @@ Merquery.Queries = {
         Merquery.BreadCrumbs.hideBreadcrumbs();
         $('#export').empty();
         $('#result').empty();
+        $("#export-button").prop('disabled', true);
 
         if (Merquery.BreadCrumbs.crumbs.length ==0){
             Merquery.ClearHeader();

@@ -12,6 +12,7 @@ Merquery.queryMaker = {
         var fromString = "";
         var whereString = "";
         var endString = "";
+        var groupByString = "";
         var queryPieces = Merquery.databaseConstants.query;
         var userInputs= Merquery.BreadCrumbs.crumbs;
         for (var i=0; i<checkedBoxes.length; i++) {
@@ -22,10 +23,12 @@ Merquery.queryMaker = {
                     if (j!=0 && queryPieces[j].category == checkedBoxes[i] && categoryNotInFromString) {
                         queryString += "Demographics.firstname, Demographics.lastname, " + queryPieces[j].columnNames;
                         fromString += " LEFT JOIN EACH " + queryPieces[j].fromStatement;
+                        groupByString += "Demographics.emailmd5, " + queryPieces[j].groupByStatement;
                     }
                     else if (j==0 && queryPieces[j].category == checkedBoxes[i] && categoryNotInFromString) {
                         queryString += queryPieces[j].columnNames;
                         fromString += " FROM " + queryPieces[j].fromStatement;
+                        groupByString += queryPieces[j].groupByStatement;
                     }
                     else if (j==0 && categoryNotInFromString) {
                         fromString += " FROM " + queryPieces[j].fromStatement;
@@ -38,9 +41,10 @@ Merquery.queryMaker = {
                     if ((queryPieces[j].category == checkedBoxes[i]) && categoryNotInFromString) {
                         queryString += ", " + queryPieces[j].columnNames;
                         fromString += " LEFT JOIN EACH " + queryPieces[j].fromStatement;
+                        groupByString += ", " +queryPieces[j].groupByStatement;
                     }
                     else if ((queryPieces[j].category != checkedBoxes[i]) && categoryNotInFromString && categoryNotSelected) {
-                        console.log("elseIF2: " + queryPieces[j].category + " " + checkedBoxes[i]);
+                        Merquery.Util.log("elseIF2: " + queryPieces[j].category + " " + checkedBoxes[i]);
                         fromString += " LEFT JOIN EACH " + queryPieces[j].fromStatement;
                     }
 
@@ -49,6 +53,7 @@ Merquery.queryMaker = {
         }
 
         whereString += ' WHERE ';
+
 
         for(var i=0; i<userInputs.length; i++){
             var formattedFieldName;
@@ -59,13 +64,20 @@ Merquery.queryMaker = {
                 input = hex_md5(userInputs[i].input).toLowerCase()
             }
             else{
-                input = (userInputs[i].input).toLowerCase();
+                if(userInputs[i].querytype == 'STRING')
+                    input = (userInputs[i].input).toLowerCase();
+                else
+                    input = userInputs[i].input;
             }
 
             // forms the where clause in the sql statement
-            if(i==0){
+
+            if(i ==0){
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField);
-                whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + input + '%"';
+                if(userInputs[i].querytype == 'STRING')
+                   whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + input + '%"';
+                else
+                    whereString +=  formattedFieldName + ' = ' + input ;
             }
             else if(i>0){
                 whereString += ' AND ';
@@ -77,7 +89,7 @@ Merquery.queryMaker = {
             }
         }
 
-        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + queryString + ' Limit ' + "20" + ';';
+        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit ' + "20" + ';';
         return formedQuery;
     }
 };
