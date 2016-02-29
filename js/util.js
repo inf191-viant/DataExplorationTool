@@ -220,6 +220,7 @@ Merquery.reset = function (){
 
 //Search button functionality
 Merquery.search = function (){
+    window.scrollTo(0,0);
     Merquery.showLoad();
     Merquery.hideNav();
     Merquery.ClearMessage();
