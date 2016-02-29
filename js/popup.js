@@ -12,7 +12,8 @@ Merquery.Popup  = {
     
        // $('#popup').bPopup().empty();
        // $('#popup').bPopup().append(info);
-       $("#popimg").hide();
+
+       $('#myModal').find('.modal-body').empty();
        $('#myModal').find('.modal-body').append(info);
        //$(this).find('.modal-title').text(titleData + ' Form');
     },
@@ -156,8 +157,7 @@ Merquery.Popup  = {
 
                     else if (fields[j].name == "Device_device_id" || fields[j].name == "Device_device_name" || fields[j].name == "Device_device_type_id" ||
                         fields[j].name == "Device_device_type_name" || fields[j].name == "Device_operating_system" || fields[j].name == "Device_last_seen" ) {
-                        console.log(fields[j].name);
-                        console.log(itemInUserProfile[fields[j].name]);
+
                         if (itemInUserProfile[fields[j].name] == null) {
                             continue;
                             }

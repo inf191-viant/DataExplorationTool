@@ -89,10 +89,8 @@
                             Merquery.Queries.runQuery(crumbs);
                         }
                     });
-    
-                    // switch the commented line to return to old database
-                    //if(fields[j].name == "CRM_EmailMD5") {
-                    if (fields[j].name == "Demographics_lastname") {
+
+                    if (fields[j].name == "Demographics_emailmd5") {
                         var queryField = fields[j].name;
                        // var queryValue = test[fields[j].name];
                         var queryValue = $("<a></a>");
@@ -105,15 +103,13 @@
                                         "<span class = 'glyphicon glyphicon-user'></span></button>");
                         column.append(myButton);
                         myButton.data("queryfield",fields[j].name);
-    
+
                         myButton.click(function () {
-                            //$('#popup').bPopup().empty();
+                            $('#myModal').find('.modal-body').empty();
                             $('#popimg').show();
-                            // Loading indicator from : http://preloaders.net/en/circular/3
-                            //$('#popup').bPopup().append("<img id='divADV2' id='popimg' src= 'loading_indicator.gif'/>");
-                            //$('#myModal').append("<img id='divADV2' id='popimg' src= 'loading_indicator.gif'/>");
                             $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
                             Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
+                            //console.log($(this).val());
     
                         });
                     }else{
