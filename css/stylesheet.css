@@ -204,11 +204,10 @@ img {
 }
 
 #popimg {
- position:center;
+    position:fixed;
     left: 50%;
-    top: 30%
-    right: 50%;
-    bottom: 70%;
+    bottom: 10%;
+    transform: translate(-50%,-50%);
 }
 
 #popup, .bMulti {
