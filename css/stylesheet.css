@@ -49,8 +49,8 @@ h2 {
 }
 
 h3 {
-    color:#111111;
-    font-family: "Arial";
+    color: #f43c37;
+    font-family: "Arial Black";
     font-size: 20px;
     margin: auto;
     position: center;
@@ -406,7 +406,8 @@ button:active:enabled {
 
 /*Table Header up and down arrows for sorting */
 table.tablesorter thead tr .header {
-	/*background-image: url(bg.gif);*/
+	background-image: url(bg.gif);
+    padding-right: 50px;
 	background-repeat: no-repeat;
 	background-position:  right;
 	cursor: pointer;
