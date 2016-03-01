@@ -4,232 +4,186 @@ if(typeof Merquery == "undefined" ) {
 Merquery.Popup  = {
 
     popUp: function (info) {
-       /* $('#popup').bPopup({
-            easing: 'easeOutBack',
-            speed: 450,
-            transition: 'slideDown'
-        });*/
-    
-       // $('#popup').bPopup().empty();
-       // $('#popup').bPopup().append(info);
 
-       $('#myModal').find('.modal-body').empty();
-       $('#myModal').find('.modal-body').append(info);
+     //  $('#myModal').find('.modal-body').empty();
+      // $('#myModal').find('.modal-body').append(info);
        //$(this).find('.modal-title').text(titleData + ' Form');
     },
     
     //Renders the results in the popUp after the query is run
     renderPopUp: function (response) {
-        var indivInfo ; //Stores individual info for popUp functionality
         var fields = response.result.schema.fields;
-        var arrayOfUserProfiles = [];
+        var data = [];
+        category = {};
+        columnNames = {};
+        type = {};
+        schema = {};
+        value = {};
         Merquery.SchemaManager.makeSchema(fields);
+        Merquery.getSchema();
+        var popUpData = {};
+         if (response.result.rows) {
+             $.each(response.result.rows, function (j, row) {
+                 var thisData = {};
+                 for (var prop in schema) {
+                     if (schema.hasOwnProperty(prop)) {
+                         for (var i = 0; i < fields.length; i++) {
+                             var originalCategoryName = fields[i].name;
+                             var categoryIndex = originalCategoryName.indexOf("_");
+                             var categoryName = originalCategoryName.substr(0, categoryIndex);
+                             var fieldName = originalCategoryName.substr(categoryIndex + 1);
+                             if (fields[i].name == prop) {
+                                popUpData[originalCategoryName] = {
+                                 displayName: Merquery.getDisplayName(originalCategoryName),
+                                //displayName: originalCategoryName,
+                                 type: fields[i].type,
+                                 fieldName: originalCategoryName,
+                                 value: row.f[i].v
+                             };
 
-        if (response.result.rows) {
-            $.each(response.result.rows, function (j, row) {
-                var userProfileDictionary = {};
+                               if(!category[categoryName]) {
+                                 category[categoryName] = [];
+                               }
+                               if(!columnNames[categoryName]) {
+                                  columnNames[categoryName] = [];
+                               }
+                               if(!type[categoryName]) {
+                                  type[categoryName] = [];
+                               }
+                               if(!value[categoryName]) {
+                                 value[categoryName] = [];
+                              }
+                               category[categoryName].push(popUpData[originalCategoryName].displayName);
+                               columnNames[categoryName].push(popUpData[originalCategoryName].fieldName);
+                               type[categoryName].push(popUpData[originalCategoryName].type);
+                               value[categoryName].push(popUpData[originalCategoryName].value);
 
-                for (var prop in schema) {
-                    if (schema.hasOwnProperty(prop)) {
-                        for (var i = 0; i < fields.length; i++) {
-                            if (fields[i].name == prop) {
+                             thisData[fields[i].name] = row.f[i].v;
+                             }
+                         }
+                     }
+                 }
+                 data.push(thisData);
+             });
+         }
 
-                                userProfileDictionary[fields[i].name] = row.f[i].v;
-                            }
-                        }
-                    }
-                }
-
-                arrayOfUserProfiles.push(userProfileDictionary);
-
-            });
-        }
-        //Appends arrayOfUserProfiles to indivInfo variable
-        var finalUserName;
-        var finalDemographics;
-        var finalAddressLine;
-        var finalCampaignLine;
-        var finalBehaviorLine;
-        var finalDeviceLine;
-        var finalPurchaseLine;
-        var collectionOfCampaignsArray = [];
-        var collectionOfBehaviorsArray = [];
-        var collectionOfDevicesArray = [];
-        var collectionOfPurchasesArray = [];
-
-
-        indivInfo = '<table><thead><h1 id="userPopup" style="text-align:center;">Individual Profile</h1></thead><tbody>';
-        for (var userProfileArrayItemPosition = 0; userProfileArrayItemPosition < arrayOfUserProfiles.length; userProfileArrayItemPosition++) {
-            var itemInUserProfile = arrayOfUserProfiles[userProfileArrayItemPosition];
-            var newTableLine;
-            var demographArray = [];
-            var addressArray = [];
-            var fieldName;
-            var individualCampaignArray = [];
-            var behaviorArray = [];
-            var deviceArray = [];
-            var purchaseArray = [];
-            var showFieldName;
-
-            for (var j = 0; j < fields.length; j++) {
-                if (itemInUserProfile.hasOwnProperty(fields[j].name)) {
-                    showFieldName = fields[j].name;
-
-                    if (fields[j].name == "Demographics_emailmd5" || fields[j].name == "Demographics_birthdate" || fields[j].name == "Demographics_gender" || fields[j].name == "Demographics_city" ||
-                            fields[j].name == "Demographics_ethnicity" || fields[j].name == "Demographics_sexorient" || fields[j].name == "Demographics_marital" || fields[j].name == "Demographics_children") {
-                        if (itemInUserProfile[fields[j].name] == null) {
-                            continue;
-                            }
-                        else {
-                            demographArray.push(schema[fields[j].name].displayName + ": " + itemInUserProfile[fields[j].name]);
-                            if (fields[j].name == "Demographics_children") {
-                                var demographLine = demographArray.join("<br>");
-                                finalDemographics = demographLine;
-                                //newTableLine = "<tr><td>Demographics</td><td>" + demographLine + "</td></tr>";
-                                }
-                            else {
-                                continue;
-                            }
-                        }
-                    }
-
-                    // THIS SECTION OF CODES COMBINES THE ADDRESS INFORMATION INTO A SINGLE LINE
-                    else if (fields[j].name == "Address_Address1" || fields[j].name == "Address_Address2" || fields[j].name == "Address_City" ||
-                            fields[j].name == "Address_State" || fields[j].name == "Address_Zip" ) {
-                        if (itemInUserProfile[fields[j].name] == null) {
-                            continue;
-                            }
-                        else {
-                            addressArray.push(itemInUserProfile[fields[j].name]);
-                            if (fields[j].name == "Address_Zip") {
-                                var addressLine = addressArray.join("<br>");
-                                finalAddressLine = addressLine;
-                                //newTableLine = "<tr><td>Address</td><td>" + addressLine + "</td></tr>";
-                                }
-                            else {
-                                continue;
-                            }
-                        }
-                    }
-
-                    // END OF SECTION THAT DEALS WITH THE ADDRESS INFORMATION
-
-                    // THIS SECTION OF CODE DEALS WITH COMBINING TOGETHER THE CAMPAIGN INFORMATION
-                    else if (fields[j].name == "Campaign_advertiser_id" || fields[j].name == "Campaign_advertiser_name" || fields[j].name == "Campaign_campaign_id" ||
-                                fields[j].name == "Campaign_campaign_name" || fields[j].name == "Campaign_impression_count" || fields[j].name == "Campaign_click_count" ||
-                                fields[j].name == "Campaign_conversion_count") {
-                        if (itemInUserProfile[fields[j].name] == null) {
-                            continue;
-                        }
-                        else {
-                            individualCampaignArray.push(schema[fields[j].name].displayName + ": " + itemInUserProfile[fields[j].name]);
-                            if (fields[j].name == "Campaign_conversion_count") {
-                                var campaignLine = individualCampaignArray.join("<br>");
-                                collectionOfCampaignsArray.push(campaignLine);
-
-                                //newTableLine = "<tr><td>Campaign</td><td>" + campaignLine + "</td></tr>";
-                            }
-                            else {
-                                continue;
-                            }
-                        }
-                    }
-                    // END OF SECTION OF CODE THAT DEALS WITH THE CAMPAIGN INFORMATION
-
-                    else if (fields[j].name == "Behavior_id" || fields[j].name == "Behavior_name" ||
-                                fields[j].name == "Behavior_last_seen" || fields[j].name == "Behavior_count") {
-                        if (itemInUserProfile[fields[j].name] == null) {
-                            continue;
-                            }
-                        else {
-                            behaviorArray.push(schema[fields[j].name].displayName + ": " + itemInUserProfile[fields[j].name]);
-                            if (fields[j].name == "Behavior_count") {
-                                var behaviorLine = behaviorArray.join("<br>");
-                                collectionOfCampaignsArray.push(behaviorLine);
-
-                                //newTableLine = "<tr><td>Behavior</td><td>" + behaviorLine + "</td></tr>";
-                                }
-                            else {
-                                continue;
-                                }
-                            }
-                        }
-
-                    else if (fields[j].name == "Device_device_id" || fields[j].name == "Device_device_name" || fields[j].name == "Device_device_type_id" ||
-                        fields[j].name == "Device_device_type_name" || fields[j].name == "Device_operating_system" || fields[j].name == "Device_last_seen" ) {
-
-                        if (itemInUserProfile[fields[j].name] == null) {
-                            continue;
-                            }
-                        else {
-                            deviceArray.push(schema[fields[j].name].displayName + ": " + itemInUserProfile[fields[j].name]);
-                            if (fields[j].name == "Device_last_seen") {
-                                var deviceLine = deviceArray.join("<br>");
-                                collectionOfDevicesArray.push(deviceLine);
-
-                                //newTableLine = "<tr><td>Device</td><td>" + deviceLine + "</td></tr>";
-                                }
-                            else {
-                                continue;
-                                }
-                            }
-                        }
-
-                    else if (fields[j].name == "Purchase_advertiser_id" || fields[j].name == "Purchase_last_sales_amount" ||
-                        fields[j].name == "Purchase_last_purchase_date" || fields[j].name == "Purchase_ltv_online" ||
-                        fields[j].name == "Purchase_ltv_offline") {
-                        if (itemInUserProfile[fields[j].name] == null) {
-                            continue;
-                            }
-                        else {
-                            purchaseArray.push(schema[fields[j].name].displayName + ": " + itemInUserProfile[fields[j].name]);
-                            if (fields[j].name == "Purchase_ltv_online") {
-                                var purchaseLine = purchaseArray.join("<br>");
-                                collectionOfPurchasesArray.push(purchaseLine);
-
-                                //newTableLine = "<tr><td>Purchase</td><td>" + purchaseLine + "</td></tr>";
-                                }
-                            else {
-                                continue;
-                                }
-                            }
-                        }
-
-                    else {
-                        fieldName = fields[j].name;
-                        newTableLine = "<tr><td>" + schema[fieldName].displayName + "</td><td>" + itemInUserProfile[fields[j].name] + '</td></tr>';
-                    }
-                }
-
-                //indivInfo += newTableLine;
-            }
-//            indivInfo += "</tbody></table>";
-//            if(userProfileArrayItemPosition < arrayOfUserProfiles.length-1) {
-//                indivInfo += '<table><thead><h1 id="userPopup" style="text-align:center;">Individual Profile</h1></thead></tbody>';
-//            }
-
-
-        }
-
-        finalCampaignLine = collectionOfCampaignsArray.join("<br><br>");
-
-        finalBehaviorLine = collectionOfBehaviorsArray.join("<br><br>");
-
-        finalDeviceLine = collectionOfDevicesArray.join("<br><br>");
-
-        finalPurchaseLine = collectionOfPurchasesArray.join("<br><br>");
-
-
-        indivInfo += "<tr><td>Demographics<hr></td><td>" + finalDemographics + "</td></tr><tr><td>Address<hr></td><td>" + finalAddressLine + "</td></tr><tr><td>Campaigns</td><td>" +
-            finalCampaignLine + "</td></tr><tr><td>Behaviors<hr></td><td>" + finalBehaviorLine + "</td></tr><tr><td>Devices<hr></td><td>" + finalDeviceLine +
-            "</td></tr><tr><td>Purchases<hr></td><td>" + finalPurchaseLine + "</td></tr></tbody></table>";
 
         $("#popimg").hide();
-        Merquery.Popup.popUp(indivInfo);
+        $('#myModal').find('.modal-body').empty();
+
+        //Append array together
+        var thisData = {};
+        var dataArray = [];
+        var queryField = {};
+        var record = {};
+       for(var i = 0; i < Merquery.databaseConstants.query.length; i++){
+            //if(Merquery.databaseConstants.query[i].category == "Demographics"){
+                for(var j=0; j < value[Merquery.databaseConstants.query[i].category].length; j++){
+                var getValue = value[Merquery.databaseConstants.query[i].category];
+                var getColumn = columnNames[Merquery.databaseConstants.query[i].category];
+
+                thisData = {
+                 category: Merquery.databaseConstants.query[i].category,
+                 record: getValue,
+                 queryField: getColumn
+                }
+
+                }
+            dataArray.push(thisData);
+       }
+
+        console.log("dataArray");
+        console.log(dataArray);
+
+        //Remove duplicates
+
+          var temporaryArray = [];
+
+          for (var i =0; i<dataArray.length; i++)
+          {
+
+            if(dataArray[i].category == "Campaign"){
+            for(var j=0; j<dataArray[i].queryField.length; j++){
+                console.log(dataArray[i].record[j]);
+                //if((dataArray[i].queryField[j] == Merquery.databaseConstants.query[i].identifier) && (temporaryArray.indexOf(dataArray[i].record[j]) == -1 ))
+                if(temporaryArray.indexOf(dataArray[i].record[j]) == -1 )
+                {
+                    console.log(dataArray[i].queryField[j], dataArray[i].record[j], j);
+                    for(var k=0; k < Merquery.databaseConstants.query[i].numOfColumns; k++){
+                        //if(temporaryArray.indexOf(dataArray[i].record[j]) == -1 )
+                          //  {
+                                temporaryArray.push(dataArray[i].queryField[k],dataArray[i].record[k]);
+                            //}
+                     }
+
+                    // console.log(Merquery.databaseConstants.query[i].numOfColumns);
+                }
+                j += Merquery.databaseConstants.query[i].numOfColumns;
+                                     console.log("j");
+                                     console.log(j);
 
 
+          }
+
+
+
+              }
+              }
+
+          console.log("TemporaryArray");
+          console.log(temporaryArray);
+
+         dataArray = [];
+         temporaryObject = {};
+        for (var i=0; i< temporaryArray.length; i++){
+            temporaryObject = {
+                queryField: temporaryArray[i],
+                queryValue: temporaryArray[i+1]
+            }
+            i++;
+            dataArray.push(temporaryObject);
+        }
+          console.log("DataArray");
+          console.log(dataArray);
+
+        for(var i = 0; i < Merquery.databaseConstants.query.length; i++){
+            var divTag = $("<div></div>");
+            var h5Tag = $("<h5></h5>");
+            var lineTag = $("<hr></hr>");
+            h5Tag.append(Merquery.databaseConstants.query[i].category);
+            divTag.append(h5Tag);
+            if(i != Merquery.databaseConstants.query.length -1)
+                divTag.append(lineTag);
+
+
+            //Appends the data in each category
+            for(var j=0; j < dataArray.length; j++){
+                var categoryName = dataArray[j].queryField.split("_");
+                if(categoryName[0] ==  Merquery.databaseConstants.query[i].category){
+                    divTag.append(Merquery.getDisplayName(dataArray[j].queryField) + ": "+ dataArray[j].queryValue + "<br>");
+                }
+            }
+
+
+/*
+
+            //Appends the data in each category
+            if(Merquery.databaseConstants.query[i].category == "Demographics"){
+               // for(var j=0; j < value[Merquery.databaseConstants.query[i].category].length; j++){
+                //var getValue = value[Merquery.databaseConstants.query[i].category];
+                //var getColumn = columnNames[Merquery.databaseConstants.query[i].category];
+                //if()
+                //divTag.append(getColumn[j] + ": "+ getValue[j] + "<br>");
+                for(var j=0; j < dataArray[i].queryField.length; j++){
+                    divTag.append(Merquery.getDisplayName(dataArray[i].queryField[j]) + ": "+ dataArray[i].record[j] + "<br>");
+                }
+            }
+*/
+
+
+            $('#myModal').find('.modal-body').append(divTag);
+        }
     }
-    
-    
 }
+
     

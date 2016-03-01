@@ -43,7 +43,7 @@
         var trTag = $("<tr></tr>");
         for(var i=0; i < fields.length; i++) {
             var header = $("<th></th>");
-            header.append(getDisplayName(schema[fields[i].name].fieldName));
+            header.append(Merquery.getDisplayName(schema[fields[i].name].fieldName));
 
             trTag.append(header);
             thTag.append(trTag);
@@ -146,7 +146,7 @@
 
     };
 
-    var getDisplayName =function(fieldName) {
+Merquery.getDisplayName =function(fieldName) {
         var name = fieldName.split("_");
         var formatted;
         if(name.length >2){
@@ -161,7 +161,8 @@
         return formatted;
     }
 
-    var createSchema = function(data) {
+ //   var createSchema = function(data) {
+Merquery.createSchema = function(data) {
         var fields = data.schema.fields;
         var list = {};
         category = {};
@@ -177,7 +178,7 @@
         var fieldName = originalCategoryName.substr(categoryIndex + 1);
     
         schema[originalCategoryName] = {
-            displayName: getDisplayName(originalCategoryName),
+            displayName: Merquery.getDisplayName(originalCategoryName),
             type: fields[i].type,
             fieldName: originalCategoryName
         };
@@ -272,11 +273,13 @@
     //Create schema functionality
     $(document).ready(function() {
         Merquery.hideLoad();
-        var getSchema = function() {
-            Merquery.Queries.standardQuery("washington", "Demographics_city", 1, createSchema);
+       // var getSchema = function() {
+       Merquery.getSchema = function() {
+            //Merquery.Queries.standardQuery("washington", "Demographics_city", 1, createSchema);
+           Merquery.Queries.standardQuery("washington", "Demographics_city", 1, Merquery.createSchema);
         };
         setTimeout(function () {
-            Merquery.AuthenticationManager.auth(getSchema);
+            Merquery.AuthenticationManager.auth(Merquery.getSchema);
         }, 4000);
 
 
