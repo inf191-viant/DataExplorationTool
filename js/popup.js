@@ -14,7 +14,6 @@ Merquery.Popup  = {
         value = {};
         var test = [];
         Merquery.SchemaManager.makeSchema(fields);
-        Merquery.getSchema();
         var popUpData = {};
          if (response.result.rows) {
              $.each(response.result.rows, function (j, row) {
