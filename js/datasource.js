@@ -128,15 +128,14 @@
                          });
 
 
-                    }
-                    else if (fields[j].name == "Demographics_emailmd5") {
+                    }else if (fields[j].name == "Demographics_emailmd5") {
                         column.append(field);
                         column.toggleClass("hidden");
                     }else if (fields[j].name == "IpSMID_ipAddress") {
                          column.append(field);
                          if((test[fields[j].name] != null) && (test[fields[j].name] != "")){
                              myButton = $("<button id = 'myButton' type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
-                                          "<span class = 'glyphicon glyphicon-bed'></span></button>");
+                                          "<span class = 'glyphicon glyphicon-home'></span></button>");
                              column.append(myButton);
                              myButton.data("queryfield",fields[j].name);
                              myButton.click(function () {
