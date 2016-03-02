@@ -43,7 +43,12 @@ Merquery.Queries = {
         var queryString = "";
         var fromString = "";
         var groupByString = "";
-        var whereString = ' where ' + formattedFieldName + ' like "' + fieldValue + '"';
+        var whereString = ' where ';
+
+        if(formattedFieldName == 'Device.device_id')
+           whereString +=  formattedFieldName + ' = ' + fieldValue ;
+        else
+            whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + fieldValue + '%"';
 
         for (var i = 0; i < Merquery.databaseConstants.query.length; i++) {
            if (i == 0) {

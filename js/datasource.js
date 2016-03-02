@@ -107,42 +107,62 @@
                         }
                     });
 
+                    var queryField = fields[j].name;
+                    var queryValue = $("<a></a>");
+                    queryValue.attr("href", "javascript:void(0)");
+                    queryValue.data("value", test[fields[j].name]);
+                    queryValue.text(test[fields[j].name]);
 
                     if (fields[j].name == "Demographics_lastname") {
-                        var queryField = fields[j].name;
-                        var queryValue = $("<a></a>");
-                        queryValue.attr("href", "javascript:void(0)");
-                        queryValue.data("value", test[fields[j].name]);
-                        queryValue.text(test[fields[j].name]);
                         column.append(field);
-
-                        //myButton = $("<button type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
-                         //               "<span class = 'glyphicon glyphicon-user'></span></button>");
                         myButton = $("<button id = 'myButton' type = 'button' value = '"+emailArray[i]+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
                                      "<span class = 'glyphicon glyphicon-user'></span></button>");
 
                         column.append(myButton);
-
-                        //myButton.data("queryfield","Demographics_emailmd5");
-
                         myButton.click(function () {
                             $('#myModal').find('.modal-body').empty();
                             $('#popimg').show();
                             $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
-                           // Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
+                            // Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
                              Merquery.Queries.popupQuery($(this).attr("value"), "Demographics_emailmd5");
                          });
 
 
                     }
                     else if (fields[j].name == "Demographics_emailmd5") {
-                        var queryField = fields[j].name;
-                        var queryValue = $("<a></a>");
-                        queryValue.attr("href", "javascript:void(0)");
-                        queryValue.data("value", test[fields[j].name]);
-                        queryValue.text(test[fields[j].name]);
                         column.append(field);
                         column.toggleClass("hidden");
+                    }else if (fields[j].name == "IpSMID_ipAddress") {
+                         column.append(field);
+                         if((test[fields[j].name] != null) && (test[fields[j].name] != "")){
+                             myButton = $("<button id = 'myButton' type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
+                                          "<span class = 'glyphicon glyphicon-bed'></span></button>");
+                             column.append(myButton);
+                             myButton.data("queryfield",fields[j].name);
+                             myButton.click(function () {
+                                 $('#myModal').find('.modal-body').empty();
+                                 $('#popimg').show();
+                                 $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
+                                 Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
+                              });
+                          }
+
+
+                    }else if (fields[j].name == "Device_device_id") {
+                          column.append(field);
+                          if((test[fields[j].name] != null) && (test[fields[j].name] != "")){
+                              myButton = $("<button id = 'myButton' type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
+                                           "<span class = 'glyphicon glyphicon-phone'></span></button>");
+                              column.append(myButton);
+                              myButton.data("queryfield",fields[j].name);
+                              myButton.click(function () {
+                                  $('#myModal').find('.modal-body').empty();
+                                  $('#popimg').show();
+                                  $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
+                                  Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
+                               });
+                           }
+
                     }else{
                         column.append(field);
     

@@ -137,8 +137,7 @@ Merquery.Popup  = {
             var noDataBoolean = true;
             h5Tag.append(Merquery.databaseConstants.query[i].category);
             divTag.append(h5Tag);
-            if(i != Merquery.databaseConstants.query.length -1)
-                divTag.append(lineTag);
+            divTag.append(lineTag);
 
             //Appends the data in each category
             for(var j=0; j < dataArray.length; j++){
