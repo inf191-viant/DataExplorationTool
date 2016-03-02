@@ -3,13 +3,6 @@ if(typeof Merquery == "undefined" ) {
 }
 Merquery.Popup  = {
 
-    popUp: function (info) {
-
-     //  $('#myModal').find('.modal-body').empty();
-      // $('#myModal').find('.modal-body').append(info);
-       //$(this).find('.modal-title').text(titleData + ' Form');
-    },
-    
     //Renders the results in the popUp after the query is run
     renderPopUp: function (response) {
         var fields = response.result.schema.fields;
@@ -19,6 +12,7 @@ Merquery.Popup  = {
         type = {};
         schema = {};
         value = {};
+        var test = [];
         Merquery.SchemaManager.makeSchema(fields);
         Merquery.getSchema();
         var popUpData = {};
@@ -32,14 +26,13 @@ Merquery.Popup  = {
                              var categoryIndex = originalCategoryName.indexOf("_");
                              var categoryName = originalCategoryName.substr(0, categoryIndex);
                              var fieldName = originalCategoryName.substr(categoryIndex + 1);
-                             if (fields[i].name == prop) {
-                                popUpData[originalCategoryName] = {
-                                 displayName: Merquery.getDisplayName(originalCategoryName),
-                                //displayName: originalCategoryName,
-                                 type: fields[i].type,
-                                 fieldName: originalCategoryName,
-                                 value: row.f[i].v
-                             };
+
+                                 if (fields[i].name == prop) {
+                                    popUpData[originalCategoryName] = {
+                                     type: fields[i].type,
+                                     fieldName: originalCategoryName,
+                                     value: row.f[i].v
+                                 };
 
                                if(!category[categoryName]) {
                                  category[categoryName] = [];
@@ -53,7 +46,6 @@ Merquery.Popup  = {
                                if(!value[categoryName]) {
                                  value[categoryName] = [];
                               }
-                               category[categoryName].push(popUpData[originalCategoryName].displayName);
                                columnNames[categoryName].push(popUpData[originalCategoryName].fieldName);
                                type[categoryName].push(popUpData[originalCategoryName].type);
                                value[categoryName].push(popUpData[originalCategoryName].value);
@@ -67,7 +59,6 @@ Merquery.Popup  = {
              });
          }
 
-
         $("#popimg").hide();
         $('#myModal').find('.modal-body').empty();
 
@@ -76,12 +67,11 @@ Merquery.Popup  = {
         var dataArray = [];
         var queryField = {};
         var record = {};
+       // var test = [];
        for(var i = 0; i < Merquery.databaseConstants.query.length; i++){
-            //if(Merquery.databaseConstants.query[i].category == "Demographics"){
-                for(var j=0; j < value[Merquery.databaseConstants.query[i].category].length; j++){
+           for(var j=0; j < value[Merquery.databaseConstants.query[i].category].length; j++){
                 var getValue = value[Merquery.databaseConstants.query[i].category];
                 var getColumn = columnNames[Merquery.databaseConstants.query[i].category];
-
                 thisData = {
                  category: Merquery.databaseConstants.query[i].category,
                  record: getValue,
@@ -95,93 +85,74 @@ Merquery.Popup  = {
         console.log("dataArray");
         console.log(dataArray);
 
-        //Remove duplicates
-
+        //Remove duplicates and merge chunks of category data
           var temporaryArray = [];
 
           for (var i =0; i<dataArray.length; i++)
           {
+           // if(Merquery.databaseConstants.query[i].category == "Campaign"){
+            var numOfColumns = Merquery.databaseConstants.query[i].numOfColumns;
+            for(var j=0; j<dataArray[i].queryField.length-1; j++){
 
-            if(dataArray[i].category == "Campaign"){
-            for(var j=0; j<dataArray[i].queryField.length; j++){
-                console.log(dataArray[i].record[j]);
-                //if((dataArray[i].queryField[j] == Merquery.databaseConstants.query[i].identifier) && (temporaryArray.indexOf(dataArray[i].record[j]) == -1 ))
-                if(temporaryArray.indexOf(dataArray[i].record[j]) == -1 )
+               var identifierColumn = j + Merquery.databaseConstants.query[i].identifierColumn;
+               //console.log("column check " + identifierColumn + " " + dataArray[i].record[identifierColumn] );
+                var increment = j+ numOfColumns+1;
+               if(temporaryArray.indexOf(dataArray[i].record[identifierColumn]) == -1  && (identifierColumn < (dataArray[i].queryField.length-1)))
                 {
-                    console.log(dataArray[i].queryField[j], dataArray[i].record[j], j);
-                    for(var k=0; k < Merquery.databaseConstants.query[i].numOfColumns; k++){
-                        //if(temporaryArray.indexOf(dataArray[i].record[j]) == -1 )
-                          //  {
-                                temporaryArray.push(dataArray[i].queryField[k],dataArray[i].record[k]);
-                            //}
+
+                    for(var k=j; k < increment; k++){
+                       temporaryArray.push(dataArray[i].queryField[k],dataArray[i].record[k]);
                      }
 
-                    // console.log(Merquery.databaseConstants.query[i].numOfColumns);
                 }
-                j += Merquery.databaseConstants.query[i].numOfColumns;
-                                     console.log("j");
-                                     console.log(j);
+               // console.log("before value of j "+ j);
+               // if((increment + numOfColumns) < dataArray[i].queryField.length -1){
+               if((j + numOfColumns) < dataArray[i].queryField.length -1){
+                    j = j+  numOfColumns;
+                  //  console.log("after value of j "+ j);
 
+                }
+            }
+            //}
+            }
 
-          }
-
-
-
-              }
-              }
-
-          console.log("TemporaryArray");
-          console.log(temporaryArray);
-
+        //Converts the variable temporaryArray to objects
          dataArray = [];
          temporaryObject = {};
         for (var i=0; i< temporaryArray.length; i++){
-            temporaryObject = {
-                queryField: temporaryArray[i],
-                queryValue: temporaryArray[i+1]
-            }
-            i++;
-            dataArray.push(temporaryObject);
+            if(temporaryArray[i+1] != null && temporaryArray[i+1] != ""){
+                temporaryObject = {
+                    queryField: temporaryArray[i],
+                    queryValue: temporaryArray[i+1]
+                }
+                dataArray.push(temporaryObject);
+             }
+             i++;
         }
-          console.log("DataArray");
-          console.log(dataArray);
+
 
         for(var i = 0; i < Merquery.databaseConstants.query.length; i++){
             var divTag = $("<div></div>");
             var h5Tag = $("<h5></h5>");
             var lineTag = $("<hr></hr>");
+            var noDataBoolean = true;
             h5Tag.append(Merquery.databaseConstants.query[i].category);
             divTag.append(h5Tag);
             if(i != Merquery.databaseConstants.query.length -1)
                 divTag.append(lineTag);
-
 
             //Appends the data in each category
             for(var j=0; j < dataArray.length; j++){
                 var categoryName = dataArray[j].queryField.split("_");
                 if(categoryName[0] ==  Merquery.databaseConstants.query[i].category){
                     divTag.append(Merquery.getDisplayName(dataArray[j].queryField) + ": "+ dataArray[j].queryValue + "<br>");
+                    noDataBoolean = false;
                 }
             }
+            if(Boolean(noDataBoolean))
+                divTag.append("No Data");
 
-
-/*
-
-            //Appends the data in each category
-            if(Merquery.databaseConstants.query[i].category == "Demographics"){
-               // for(var j=0; j < value[Merquery.databaseConstants.query[i].category].length; j++){
-                //var getValue = value[Merquery.databaseConstants.query[i].category];
-                //var getColumn = columnNames[Merquery.databaseConstants.query[i].category];
-                //if()
-                //divTag.append(getColumn[j] + ": "+ getValue[j] + "<br>");
-                for(var j=0; j < dataArray[i].queryField.length; j++){
-                    divTag.append(Merquery.getDisplayName(dataArray[i].queryField[j]) + ": "+ dataArray[i].record[j] + "<br>");
-                }
-            }
-*/
-
-
-            $('#myModal').find('.modal-body').append(divTag);
+        $('#myModal').find('.modal-body').append(divTag);
         }
     }
 }

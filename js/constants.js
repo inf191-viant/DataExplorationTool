@@ -31,7 +31,8 @@ Merquery.databaseConstants = {
                    "Demographics.ethnicity, Demographics.sexorient, Demographics.marital, Demographics.children",
                    placeholder: "John, Smith, some@email.com, 12345600000, N/A, Irvine, h, s, d, p",
                    identifier: "Demographics_emailmd5",
-                   numOfColumns: "9"
+                   numOfColumns: 9,
+                   identifierColumn: 2
 
                },
                {
@@ -42,7 +43,8 @@ Merquery.databaseConstants = {
                    groupByStatement: "Address.Address1, Address.Address2, Address.City, Address.State, Address.Zip",
                    placeholder: "1234 Main St, Apt 111, Irvine, CA, 92612",
                    identifier: "Address_Address1",
-                   numOfColumns: "4"
+                   numOfColumns: 4,
+                   identifierColumn: 0
                },
                {
                    category: "Campaign",
@@ -54,7 +56,8 @@ Merquery.databaseConstants = {
                    " Campaign.impression_count, Campaign.click_count, Campaign.conversion_count",
                    placeholder: "1234, Disney, 123456, Family Display, 5, 5, 0",
                    identifier: "Campaign_advertiser_id",
-                   numOfColumns: "6"
+                   numOfColumns: 6,
+                   identifierColumn: 0
                },
                {
                    category: "Behavior",
@@ -64,7 +67,8 @@ Merquery.databaseConstants = {
                    groupByStatement: "Behavior.id, Behavior.name, Behavior.last_seen, Behavior.count",
                    placeholder: "12345, Shopping, 2015-01-15, 5",
                    identifier: "Behavior_id",
-                   numOfColumns: "3"
+                   numOfColumns: 3,
+                   identifierColumn: 0
                },
                {
                    category: "Device",
@@ -75,8 +79,9 @@ Merquery.databaseConstants = {
                    groupByStatement: "Device.device_id, Device.device_name, Device.device_type_id, Device.device_type_name, " +
                    "Device.operating_system, Device.last_seen",
                    placeholder: "55, Windows Desktop, 1, Desktop, Windows, 2015-01-15",
-                   identifier: "Device_device_id",
-                   numOfColumns: "6"
+                   identifier: "Device.device_id",
+                   numOfColumns: 5,
+                   identifierColumn: 5
                },
                {
                    category: "Purchase",
@@ -88,7 +93,8 @@ Merquery.databaseConstants = {
                    "Purchase.ltv_online, Purchase.ltv_offline",
                    placeholder: "12345, 50.55, 2015-01-15 04:00:00 UTC, 70.00, 0.0",
                    identifier: "Purchase_advertiser_id",
-                   numOfColumns: "4"
+                   numOfColumns: 4,
+                   identifierColumn: 0
                },
 
                {
@@ -99,7 +105,8 @@ Merquery.databaseConstants = {
                   groupByStatement: "IpSMID.smid, IpSMID.ipAddress, IpSMID.ipLast_seen, IpSMID.ipFirst_seen",
                   placeholder: "12345, 127.1.1.1, 2015-01-15 04:00:00 UTC, 2015-01-15 04:00:00 UTC",
                   identifier: "IpSMID_smid",
-                  numOfColumns: "3"
+                  numOfColumns: 3,
+                  identifierColumn: 0
               }
            ]
 }

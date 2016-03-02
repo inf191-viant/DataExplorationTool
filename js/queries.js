@@ -58,7 +58,7 @@ Merquery.Queries = {
             }
         }
         formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit 5 ;';
-
+        //console.log(formedQuery);
         var request = gapi.client.bigquery.jobs.query({
             'projectId': Merquery.Constants.project_id,
             'timeoutMs': '30000',

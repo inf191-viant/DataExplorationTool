@@ -33,7 +33,7 @@ Merquery.SchemaManager = {
         for (var i = 0; i < fields.length; i++) {
             var fieldName = fields[i].name;
             if (!schema[fieldName]) {
-                console.log("There is a field without UI name [" + fieldName + "]");
+                //console.log("There is a field without UI name [" + fieldName + "]");
                 schema[fieldName] = fieldName;
             }
 
