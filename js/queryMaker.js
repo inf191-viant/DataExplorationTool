@@ -89,7 +89,7 @@ Merquery.queryMaker = {
             }
         }
 
-        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit ' + "20" + ';';
+        formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit ' + "10" + ';';
         return formedQuery;
     }
 };

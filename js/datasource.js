@@ -42,11 +42,12 @@
         var thTag = $("<thead></thead>");
         var trTag = $("<tr></tr>");
         for(var i=0; i < fields.length; i++) {
-            var header = $("<th></th>");
-            header.append(Merquery.getDisplayName(schema[fields[i].name].fieldName));
-
-            trTag.append(header);
-            thTag.append(trTag);
+            if(Merquery.getDisplayName(schema[fields[i].name].fieldName) != "Email"){
+                var header = $("<th></th>");
+                header.append(Merquery.getDisplayName(schema[fields[i].name].fieldName));
+                trTag.append(header);
+                thTag.append(trTag);
+            }
         }
         $('#result').append(thTag);
     
@@ -54,12 +55,28 @@
         Merquery.Util.log("DATA FROM SERVER");
         Merquery.Util.log(data);
     
-    
+
+        //Store all the values of emailmd5 for the popup
+        var emailArray = [];
+        for(var i=0; i < data.length; i++){
+            var test = data[i];
+            for (var j = 0; j < fields.length; j++) {
+                if(test.hasOwnProperty(fields[j].name) && (fields[j].name == "Demographics_emailmd5")){
+                    emailArray.push(test[fields[j].name]);
+                }
+            }
+
+        }
+
         //Appends data to the table
         for(var i=0; i < data.length; i++){
             var test = data[i];
             var row = $("<tr></tr>");
+            var myButton;
+            var popupQueryField;
+             var popupValue;
             for (var j = 0; j < fields.length; j++) {
+
                 if(test.hasOwnProperty(fields[j].name)){
                     var column = $("<td></td>");
                     var field = $("<a></a>");
@@ -90,40 +107,54 @@
                         }
                     });
 
-                    if (fields[j].name == "Demographics_emailmd5") {
+
+                    if (fields[j].name == "Demographics_lastname") {
                         var queryField = fields[j].name;
-                       // var queryValue = test[fields[j].name];
                         var queryValue = $("<a></a>");
                         queryValue.attr("href", "javascript:void(0)");
                         queryValue.data("value", test[fields[j].name]);
                         queryValue.text(test[fields[j].name]);
                         column.append(field);
-    
-                        var myButton = $("<button type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
-                                        "<span class = 'glyphicon glyphicon-user'></span></button>");
+
+                        //myButton = $("<button type = 'button' value = '"+queryValue.data("value")+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
+                         //               "<span class = 'glyphicon glyphicon-user'></span></button>");
+                        myButton = $("<button id = 'myButton' type = 'button' value = '"+emailArray[i]+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
+                                     "<span class = 'glyphicon glyphicon-user'></span></button>");
+
                         column.append(myButton);
-                        myButton.data("queryfield",fields[j].name);
+
+                        //myButton.data("queryfield","Demographics_emailmd5");
 
                         myButton.click(function () {
                             $('#myModal').find('.modal-body').empty();
                             $('#popimg').show();
                             $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
-                            Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
-                            //console.log($(this).val());
-    
-                        });
+                           // Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
+                             Merquery.Queries.popupQuery($(this).attr("value"), "Demographics_emailmd5");
+                         });
+
+
+                    }
+                    else if (fields[j].name == "Demographics_emailmd5") {
+                        var queryField = fields[j].name;
+                        var queryValue = $("<a></a>");
+                        queryValue.attr("href", "javascript:void(0)");
+                        queryValue.data("value", test[fields[j].name]);
+                        queryValue.text(test[fields[j].name]);
+                        column.append(field);
+                        column.toggleClass("hidden");
                     }else{
                         column.append(field);
     
                     }
                 }
                 row.append(column);
+
+
             }
             $('#result').append(row);
             Merquery.Paginator.paginate(row);
         }
-    
-
             //Calls the sort function to add sorting functionality to the table
             $("#result").tablesorter();
             $("#export-button").prop('disabled', false);
@@ -134,7 +165,7 @@
             Merquery.showNav();
 
 
-	    //Copies the entire table from result to exportedTable
+	        //Copies the entire table from result to exportedTable
             var source = document.getElementById('result');
             var destination = document.getElementById('exportedTable');
             var copy = source.cloneNode(true);
@@ -144,21 +175,27 @@
             $('#exportedTable tr').removeAttr('style');
             $('#exportedTable').attr('style', 'display: none;');
 
-    };
+};
+
+
 
 Merquery.getDisplayName =function(fieldName) {
         var name = fieldName.split("_");
         var formatted;
-        if(name.length >2){
-            formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
-            for(var i=2; i < name.length; i++){
-                formatted = formatted.concat(" ", name[i].substr(0,1).toUpperCase()+name[i].substr(1).toLowerCase());
-            }
-        }
+        if(name[1] == "emailmd5")
+            return "Email";
         else{
-            formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
+            if(name.length >2){
+                formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
+                for(var i=2; i < name.length; i++){
+                    formatted = formatted.concat(" ", name[i].substr(0,1).toUpperCase()+name[i].substr(1).toLowerCase());
+                }
+            }
+            else{
+                formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
+            }
+            return formatted;
         }
-        return formatted;
     }
 
  //   var createSchema = function(data) {
@@ -273,9 +310,7 @@ Merquery.createSchema = function(data) {
     //Create schema functionality
     $(document).ready(function() {
         Merquery.hideLoad();
-       // var getSchema = function() {
        Merquery.getSchema = function() {
-            //Merquery.Queries.standardQuery("washington", "Demographics_city", 1, createSchema);
            Merquery.Queries.standardQuery("washington", "Demographics_city", 1, Merquery.createSchema);
         };
         setTimeout(function () {
