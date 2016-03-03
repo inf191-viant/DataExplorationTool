@@ -85,14 +85,11 @@ Merquery.Popup  = {
 
         //Remove duplicates and merge chunks of category data
           var temporaryArray = [];
-
           for (var i =0; i<dataArray.length; i++)
           {
-            //if(Merquery.databaseConstants.query[i].category == "Campaign"){
             var numOfColumns = Merquery.databaseConstants.query[i].numOfColumns;
             for(var j=0; j<dataArray[i].queryField.length-1; j++){
                 var identifierColumn = j + Merquery.databaseConstants.query[i].identifierColumn;
-                //console.log("column check " + identifierColumn + " " + dataArray[i].record[identifierColumn] );
                 var increment = j+ numOfColumns+1;
                if(temporaryArray.indexOf(dataArray[i].record[identifierColumn]) == -1  && (identifierColumn < (dataArray[i].queryField.length-1)))
                 {
@@ -100,25 +97,19 @@ Merquery.Popup  = {
                        temporaryArray.push(dataArray[i].queryField[k],dataArray[i].record[k]);
                      }
                 }
-               // console.log("before value of j "+ j);
-               // if((increment + numOfColumns) < dataArray[i].queryField.length -1){
                if((j + numOfColumns) < dataArray[i].queryField.length -1){
                     j = j+  numOfColumns;
-                    //console.log("after value of j "+ j);
-
                 }else if ((j + numOfColumns) == (dataArray[i].queryField.length -1)){
                     j =  dataArray[i].queryField.length;
-                   // console.log("ending value of j "+ j);
                 }
             }
-            //}
             }
 
         //Converts the variable temporaryArray to objects
         dataArray = [];
         temporaryObject = {};
         for (var i=0; i< temporaryArray.length; i++){
-            if(temporaryArray[i+1] != null && temporaryArray[i+1] != ""){
+            if(temporaryArray[i+1] != null){
                 temporaryObject = {
                     queryField: temporaryArray[i],
                     queryValue: temporaryArray[i+1]
@@ -148,6 +139,7 @@ Merquery.Popup  = {
             //Appends the data in each category
             for(var j=0; j < dataArray.length; j++){
                 var categoryName = dataArray[j].queryField.split("_");
+                var firstColumn = dataArray[0].queryField;
                 if(categoryName[0] ==  Merquery.databaseConstants.query[i].category){
                     var tdTag = $("<td></td>");
                     if(headerCounter < Merquery.databaseConstants.query[i].numOfColumns+1){
@@ -158,7 +150,27 @@ Merquery.Popup  = {
                         headerCounter++;
                      }
                      if(columnCounter < Merquery.databaseConstants.query[i].numOfColumns+1){
-                         tdTag.append(dataArray[j].queryValue);
+                         if(dataArray[j].queryValue == 'm'){
+                            tdTag.append("<div class='icon'><i class='fa fa-male fa-2x'></i></div>");
+                         }else if(dataArray[j].queryValue == 'f'){
+                            tdTag.append("<div class='icon'><i class='fa fa-female fa-2x'></i></div>");
+                         }else if(dataArray[j].queryValue == 'Windows Desktop'){
+                            tdTag.append("<div class='icon'><i class='fa fa-desktop fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'IPad' || dataArray[j].queryValue == 'Tablet PC' || dataArray[j].queryValue =='Unclassified Tablet' || dataArray[j].queryValue =='Quad Core Tablet' || dataArray[j].queryValue =='Wireless Tablet'){
+                            tdTag.append("<div class='icon'><i class='fa fa-tablet fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'Playstation'){
+                            tdTag.append("<div class='icon'><i class='fa fa-playstation fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'Windows Mobile' || dataArray[j].queryValue == 'Unclassified Mobile' || dataArray[j].queryValue == 'IPhone Mobile'){
+                            tdTag.append("<div class='icon'><i class='fa fa-mobile fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'Android Mobile'){
+                            tdTag.append("<div class='icon'><i class='fa fa-android fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'Linux Desktop'){
+                            tdTag.append("<div class='icon'><i class='fa fa-linux fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'XBox'){
+                            tdTag.append("<div class='icon'><i class='fa fa-social-xbox fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else{
+                             tdTag.append(dataArray[j].queryValue);
+                         }
                          trbodyTag.append(tdTag);
                          tbodyTag.append(trbodyTag);
                          noDataBoolean = false;
@@ -173,7 +185,6 @@ Merquery.Popup  = {
             }
             tableTag.append(theadTag);
             tableTag.append(tbodyTag);
-            // divTag.append(tableTag);
             tabledivTag.append(tableTag);
             if(Boolean(noDataBoolean))
                 divTag.append("No Data");

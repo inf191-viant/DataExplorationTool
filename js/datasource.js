@@ -131,6 +131,8 @@
                         myButton.click(function () {
                             $('#myModal').find('.modal-body').empty();
                             $('#popimg').show();
+                            $('#myModal').find('.modal-title').empty();
+                            $('#myModal').find('.modal-title').append("Individual Profile");
                             $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
                             // Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
                              Merquery.Queries.popupQuery($(this).attr("value"), "Demographics_emailmd5");
@@ -150,6 +152,8 @@
                              myButton.click(function () {
                                  $('#myModal').find('.modal-body').empty();
                                  $('#popimg').show();
+                                 $('#myModal').find('.modal-title').empty();
+                                 $('#myModal').find('.modal-title').append("Household Profile");
                                  $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
                                  Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
                               });
@@ -166,6 +170,8 @@
                               myButton.click(function () {
                                   $('#myModal').find('.modal-body').empty();
                                   $('#popimg').show();
+                                  $('#myModal').find('.modal-title').empty();
+                                  $('#myModal').find('.modal-title').append("Device Profile");
                                   $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
                                   Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
                                });
