@@ -58,10 +58,21 @@ Merquery.queryMaker = {
         for(var i=0; i<userInputs.length; i++){
             var formattedFieldName;
             var input;
+            var minValue;
+            var maxValue;
 
             // hashes the email
             if (userInputs[i].queryField == "Demographics_emailmd5"){
                 input = hex_md5(userInputs[i].input).toLowerCase()
+            }
+            // forms the range for birthdate
+            else if(userInputs[i].queryField == "Demographics_birthdate") {
+                if (userInputs[i].minOrMax == "min") {
+                    minValue = Merquery.birthdateCalculator.ageToBirthdate(userInputs[i].input); }
+                if (userInputs[i].minOrMax == "max") {
+                    maxValue = Merquery.birthdateCalculator.ageToBirthdate(parseInt(userInputs[i].input) +1);}
+                if (userInputs[i].minOrMax == "equalTo") {
+                    input = Merquery.birthdateCalculator.ageToBirthdate(userInputs[i].input); }
             }
             else{
                 if(userInputs[i].querytype == 'STRING')
@@ -72,10 +83,28 @@ Merquery.queryMaker = {
 
             // forms the where clause in the sql statement
 
-            if(i ==0){
+            if (userInputs[i].queryField == "Demographics_birthdate"){
+                formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField);
+                if (i==0) {
+                    if (userInputs[i].minOrMax == "min") {
+                        whereString += formattedFieldName + " <= " + minValue;}
+                    if (userInputs[i].minOrMax == "max") {
+                        whereString += formattedFieldName + " >= " + maxValue;}
+                    if (userInputs[i].minOrMax == "equalTo") {
+                        whereString += formattedFieldName + " = " + input;}
+                } else {
+                    if (userInputs[i].minOrMax == "min") {
+                        whereString += ' AND ' + formattedFieldName + " <= " + minValue;}
+                    if (userInputs[i].minOrMax == "max") {
+                        whereString += ' AND ' + formattedFieldName + " >= " + maxValue;}
+                    if (userInputs[i].minOrMax == "equalTo") {
+                        whereString += ' AND ' + formattedFieldName + " = " + input;}
+                }
+            }
+            else if(i ==0){
                 formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(userInputs[i].queryField);
                 if(userInputs[i].querytype == 'STRING')
-                   whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + input + '%"';
+                    whereString +=  'lower(' + formattedFieldName + ') ' + ' like "%' + input + '%"';
                 else
                     whereString +=  formattedFieldName + ' = ' + input ;
             }
@@ -90,6 +119,7 @@ Merquery.queryMaker = {
         }
 
         formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit ' + "10" + ';';
+        console.log(formedQuery);
         return formedQuery;
     }
 };
