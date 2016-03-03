@@ -139,7 +139,17 @@ SIDEBAR
     width: 140px;
     color: #000;
 }
+.min-input-box {
+    width: 50px;
+    color: #000;
+    margin-right: 14px;
+}
 
+.max-input-box {
+    width: 50px;
+    color: #000;
+    margin-left: 14px;
+}
 
 
 /*to set width of col OBSOLETE*/
