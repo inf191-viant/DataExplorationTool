@@ -131,10 +131,11 @@ Merquery.Popup  = {
         //Formats the data into divs and tables
         for(var i = 0; i < Merquery.databaseConstants.query.length; i++){
             var divTag = $("<div id = '"+Merquery.databaseConstants.query[i].category+"' class = 'popupinfo'></div>");
+            var tabledivTag = $("<div id = 'tablediv'></div>");
             var h5Tag = $("<h5></h5>");
             var lineTag = $("<hr></hr>");
             var noDataBoolean = true;
-            var tableTag = $("<table class = 'popuptable'></table>");
+            var tableTag = $("<table id = 'popuptable' class = 'table table-striped'></table>");
             var theadTag = $("<thead></thead>");
             var tbodyTag = $("<tbody></tbody>");
             var headerCounter =0;
@@ -172,11 +173,13 @@ Merquery.Popup  = {
             }
             tableTag.append(theadTag);
             tableTag.append(tbodyTag);
-            divTag.append(tableTag);
+            // divTag.append(tableTag);
+            tabledivTag.append(tableTag);
             if(Boolean(noDataBoolean))
                 divTag.append("No Data");
 
         $('#myModal').find('.modal-body').append(divTag);
+        $('#myModal').find('.modal-body').append(tabledivTag);
         }
     }
 }
