@@ -95,11 +95,20 @@
                         Merquery.BreadCrumbs.clearBreadcrumbs();
                         $('breadcrumbs').empty();
                         crumbs = Merquery.BreadCrumbs.crumbs;
-                        userValues = {
-                            queryField: $(this).data("queryField"),
-                            input: $(this).data("value"),
-                            querytype: $(this).data("type")
-                        };
+                        if ($(this).data("queryField") == "Demographics_birthdate"){
+                            userValues = {
+                                queryField: $(this).data("queryField"),
+                                input: $(this).data("value"),
+                                querytype: $(this).data("type"),
+                                minOrMax: "equalTo"
+                            };
+                        } else {
+                            userValues = {
+                                queryField: $(this).data("queryField"),
+                                input: $(this).data("value"),
+                                querytype: $(this).data("type")
+                            };
+                        }
 
                         if (Merquery.BreadCrumbs.checkForDuplicateInputs(userValues)) {
                             crumbs.push(userValues);
@@ -209,8 +218,10 @@ Merquery.getDisplayName =function(fieldName) {
         }
         var name = fieldName.split("_");
         var formatted;
-        if(name[1] == "emailmd5")
-            return "Email";
+        if(name[1] == "emailmd5"){
+            return "Email";}
+        else if(name[1] == "birthdate"){
+            return "Age";}
         else{
             if(name.length >2){
                 formatted = name[1].substr(0,1).toUpperCase() + name[1].substr(1).toLowerCase();
@@ -299,7 +310,37 @@ Merquery.createSchema = function(data) {
                           }
                         radioTag.append(selectTag);
                         trTag.append(radioTag);
-                    }else{
+                    }
+                    else if (columnHeaders[i] == "Age") {
+                        tdTag.append(columnHeaders[i]);
+                        trTag.append(tdTag);
+                        var min;
+                        var max;
+                        var preTag = $("<td class='widthSet'></td>");
+                        var minTag = $("<input class='min-input-box' type='text'>");
+                        var maxTag = $("<input class='max-input-box' type='text'>");
+                        minTag.attr("id", columnHeaders[i]);
+                        minTag.attr("queryfield", databaseCoumns[i]);
+                        minTag.attr("type", columnType[i]);
+                        minTag.attr("onkeypress", "Merquery.handle(event)");
+                        minTag.attr("placeholder", placeholders[i]);
+                        minTag.attr("minOrMax", "min");
+
+                        maxTag.attr("id", columnHeaders[i]);
+                        maxTag.attr("queryfield", databaseCoumns[i]);
+                        maxTag.attr("type", columnType[i]);
+                        maxTag.attr("onkeypress", "Merquery.handle(event)");
+                        maxTag.attr("placeholder", parseInt(placeholders[i])+5);
+                        maxTag.attr("minOrMax", "max");
+
+                        preTag.append(minTag);
+                        preTag.append("to");
+                        preTag.append(maxTag);
+
+                        trTag.append(tdTag);
+                        trTag.append(preTag);
+                    }
+                    else{
                         var preTag = $("<td class='widthSet'></td>")
                         var inputTag = $("<input class='input-box' type='text'>");
                         inputTag.attr("id", columnHeaders[i]);
