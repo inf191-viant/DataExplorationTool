@@ -436,3 +436,9 @@ table.tablesorter thead tr .headerSortDown {
 .icon{
     text-align: center;
 }
+
+.tablediv {
+    height: auto;
+    width: 550px;
+    overflow: auto;
+}

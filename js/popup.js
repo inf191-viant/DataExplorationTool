@@ -122,7 +122,7 @@ Merquery.Popup  = {
         //Formats the data into divs and tables
         for(var i = 0; i < Merquery.databaseConstants.query.length; i++){
             var divTag = $("<div id = '"+Merquery.databaseConstants.query[i].category+"' class = 'popupinfo'></div>");
-            var tabledivTag = $("<div id = 'tablediv'></div>");
+            var tabledivTag = $("<div class = 'tablediv'></div>");
             var h5Tag = $("<h5></h5>");
             var lineTag = $("<hr></hr>");
             var noDataBoolean = true;
