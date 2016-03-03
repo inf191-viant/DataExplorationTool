@@ -199,6 +199,14 @@
 
 
 Merquery.getDisplayName =function(fieldName) {
+        //console.log(fieldName);
+        if(!fieldName) {
+            console.log("Something went wrong with the fieldname!");
+            if(typeof schema != "undefined") {
+                console.log(schema);
+            }
+            return "field"; //$Fixme$ need to figure out why the fieldname was undefined in the firstplace
+        }
         var name = fieldName.split("_");
         var formatted;
         if(name[1] == "emailmd5")
@@ -217,7 +225,6 @@ Merquery.getDisplayName =function(fieldName) {
         }
     }
 
- //   var createSchema = function(data) {
 Merquery.createSchema = function(data) {
         var fields = data.schema.fields;
         var list = {};
