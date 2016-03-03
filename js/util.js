@@ -247,17 +247,27 @@ Merquery.search = function (){
         userInputs.push(genderValues);
     }
     $('input').each(function () {
-        if($(this).val().length !=0 && $(this).attr('type') != "checkbox"){
-            userValues  = {
+        if ($(this).val().length !=0 && $(this).attr('type') != "checkbox") {
+            if($(this).attr('queryField') == "Demographics_birthdate"){
+                userValues = {
+                    queryField: $(this).attr('queryfield'),
+                    input: $(this).val().toLowerCase(),
+                    querytype: $(this).attr('type'),
+                    minOrMax: $(this).attr('minOrMax')
+                };
+            }
+            else {
+                userValues = {
                     queryField: $(this).attr('queryfield'),
                     input: $(this).val().toLowerCase(),
                     querytype: $(this).attr('type')
-             };
-             userInputs.push(userValues);
-             }
-      });
+                };
+            }
+            userInputs.push(userValues);
+        }
+    });
 
-
+    console.log(userInputs);
     Merquery.Queries.runQuery(userInputs);
 }
 
