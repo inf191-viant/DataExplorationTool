@@ -24,7 +24,20 @@ Merquery.BreadCrumbs = {
         for (var i =0; i < crumbs.length; i++) {
             var link = $("<a><em>&times;</em></a>");
             link.attr("href", "javascript:void(0)");
-            link.append(crumbs[i].queryField + " : " + crumbs[i].input);
+            if (crumbs[i].queryField == "Demographics_birthdate"){
+                if (Merquery.BreadCrumbs.countBirthdates() == 2) {
+                    link.append("Demographics_Age: " + crumbs[i].input + " - " + crumbs[i+1].input);
+                    i++;
+                } else {
+                    link.append("Demographics_Age: " + crumbs[i].input);
+                }
+            }
+            else if (crumbs[i].queryField == "Demographics_emailmd5") {
+                link.append("Demographics_Email: " + crumbs[i].input);
+            }
+            else {
+                link.append(crumbs[i].queryField + ": " + crumbs[i].input);
+            }
             link.data("value", crumbs[i].input);
             link.data("queryField", crumbs[i].queryField);
             link.data("type", crumbs[i].querytype);
@@ -60,6 +73,18 @@ Merquery.BreadCrumbs = {
             }
         }
         return true;
+    },
+
+    //checks birthdate in the breadcrumbs to make range
+    countBirthdates: function() {
+        var count = 0;
+        var crumbs = Merquery.BreadCrumbs.crumbs;
+        for (var i=0; i<crumbs.length; i++) {
+            if (crumbs[i].queryField == "Demographics_birthdate") {
+                count += 1;
+            }
+        }
+        return count;
     }
 
-}
+};
