@@ -72,7 +72,9 @@ Merquery.queryMaker = {
                 if (userInputs[i].minOrMax == "max") {
                     maxValue = Merquery.birthdateCalculator.ageToBirthdate(parseInt(userInputs[i].input) +1);}
                 if (userInputs[i].minOrMax == "equalTo") {
-                    input = Merquery.birthdateCalculator.ageToBirthdate(userInputs[i].input); }
+                    minValue = Merquery.birthdateCalculator.ageToBirthdate(Math.round(userInputs[i].input));
+                    maxValue = Merquery.birthdateCalculator.ageToBirthdate(parseInt(Math.round(userInputs[i].input)) +1);
+                }
             }
             else{
                 if(userInputs[i].querytype == 'STRING')
@@ -89,16 +91,16 @@ Merquery.queryMaker = {
                     if (userInputs[i].minOrMax == "min") {
                         whereString += formattedFieldName + " <= " + minValue;}
                     if (userInputs[i].minOrMax == "max") {
-                        whereString += formattedFieldName + " >= " + maxValue;}
+                        whereString += formattedFieldName + " > " + maxValue;}
                     if (userInputs[i].minOrMax == "equalTo") {
-                        whereString += formattedFieldName + " = " + input;}
+                        whereString += formattedFieldName + " <= " + minValue + " AND " + formattedFieldName + " > " + maxValue;}
                 } else {
                     if (userInputs[i].minOrMax == "min") {
                         whereString += ' AND ' + formattedFieldName + " <= " + minValue;}
                     if (userInputs[i].minOrMax == "max") {
-                        whereString += ' AND ' + formattedFieldName + " >= " + maxValue;}
+                        whereString += ' AND ' + formattedFieldName + " > " + maxValue;}
                     if (userInputs[i].minOrMax == "equalTo") {
-                        whereString += ' AND ' + formattedFieldName + " = " + input;}
+                        whereString += formattedFieldName + " <= " + minValue + " AND " + formattedFieldName + " > " + maxValue;}
                 }
             }
             else if(i ==0){
@@ -119,7 +121,6 @@ Merquery.queryMaker = {
         }
 
         formedQuery += "SELECT " + queryString + fromString + whereString + " GROUP each BY " + groupByString + ' Limit ' + "10" + ';';
-        console.log(formedQuery);
         return formedQuery;
     }
 };
