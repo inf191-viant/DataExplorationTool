@@ -109,10 +109,15 @@ Merquery.Popup  = {
         dataArray = [];
         temporaryObject = {};
         for (var i=0; i< temporaryArray.length; i++){
-            if(temporaryArray[i+1] != null){
+            var column = temporaryArray[i].split("_");
+            if((temporaryArray[i+1] != null) && (column[1] != "emailmd5")){
                 temporaryObject = {
                     queryField: temporaryArray[i],
                     queryValue: temporaryArray[i+1]
+                }
+                //Address2 null check
+                if(column[1] == "Address1" && temporaryArray[i+3] == null){
+                    temporaryArray[i+3] = "";
                 }
                 dataArray.push(temporaryObject);
              }
@@ -142,14 +147,19 @@ Merquery.Popup  = {
                 var firstColumn = dataArray[0].queryField;
                 if(categoryName[0] ==  Merquery.databaseConstants.query[i].category){
                     var tdTag = $("<td></td>");
-                    if(headerCounter < Merquery.databaseConstants.query[i].numOfColumns+1){
+                    //Reducing the numOfColumns in the Demographics table in order to remove email column
+                    if(Merquery.databaseConstants.query[i].category == "Demographics")
+                        var numOfColumns = Merquery.databaseConstants.query[i].numOfColumns;
+                    else
+                        var numOfColumns = Merquery.databaseConstants.query[i].numOfColumns+1;
+                    if(headerCounter < numOfColumns){
                        var trheaderTag = $("<tr></tr>");
                        var thTag = $("<th></th>");
                         thTag.append(Merquery.getDisplayName(dataArray[j].queryField));
                         theadTag.append(thTag);
                         headerCounter++;
                      }
-                     if(columnCounter < Merquery.databaseConstants.query[i].numOfColumns+1){
+                     if(columnCounter < numOfColumns){
                          if(dataArray[j].queryValue == 'm'){
                             tdTag.append("<div class='icon'><i class='fa fa-male fa-2x'></i></div>");
                          }else if(dataArray[j].queryValue == 'f'){
@@ -168,6 +178,8 @@ Merquery.Popup  = {
                             tdTag.append("<div class='icon'><i class='fa fa-linux fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
                          }else if(dataArray[j].queryValue == 'XBox'){
                             tdTag.append("<div class='icon'><i class='fa fa-social-xbox fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
+                         }else if(dataArray[j].queryValue == 'Macintosh Desktop'){
+                            tdTag.append("<div class='icon'><i class='fa fa-apple fa-2x'></i><br>"+dataArray[j].queryValue+"</div>");
                          }else{
                              tdTag.append(dataArray[j].queryValue);
                          }
