@@ -20,6 +20,8 @@
   <link href="css/stylesheet.css" rel="stylesheet">
   <!--stylesheet for loading indicator -->
   <link href="css/loader.css" rel="stylesheet">
+
+  <!-- For the icons -->
   <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- Scripts for search bar -->
@@ -39,13 +41,7 @@
   <script type="text/javascript" src="js/md5-min.js"></script>
   <script type="text/javascript" src="js/birthdateCalculator.js"></script>
 
-  <!-- Script for Help box -->
-  <script type="text/javascript">
-    function overlay() {
-      helpElement = document.getElementById("helpDialog")
-      helpElement.style.visibility = (helpElement.style.visibility == "visible") ? "hidden" : "visible";
-    }
-  </script>
+
 </head>
 
 
@@ -54,40 +50,10 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
 
+    <button class="standardbutton helpButton" data-toggle="modal" data-target="#helpModal">Help</button>
 
-    <button class="helpButton" onclick="overlay()">Help</button>
+    <button class = "standardbutton" id='export-button' onclick='Merquery.Export();' value="disabled" disabled="disabled">Export</button>
 
-    <button id='export-button' onclick='Merquery.Export();' value="disabled" disabled="disabled">Export</button>
-
-    <div id="helpDialog">
-      <div class="modalHeader">
-        <p color="#f43c37">Merquery</p>
-        <hr>
-        <p>Merquery is an engaging user experience, effectively
-          allowing you the ability to search through the digital warehouse of
-          Viant's user profile data.</p>
-        <br>
-        <p>
-          1. Ensure you're logged into Google account with Specific Media credentials.
-          <br>
-          2. Enter search criteria in fields on the left and press 'Enter'.
-        </p>
-        <br>
-        <p>
-          All hyperlinked fields can be clicked on to expand search criteria.
-          <br>
-          Individual profiles can be opened by clicking on user icon next to 'EmailMD5'.
-          <br>
-          Search results can be exported by using 'Export' button in bottom right corner.
-        </p>
-        <p>Questions? Contact <a href="mailto:chrisdoe@viantinc.com?subject=Merquery">Chris Doe</a> at Viant, Inc.</p>
-        <hr>
-        <a href="#" onclick="overlay()">Got it!</a>
-      </div>
-    </div>
-
-
-  </div>
   </div>
 </nav>
 
@@ -122,8 +88,8 @@
       </ul>
     </div>
     <p></p>
-    <button id="get_user" onclick="Merquery.search();">Search</button>
-    <button id="reset" onclick="Merquery.reset();">Reset</button>
+    <button class = "standardbutton" id="get_user" onclick="Merquery.search();">Search</button>
+    <button class = "standardbutton" id="reset" onclick="Merquery.reset();">Reset</button>
 
   </div>
 
@@ -135,32 +101,85 @@
     <div id="result-count"></div>
     <div class='container' id="divADV">
       <!-- Loading indicator from : http://preloaders.net/en/circular/3 -->
-      <img src="loading_indicator.gif" >
+      <img src="loading_indicator.gif" id = "loading-indicator">
       <div class='loader'></div>
     </div>
-    <table id="result" class="tablesorter"></table>
+    <table id="result" class="table table-striped tablesorter"></table>
     <table id="exportedTable" style="display: none;" ></table>
     <div id="page-nav" class="fixed-nav-bar"></div>
     <div id="export"></div>
-    <!--<div id="popup"></div>-->
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <!--<p>Some text in the modal.</p>-->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <!--<p>Some text in the modal.</p>-->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Modal Pop Up for Help Page -->
+    <div class="modal fade" id="helpModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center">Welcome to Merquery.</h4>
+          </div>
+          <div class="modal-body" id="help-page-body">
+            Need help using Merquery? Here's how to get started:
+            <br>
+            <br>
+
+            <div class="help-icons-span">
+              <img src="images/icon1.png" class="help-page-icons" /> <br>
+              1. Please be signed into your Google BigQuery account with Viant credentials.
+            </div>
+
+            <div class="help-icons-span">
+              <img src="images/icon2.png" class="help-page-icons" /> <br>
+              2. Enter your search criterias in the left navigation bar.
+            </div>
+
+            <div class="help-icons-span">
+              <img src="images/icon3.png" class="help-page-icons" /> <br>
+              3. Traverse through data points in the results table.
+            </div>
+
+            <br>
+
+            <div class="help-icons-span">
+              <img src="images/icon4.png" class="help-page-icons" /> <br>
+              4. View profile cards of devices, individuals, and households.
+            </div>
+
+            <div class="help-icons-span">
+              <img src="images/icon5.png" class="help-page-icons" /> <br>
+              5. Export data as an xls file.
+            </div>
+
+            <div class="help-icons-span">
+              <img src="images/icon6.png" class="help-page-icons" /> <br>
+              6. If you have further questions, please contact <a href="mailto:chrisdoe@viantinc.com?subject=Merquery">Chris Doe</a> at Viant, Inc.
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
