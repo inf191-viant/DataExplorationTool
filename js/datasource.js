@@ -366,6 +366,7 @@ Merquery.createSchema = function(data) {
                 tbodyTag.append(divider);
             }
         }
+        Merquery.hideLoad();
         $('#navigationBar').append(tbodyTag);
         Merquery.Util.log(navigationBar);
         Merquery.initAccordion();
