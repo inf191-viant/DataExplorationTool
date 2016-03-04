@@ -24,14 +24,14 @@ Merquery.databaseConstants = {
                {
                    category: "Demographics",
                    columnNames: "Demographics.firstname, Demographics.lastname, Demographics.emailmd5, " +
-                   "ROUND((CURRENT_TIMESTAMP()-MSEC_TO_TIMESTAMP(Demographics.birthdate))/(86400000000*365),1) AS Demographics.birthdate, " +
+                   "FLOOR((CURRENT_TIMESTAMP()-MSEC_TO_TIMESTAMP(Demographics.birthdate))/(86400000000*365)) AS Demographics.birthdate, " +
                    "Demographics.gender, Demographics.city, " +
                    "Demographics.ethnicity, Demographics.sexorient, Demographics.marital, Demographics.children",
                    fromStatement: "(SELECT firstname, lastname, emailmd5, birthdate,gender, city, ethnicity, sexorient, marital, children " +
                    "FROM [formal-cascade-571:uci.demo_info] where emailmd5 is not null ) AS Demographics",
                    groupByStatement: "Demographics.firstname, Demographics.lastname, Demographics.emailmd5, Demographics.birthdate, Demographics.gender, Demographics.city, " +
                    "Demographics.ethnicity, Demographics.sexorient, Demographics.marital, Demographics.children",
-                   placeholder: "John, Smith, some@email.com, 5, N/A, Irvine, h, s, d, p",
+                   placeholder: "John, Smith, johnSmith@email.com, 13, N/A, Irvine, h, s, d, p",
                    identifier: "Demographics_emailmd5",
                    numOfColumns: 9,
                    identifierColumn: 2
