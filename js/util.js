@@ -280,7 +280,6 @@ Merquery.AddHeader = function() {
     Merquery.ClearHeader();
     $('#header').append("Results");
     $('#header').addClass("page-header");
-    $('#header').attr('style', 'text-align: center;');
 
 }
 
