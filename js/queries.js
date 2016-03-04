@@ -6,6 +6,7 @@ Merquery.Queries = {
     //StandardQuery takes the fieldValue and fieldName and runs another query
     //parameters: {var fieldValue, var fieldName}
     standardQuery: function(fieldValue, fieldName, limit, callback) {
+        Merquery.showLoad();
         var formattedFieldName = Merquery.TableAndFieldsFormatter.formatFieldName(fieldName);
         var formedQuery = "";
         var queryString = "";
