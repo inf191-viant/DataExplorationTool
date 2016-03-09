@@ -94,7 +94,14 @@ Merquery.Popup  = {
                if(temporaryArray.indexOf(dataArray[i].record[identifierColumn]) == -1  && (identifierColumn < (dataArray[i].queryField.length-1)))
                 {
                     for(var k=j; k < increment; k++){
-                       temporaryArray.push(dataArray[i].queryField[k],dataArray[i].record[k]);
+                        var value;
+                       if (dataArray[i].queryField[k] == "Demographics_birthdate"){
+                           var splitAge = dataArray[i].record[k].split(".");
+                           value = splitAge[0];
+                       } else {
+                           value = dataArray[i].record[k];
+                       }
+                       temporaryArray.push(dataArray[i].queryField[k],value);
                      }
                 }
                if((j + numOfColumns) < dataArray[i].queryField.length -1){
