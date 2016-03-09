@@ -78,15 +78,23 @@
             for (var j = 0; j < fields.length; j++) {
 
                 if(test.hasOwnProperty(fields[j].name)){
+                    var formattedValue ="";
                     var column = $("<td></td>");
                     var field = $("<a></a>");
                     var fieldName = fields[j].name;
+
+                    if (fieldName == "Demographics_birthdate") {
+                        var value = test[fields[j].name].split(".");
+                        formattedValue = value[0];
+                    }else{
+                        formattedValue = test[fields[j].name];
+                    }
+
                     field.attr("href", "javascript:void(0)");
                     //field.data(schema[fieldName], test[fields[j].name]); //field.data("emailmd5", email);
-                    field.text(test[fields[j].name]);                //field.text(emailMD5);
-    
+                    field.text(formattedValue);                         //field.text(emailMD5);
                     field.data("queryField", fields[j].name);            //field.data("queryField", "CRM_EmailMD5");
-                    field.data("value", test[fields[j].name]);
+                    field.data("value", formattedValue);
                     field.data("type", fields[j].type);
 
                     var fieldValue = field.data("value");
@@ -119,8 +127,8 @@
                     var queryField = fields[j].name;
                     var queryValue = $("<a></a>");
                     queryValue.attr("href", "javascript:void(0)");
-                    queryValue.data("value", test[fields[j].name]);
-                    queryValue.text(test[fields[j].name]);
+                    queryValue.data("value", formattedValue);
+                    queryValue.text(formattedValue);
 
                     if (fields[j].name == "Demographics_lastname") {
                         column.append(field);
