@@ -21,9 +21,9 @@ Merquery.queryMaker = {
                 var categoryNotSelected = checkedBoxes.indexOf(queryPieces[j].category) == -1;
                 if (i == 0) {
                     if (j!=0 && queryPieces[j].category == checkedBoxes[i] && categoryNotInFromString) {
-                        queryString += "Demographics.firstname, Demographics.lastname, " + queryPieces[j].columnNames;
+                        queryString += queryPieces[j].columnNames;
                         fromString += " LEFT JOIN EACH " + queryPieces[j].fromStatement;
-                        groupByString += "Demographics.emailmd5, " + queryPieces[j].groupByStatement;
+                        groupByString += queryPieces[j].groupByStatement;
                     }
                     else if (j==0 && queryPieces[j].category == checkedBoxes[i] && categoryNotInFromString) {
                         queryString += queryPieces[j].columnNames;
