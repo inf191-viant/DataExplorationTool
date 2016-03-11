@@ -4,6 +4,7 @@ if(typeof Merquery == "undefined" ) {
 
 Merquery.birthdateCalculator = {
 
+    // Converts age to the birthdate
     ageToBirthdate: function(age) {
         var now = new Date();
         var currentYear = now.getFullYear();
