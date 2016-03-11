@@ -94,8 +94,14 @@
                     //field.data(schema[fieldName], test[fields[j].name]); //field.data("emailmd5", email);
                     field.text(formattedValue);                         //field.text(emailMD5);
                     field.data("queryField", fields[j].name);            //field.data("queryField", "CRM_EmailMD5");
-                    field.data("value", formattedValue);
-                    field.data("type", fields[j].type);
+                     if (fields[j].name == "Demographics_firstname") {
+                        if (test[fields[j].name] == "" || test[fields[j].name] == null){
+                            field.append("&nbsp;");
+                            field.attr('style', 'display: none;');
+                        }else{
+                            field.data("value", test[fields[j].name]);
+                        }
+                    }                    field.data("type", fields[j].type);
 
                     var fieldValue = field.data("value");
                     var userValues;
@@ -215,6 +221,7 @@
             destination.parentNode.replaceChild(copy, destination);
             $('#exportedTable tr').removeAttr('class');
             $('#exportedTable tr').removeAttr('style');
+ 	    $('#exportedTable').find('[style*="display: none"]').removeAttr('style');
             $('#exportedTable').attr('style', 'display: none;');
 
 };
