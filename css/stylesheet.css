@@ -1,6 +1,8 @@
-/*
- * Base structure
- */
+/* MAIN STYLESHEET FOR MERQUERY */
+
+/* ********************************************* */
+/* MAIN DIVS */
+/* ********************************************* */
 
 #merquery-header{
     position: fixed;
@@ -29,7 +31,55 @@
     padding: 10px 10px 20px 10px;
 }
 
-/* Fonts */
+body {
+    /* Shifted to accommodate fixed navbar */
+    padding-top: 50px;
+}
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Main content */
+
+.main {
+    padding: 10px;
+    margin-left: 290px;
+
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+.container-fluid {
+    position: relative;
+}
+
+th, td, tr {
+    padding: 12px;
+    font-size: 1em;
+}
+
+/* Loading indicator */
+#loading-indicator{
+    position:fixed;
+    left: 50%;
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+}
+
+/* Display Result count */
+#result-count {
+    text-align: left;
+}
+
+/* ********************************************* */
+/* FONTS AND HEADERS*/
+/* ********************************************* */
+
 h1 {
     color: #f43c37;
     font-family: "Arial Black";
@@ -63,25 +113,7 @@ h5 {
     font-size: 15px;
 }
 
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-    padding-top: 50px;
-}
-
-
-/*
- * Global add-ons
- */
-
-.sub-header {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
+/* TOP NAVIGATION BAR */
 .navbar-fixed-top {
     border: 0;
     background-color: #ffffff;
@@ -89,16 +121,11 @@ body {
     z-index: 1;
 }
 
-/*
-SIDEBAR
- */
-/* SEARCH BUTTON */
-#get_user {
-    color: #000;
-}
+/* ********************************************* */
+/* SIDEBAR */
+/* ********************************************* */
 
-/* Sidebar navigation */
-
+/* Left navigation sidebar */
 .sidebar {
     background-color: #222222;
     top: 80px;
@@ -153,14 +180,13 @@ SIDEBAR
     margin-left: 14px;
 }
 
-
-/*to set width of col*/
 .widthSet {
+    /*to set width of col*/
     width: 50%;
     padding: 4px 0px 0px 4px;
 }
 
-/*accordion: http://uniondesign.ca/simple-accordion-without-jquery-ui/*/
+/* Accordion toggle */
 .accordion-toggle{
     cursor: pointer;
     display: block;
@@ -176,73 +202,11 @@ SIDEBAR
 .accordion-content.default {
     display: block;
 }
-/*end http://uniondesign.ca/simple-accordion-without-jquery-ui/ */
 
-/*
- * Main content
- */
-
-.main {
-    padding: 10px;
-    margin-left: 290px;
-
-}
-
-.main .page-header {
-    margin-top: 0;
-}
-
-
-/* Bold category names */
-
-/*tr:first-child {
-	font-weight: bold;
-}
-*/
-
-/* Make every odd row in table gray
-tr:nth-child(odd) {
-  background-color: #f5f5f5;
-} */
-
-th, td, tr {
-    padding: 12px;
-    font-size: 1em;
-}
-#loading-indicator{
-    position:fixed;
-    left: 50%;
-    top: 50%;
-    right: 50%;
-    bottom: 50%;
-    /* top: 0; bottom:0; left: 0; right:50;
-     margin: 150px 0px 0px 390px;*/
-}
-
-#popimg {
-    position:fixed;
-    left: 50%;
-    bottom: 10%;
-    transform: translate(-50%,-50%);
-}
-
-#popup, .bMulti {
-    background-color: #FFF;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 0 0 25px 5px #999;
-    color: #111;
-    display: none;
-    min-width: 450px;
-    min-height: 250px;
-    padding: 25px;
-}
-
-#popup .logo {
-    color: #2B91AF;
-    font: bold 325% 'Petrona',sans;
-}
-
+/* ********************************************* */
 /* BREADCRUMBS */
+/* ********************************************* */
+
 #breadcrumbs a {
     display: inline-block;
     color: #000;
@@ -264,61 +228,9 @@ th, td, tr {
     background: #B00000;
 }
 
+/* ********************************************* */
 /* BUTTONS */
-
-/* Hide Left Nav Button */
-
-.btn-left-nav {
-    background-color: transparent;
-    position: absolute;
-    top: 0px;
-    right: 3px;
-}
-
-.btn-left-nav:focus{
-    outline: 0 !important;
-}
-
-.glyphicon-menu-left {
-    color: #ffffff;
-    position: absolute;
-    top: 0px;
-    right: 3px;
-}
-
-.glyphicon-menu-left:hover, .glyphicon-menu-left:active {
-    color: #888888;
-    position: absolute;
-    top: 0px;
-    right: 3px;
-}
-
-/* Show Left Nav Button */
-.btn-right-nav {
-    background-color: transparent;
-    position: absolute;
-    top: 0px;
-    left: 3px;
-}
-
-.glyphicon-menu-right {
-    color: #000000;
-    position: absolute;
-    top: 0px;
-    left: 500px;
-}
-
-.glyphicon-menu-right:hover, .glyphicon-menu-right:active {
-    color: #888888;
-    position: absolute;
-    top: 0px;
-    left: 500px;
-}
-
-.container-fluid {
-    position: relative;
-}
-
+/* ********************************************* */
 
 .standardbutton {
     -webkit-border-radius: 0;
@@ -359,7 +271,7 @@ th, td, tr {
 }
 
 #export-button:disabled {
-    color: #cccccc;4
+    color: #cccccc;
     border: solid #cccccc 2px;
 }
 
@@ -368,6 +280,10 @@ th, td, tr {
     float: right;
     margin: 5px;
 }
+
+/* ********************************************* */
+/* HELP PAGE */
+/* ********************************************* */
 
 .help-page-icons {
     height: 100px;
@@ -390,14 +306,9 @@ th, td, tr {
     padding: 0;
 }
 
-
-/*Display Result count*/
-#result-count {
-    text-align: left;
-}
-
-
-/*Table Header up and down arrows for sorting */
+/* ********************************************* */
+/* SORTING ARROWS FOR TABLE HEADER */
+/* ********************************************* */
 
 table.tablesorter thead tr .header {
     background: url(bg.gif);
@@ -415,7 +326,10 @@ table.tablesorter thead tr .headerSortDown {
     background: url(desc.gif) no-repeat 99%;
 }
 
-/* Pop Up */
+/* ********************************************* */
+/* POP UP */
+/* ********************************************* */
+
 .tablediv {
     height: auto;
     width: 550px;
@@ -424,4 +338,12 @@ table.tablesorter thead tr .headerSortDown {
 
 .tablediv th {
     color: #888888;
+}
+
+/* Loading indicator for pop up */
+#popimg {
+    position:fixed;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%,-50%);
 }
