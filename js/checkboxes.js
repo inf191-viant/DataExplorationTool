@@ -5,6 +5,7 @@ if(typeof Merquery == "undefined" ) {
 Merquery.checkboxes = {
     checkedBoxes: [],
 
+    // Clears the stored checked boxes
     clearCheckedBoxes: function() {
         Merquery.checkboxes.checkedBoxes = [];
     },
