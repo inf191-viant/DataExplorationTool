@@ -11,22 +11,18 @@
 
   <title>Merquery</title>
 
-  <!-- stylesheet for pagination-->
-  <link href="css/simplePagination.css" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="css/stylesheet.css" rel="stylesheet">
-  <!--stylesheet for loading indicator -->
-  <link href="css/loader.css" rel="stylesheet">
+  <!-- Stylesheet for pagination-->
+  <link href="css/simplePagination.css" rel="stylesheet">
 
-  <!-- For the icons -->
+  <!-- For the icons in pop-up -->
   <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-  <!-- Scripts for search bar -->
+  <!-- Scripts -->
   <script src="https://apis.google.com/js/client.js"></script>
-
   <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
   <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
   <script type="text/javascript" src="js/BreadCrumbs.js"></script>
@@ -41,22 +37,23 @@
   <script type="text/javascript" src="js/md5-min.js"></script>
   <script type="text/javascript" src="js/birthdateCalculator.js"></script>
 
-
 </head>
 
 
 
 <body>
+<!-- Top Navigation Bar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
 
     <button class="standardbutton helpButton" data-toggle="modal" data-target="#helpModal">Help</button>
-
     <button class = "standardbutton" id='export-button' onclick='Merquery.Export();' value="disabled" disabled="disabled">Export</button>
 
   </div>
 </nav>
 
+
+<!-- Left Navigation Bar -->
 <div id="merquery-header">
   <p></p>
   <h1 class="logo">VIANT AD CLOUD</h1>
@@ -68,14 +65,16 @@
   <div class="col-sm-3 col-md-2 sidebar ">
     <ul class="nav nav-sidebar">
       <ul class="nav nav-list">
+        <!-- Navigation Bar built in datasource.js -->
         <table id="navigationBar"></table>
+        <!-- Checkboxes built in checkboxes.js -->
         <form id="check-boxes"></form>
       </ul>
     </ul>
   </div>
 
   <div id="search-footer">
-
+    <!-- Drop Down Menu for display limit found in datasource.js -->
     <div class="dropup">
       Results Per Page: <button class="btn btn-primary dropdown-toggle" id ="dLabel" type="button" data-toggle="dropdown">10
       <span class="caret"></span></button>
@@ -84,17 +83,22 @@
         <li><a href="#">20</a></li>
         <li><a href="#">50</a></li>
         <li><a href="#">100</a></li>
-
       </ul>
     </div>
-    <p></p>
-    <button class = "standardbutton" id="get_user" onclick="Merquery.search();">Search</button>
-    <button class = "standardbutton" id="reset" onclick="Merquery.reset();">Reset</button>
 
+    <p></p>
+    <!-- Search functionality found in util.js -->
+    <button class = "standardbutton" id="get_user" onclick="Merquery.search();">Search</button>
+    <!-- Reset functionality found in util.js -->
+    <button class = "standardbutton" id="reset" onclick="Merquery.reset();">Reset</button>
   </div>
 
+
+  <!-- Results Container -->
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <!-- Breadcrumbs built in BreadCrumbs.js -->
     <tr><div id="breadcrumbs" class="breadcrumbs"></div></tr>
+    <!-- Error message handling found in util.js -->
     <tr><div id="message"  role="alert"></div></tr>
 
     <h3 id="header"></h3>
@@ -104,12 +108,15 @@
       <img src="loading_indicator.gif" id = "loading-indicator">
       <div class='loader'></div>
     </div>
-    <table id="result" class="table table-striped tablesorter"></table>
-    <table id="exportedTable" style="display: none;" ></table>
-    <div id="page-nav" class="fixed-nav-bar"></div>
-    <div id="export"></div>
 
-    <!-- Modal -->
+    <!-- Results table built in datasource.js -->
+    <table id="result" class="table table-striped tablesorter"></table>
+    <!-- Exporting the table to Excel file found in util.js -->
+    <table id="exportedTable" style="display: none;" ></table>
+    <!-- Pagination found in util.js and jquery.simplePagination.js -->
+    <div id="page-nav" class="fixed-nav-bar"></div>
+
+    <!-- Modal Pop Up for Profile Cards -->
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -118,7 +125,6 @@
             <h4 class="modal-title text-center">Modal Header</h4>
           </div>
           <div class="modal-body">
-            <!--<p>Some text in the modal.</p>-->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -142,12 +148,12 @@
 
             <div class="help-icons-span">
               <img src="images/icon1.png" class="help-page-icons" /> <br>
-              1. Please be signed into your Google BigQuery account with Viant credentials.
+              1. Sign into your Google BigQuery account with Viant credentials.
             </div>
 
             <div class="help-icons-span">
               <img src="images/icon2.png" class="help-page-icons" /> <br>
-              2. Enter your search criterias in the left navigation bar.
+              2. Enter search criterias in the left navigation bar.
             </div>
 
             <div class="help-icons-span">
@@ -184,15 +190,12 @@
   </div>
 
 </div>
-</div>
-</div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 <script src="js/bootstrap.min.js"></script>
-
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
