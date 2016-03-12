@@ -5,14 +5,17 @@ if(typeof Merquery == "undefined" ) {
 Merquery.BreadCrumbs = {
     crumbs: [],
 
+    // Clears the stored breadcrumbs
     clearBreadcrumbs: function() {
         Merquery.BreadCrumbs.crumbs = [];
     },
 
+    // Displays breadcrumbs once page is loaded
     showBreadcrumbs: function(){
         $('#breadcrumbs').show();
     },
 
+    // Hides breadcrumbs while page is loading
     hideBreadcrumbs: function() {
         $('#breadcrumbs').hide();
     },
@@ -24,6 +27,9 @@ Merquery.BreadCrumbs = {
         for (var i =0; i < crumbs.length; i++) {
             var link = $("<a><em>&times;</em></a>");
             link.attr("href", "javascript:void(0)");
+
+            // If the column is called "Demographics_birthdate" change it to "Demographics_Age" to
+            // reflect how the columns now state age instead of birthdate
             if (crumbs[i].queryField == "Demographics_birthdate"){
                 if (Merquery.BreadCrumbs.countBirthdates() == 2) {
                     link.append("Demographics_Age: " + crumbs[i].input + " - " + crumbs[i+1].input);
@@ -32,6 +38,9 @@ Merquery.BreadCrumbs = {
                     link.append("Demographics_Age: " + crumbs[i].input);
                 }
             }
+
+            // If the column is called "Demographics_emailmd5" change it to "Demographics_Email" to
+            // reflect how the columns now state email instead of emailmd5
             else if (crumbs[i].queryField == "Demographics_emailmd5") {
                 link.append("Demographics_Email: " + crumbs[i].input);
             }
@@ -43,6 +52,7 @@ Merquery.BreadCrumbs = {
             link.data("type", crumbs[i].querytype);
             $('#breadcrumbs').append(link);
 
+            // Removes the breadcrumbs, when clicked
             link.click(function () {
                 for (var i =0; i<crumbs.length; i++)
                 {
@@ -75,7 +85,7 @@ Merquery.BreadCrumbs = {
         return true;
     },
 
-    //checks birthdate in the breadcrumbs to make range
+    //checks birthdate in the breadcrumbs to display it as a range
     countBirthdates: function() {
         var count = 0;
         var crumbs = Merquery.BreadCrumbs.crumbs;
