@@ -4,13 +4,16 @@
         Merquery = {};
     }
 
-
+    //Renders the results from the query when the search button is clicked
     Merquery.renderResults = function (response) {
+        //Displays the loading indicator
         Merquery.showLoad();
+        //If an error occurs in the query, an error message should be displayed via the ShowMessage function
         Merquery.ShowMessage(response, Merquery.BreadCrumbs.crumbs);
 
         Merquery.Util.log(response);
 
+        //Clears the results table in order to display the new set of results from the current query
         $('#result').empty();
         $('#breadcrumbs').empty();
         Merquery.BreadCrumbs.displayBreadcrumbs();
@@ -21,7 +24,8 @@
         var crumbs = Merquery.BreadCrumbs.crumbs;
         rowCount = response.result.totalRows;
         Merquery.SchemaManager.makeSchema(fields);
-    
+
+        //Appends all the data from the query response to a data array object
         if (response.result.rows) {
             $.each(response.result.rows, function (j, row) {
                 var thisData = {};
@@ -56,7 +60,9 @@
         Merquery.Util.log(data);
     
 
-        //Store all the values of emailmd5 for the popup
+        //Store all the values of emailmd5 for the individual popup
+        //When the popup next to lastname is selected we cannot run a generic query based on the last name of the individual
+        //we need to pass the person's emailmd5 information in order to render data for the specific individual in the popup
         var emailArray = [];
         for(var i=0; i < data.length; i++){
             var test = data[i];
@@ -91,17 +97,18 @@
                     }
 
                     field.attr("href", "javascript:void(0)");
-                    //field.data(schema[fieldName], test[fields[j].name]); //field.data("emailmd5", email);
-                    field.text(formattedValue);                         //field.text(emailMD5);
-                    field.data("queryField", fields[j].name);            //field.data("queryField", "CRM_EmailMD5");
+                    field.text(formattedValue);
+                    field.data("queryField", fields[j].name);
                      if (fields[j].name == "Demographics_firstname") {
+                        //If the firstname is empty or null, then we need to appens a non-breaking character
+                        //in order for the exporting function to display the table correctly in excel
                         if (test[fields[j].name] == "" || test[fields[j].name] == null){
                             field.append("&nbsp;");
                             field.attr('style', 'display: none;');
                         }else{
                             field.data("value", test[fields[j].name]);
                         }
-                    }                    field.data("type", fields[j].type);
+                    }   field.data("type", fields[j].type);
 
                     var fieldValue = field.data("value");
                     var userValues;
@@ -109,6 +116,7 @@
                         Merquery.BreadCrumbs.clearBreadcrumbs();
                         $('breadcrumbs').empty();
                         crumbs = Merquery.BreadCrumbs.crumbs;
+                        //If the field clicked is "Age" then we need to query using equal to sign
                         if ($(this).data("queryField") == "Demographics_birthdate"){
                             userValues = {
                                 queryField: $(this).data("queryField"),
@@ -136,11 +144,11 @@
                     queryValue.data("value", formattedValue);
                     queryValue.text(formattedValue);
 
+                    //Appends the individual popup icon to the field LastName
                     if (fields[j].name == "Demographics_lastname") {
                         column.append(field);
                         myButton = $("<button id = 'myButton' type = 'button' value = '"+emailArray[i]+"'class = 'btn btn-default btn-sm' data-toggle='modal' data-target='#myModal'>" +
                                      "<span class = 'glyphicon glyphicon-user'></span></button>");
-
                         column.append(myButton);
                         myButton.click(function () {
                             $('#myModal').find('.modal-body').empty();
@@ -148,14 +156,13 @@
                             $('#myModal').find('.modal-title').empty();
                             $('#myModal').find('.modal-title').append("Individual Profile");
                             $('#myModal').find('.modal-body').append("<img id='popimg' src= 'loading_indicator.gif'/>");
-                            // Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
                              Merquery.Queries.popupQuery($(this).attr("value"), "Demographics_emailmd5");
                          });
-
-
+                    //Hides the emailmd5 field from the results table
                     }else if (fields[j].name == "Demographics_emailmd5") {
                         column.append(field);
                         column.toggleClass("hidden");
+                    //Appends the household popup icon to the field ipAddress
                     }else if (fields[j].name == "IpSMID_ipAddress") {
                          column.append(field);
                          if((test[fields[j].name] != null) && (test[fields[j].name] != "")){
@@ -172,8 +179,7 @@
                                  Merquery.Queries.popupQuery($(this).val(), $(this).data("queryfield"));
                               });
                           }
-
-
+                    //Appends the device popup icon to the field device_id
                     }else if (fields[j].name == "Device_device_id") {
                           column.append(field);
                           if((test[fields[j].name] != null) && (test[fields[j].name] != "")){
@@ -193,20 +199,20 @@
 
                     }else{
                         column.append(field);
-    
                     }
                 }
                 row.append(column);
-
-
             }
             $('#result').append(row);
             Merquery.Paginator.paginate(row);
         }
             //Calls the sort function to add sorting functionality to the table
             $("#result").tablesorter();
+            //If the results are displayed then the export button should be enabled
             $("#export-button").prop('disabled', false);
+            //Adds pagination functionality to the table
             Merquery.Paginator.initPagination();
+            //Displays the result count
             Merquery.Paginator.showResultsCount();
             Merquery.BreadCrumbs.showBreadcrumbs();
             Merquery.hideLoad();
@@ -214,6 +220,7 @@
 
 
 	        //Copies the entire table from result to exportedTable
+	        //We then utilize the exportedTable in order to export data to an excel file
             var source = document.getElementById('result');
             var destination = document.getElementById('exportedTable');
             var copy = source.cloneNode(true);
@@ -221,15 +228,14 @@
             destination.parentNode.replaceChild(copy, destination);
             $('#exportedTable tr').removeAttr('class');
             $('#exportedTable tr').removeAttr('style');
- 	    $('#exportedTable').find('[style*="display: none"]').removeAttr('style');
+ 	        $('#exportedTable').find('[style*="display: none"]').removeAttr('style');
             $('#exportedTable').attr('style', 'display: none;');
 
 };
 
 
-
+//Formats the names of the fields in the left navigation and the table header
 Merquery.getDisplayName =function(fieldName) {
-        //console.log(fieldName);
         if(!fieldName) {
             console.log("Something went wrong with the fieldname!");
             if(typeof schema != "undefined") {
@@ -257,6 +263,7 @@ Merquery.getDisplayName =function(fieldName) {
         }
     }
 
+//Creates the schema for the left navigation based on the StandardQuery which was initiated upon page load
 Merquery.createSchema = function(data) {
         var fields = data.schema.fields;
         var list = {};
@@ -271,7 +278,7 @@ Merquery.createSchema = function(data) {
         var categoryIndex = originalCategoryName.indexOf("_");
         var categoryName = originalCategoryName.substr(0, categoryIndex);
         var fieldName = originalCategoryName.substr(categoryIndex + 1);
-    
+        //Stores the category names, type of field and fieldName
         schema[originalCategoryName] = {
             displayName: Merquery.getDisplayName(originalCategoryName),
             type: fields[i].type,
@@ -293,6 +300,8 @@ Merquery.createSchema = function(data) {
           }
         Merquery.Util.log("category " + category);
         Merquery.Util.log( category);
+
+        //Appends the left navigation into divs and accordions
         var num = 0;
         var tbodyTag = $("<div id='accordion'><tbody></tbody></div>");
         var categoryCounter = -1;
@@ -313,6 +322,7 @@ Merquery.createSchema = function(data) {
                 var databaseCoumns = columnNames[prop];
                 var columnHeaders  = category[prop];
                 var columnType = type[prop];
+                //Logic to display the gender field as a dropdown
                 for(var i =0; i< columnHeaders.length; i++){
                     var trTag = $("<tr></tr>");
                     var tdTag = $("<td class='widthSet'></td>");
@@ -332,6 +342,7 @@ Merquery.createSchema = function(data) {
                         radioTag.append(selectTag);
                         trTag.append(radioTag);
                     }
+                    //Logic to display two input fields for Age range functionality
                     else if (columnHeaders[i] == "Age") {
                         tdTag.append(columnHeaders[i]);
                         trTag.append(tdTag);
@@ -382,13 +393,16 @@ Merquery.createSchema = function(data) {
             }
         }
         Merquery.hideLoad();
+        //Appends the entire left navigation to the navigationBar variable
         $('#navigationBar').append(tbodyTag);
         Merquery.Util.log(navigationBar);
+        //Initializes accordion functionality
         Merquery.initAccordion();
+        //Creates a list of checkboxes for the left navigation so the user can select specific tables to be displayed
         Merquery.checkboxes.createCheckbox(category);
     }
 
-
+    //Gender variable specifications for dropdown functionality
     var gender = {
         type: 'radio',
         values: ['u','m', 'f','-1'],
@@ -398,11 +412,13 @@ Merquery.createSchema = function(data) {
 
     //Create schema functionality
     $(document).ready(function() {
-        Merquery.hideLoad();
+       Merquery.hideLoad();
        Merquery.getSchema = function() {
+           //Call a standard query in order to obtain the schema
            Merquery.Queries.standardQuery("washington", "Demographics_city", 1, Merquery.createSchema);
         };
         setTimeout(function () {
+            //Authenticates the user on page load
             Merquery.AuthenticationManager.auth(Merquery.getSchema);
         }, 4000);
 
@@ -410,13 +426,14 @@ Merquery.createSchema = function(data) {
     });
 
 
-    //deciding how many results to show
+    //Deciding how many results to show
     //http://stackoverflow.com/questions/17127572/bootstrap-dropdown-get-value-of-selected-item
     $(document).on('click', '.dropdown-menu li a', function() {
         selText = $(this).text();
         $('#dLabel').html(selText + '<span class="caret"</span>');
     });
 
+    //Sets the default limit of number of results to be displayed per page
     Merquery.getLimit= function (){
         if (typeof selText == "undefined") {
             selText = 10;

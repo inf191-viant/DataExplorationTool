@@ -57,11 +57,11 @@ Merquery.Popup  = {
                  data.push(thisData);
              });
          }
-
+        //Hides the loading indicator and empties the popup before displaying data
         $("#popimg").hide();
         $('#myModal').find('.modal-body').empty();
 
-        //Append array together
+        //Appends array together
         var thisData = {};
         var dataArray = [];
         var queryField = {};
@@ -83,7 +83,7 @@ Merquery.Popup  = {
         console.log("dataArray");
         console.log(dataArray);
 
-        //Remove duplicates and merge chunks of category data
+         //Remove duplicates and merges chunks of category data
           var temporaryArray = [];
           for (var i =0; i<dataArray.length; i++)
           {
@@ -122,7 +122,7 @@ Merquery.Popup  = {
                     queryField: temporaryArray[i],
                     queryValue: temporaryArray[i+1]
                 }
-                //Address2 null check
+                //Checks if the Address2 column is null then replaces it with an empty string
                 if(column[1] == "Address1" && temporaryArray[i+3] == null){
                     temporaryArray[i+3] = "";
                 }
@@ -205,9 +205,11 @@ Merquery.Popup  = {
             tableTag.append(theadTag);
             tableTag.append(tbodyTag);
             tabledivTag.append(tableTag);
+            //If a category has no data for this individual, then we display "No Data"
             if(Boolean(noDataBoolean))
                 divTag.append("No Data");
 
+        //Appends the formatted data into the popup
         $('#myModal').find('.modal-body').append(divTag);
         $('#myModal').find('.modal-body').append(tabledivTag);
         }

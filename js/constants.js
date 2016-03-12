@@ -18,6 +18,8 @@ Merquery.config = {
         'scope': Merquery.Constants.scope
 }
 
+//Refer to the "Extensibility Notes.docx" document before modifying the constants below
+//The document will be located in the Documentation folder
 Merquery.databaseConstants = {
 
        query: [
