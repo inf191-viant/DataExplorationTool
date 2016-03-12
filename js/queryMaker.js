@@ -7,14 +7,17 @@ Merquery.queryMaker = {
     // formQuery: Uses the queryPieces object to form the queries based on the breadcrumbs and selected checkboxes
     formQuery: function() {
         var checkedBoxes = Merquery.checkboxes.checkedBoxes;
-        var formedQuery = "";
-        var queryString = "";
-        var fromString = "";
-        var whereString = "";
-        var endString = "";
-        var groupByString = "";
+        var formedQuery = "";   // stores the formed query
+        var queryString = "";   // stores the select fields
+        var fromString = "";    // stores the from statement with the joins fields
+        var whereString = "";   // stores the where statement
+        var groupByString = ""; // stores the groupby fields
         var queryPieces = Merquery.databaseConstants.query;
         var userInputs= Merquery.BreadCrumbs.crumbs;
+
+        //--------------------------------------------
+        // Forms the SELECT; JOINS; and GroupBy String
+        //--------------------------------------------
         for (var i=0; i<checkedBoxes.length; i++) {
             for (var j = i; j < queryPieces.length; j++) {
                 var categoryNotInFromString = fromString.indexOf(queryPieces[j].category) == -1;
@@ -52,8 +55,12 @@ Merquery.queryMaker = {
             }
         }
 
-        whereString += ' WHERE ';
 
+        //--------------------------------------------
+        //              WHERE CLAUSE
+        //--------------------------------------------
+
+        whereString += ' WHERE ';
 
         for(var i=0; i<userInputs.length; i++){
             var formattedFieldName;
